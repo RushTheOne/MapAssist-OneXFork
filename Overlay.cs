@@ -186,6 +186,44 @@ namespace MapAssist
 
             Bitmap gameMap = _compositor.Compose(_currentGameData, !Map.OverlayMode);
 
+            for(var i = Math.Max(0, Items.ItemLog.Count - 5); i < Items.ItemLog.Count; i++)
+            {
+                var fontSize = 14;
+                var font = new Font("Times New Roman", fontSize);
+                var stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Near;
+                stringFormat.LineAlignment = StringAlignment.Near;
+                var color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                var isEth = (Items.ItemLog[i].ItemData.ItemFlags & ItemFlags.IFLAG_ETHEREAL) == ItemFlags.IFLAG_ETHEREAL;
+                var itemLabel = Items.ItemNames[Items.ItemLog[i].TxtFileNo];
+                if (isEth)
+                {
+                    itemLabel += " (Eth)";
+                    color = Items.ItemColors[ItemQuality.SUPERIOR];
+                }
+                if(Items.ItemLog[i].Stats.TryGetValue(Stat.STAT_ITEM_NUMSOCKETS, out var numSockets))
+                {
+                    if (numSockets > 0)
+                    {
+                        itemLabel += " (" + numSockets + " S)";
+                        color = Items.ItemColors[ItemQuality.SUPERIOR];
+                    }
+                }
+                switch (Items.ItemLog[i].ItemData.ItemQuality)
+                {
+                    case ItemQuality.UNIQUE:
+                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        break;
+                    default:
+
+                        break;
+                }
+                e.Graphics.DrawString(itemLabel, font,
+                new SolidBrush(color),
+                //new Point(Screen.PrimaryScreen.WorkingArea.Width / 2, 10 + ((_currentGameData.Items.Count - i) * (fontSize + fontSize / 2))), stringFormat);
+                new Point(150, 0 + ((Items.ItemLog.Count - i) * (fontSize + fontSize / 2))), stringFormat);
+        }
+
             if (Map.OverlayMode)
             {
                 float w = 0;

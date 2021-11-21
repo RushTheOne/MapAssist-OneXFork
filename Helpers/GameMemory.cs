@@ -26,6 +26,7 @@ namespace MapAssist.Helpers
 {
     public static class GameMemory
     {
+        private static uint _lastMapSeed;
         public static GameData GetGameData()
         {
             try
@@ -40,6 +41,12 @@ namespace MapAssist.Helpers
                     if (mapSeed <= 0 || mapSeed > 0xFFFFFFFF)
                     {
                         throw new Exception("Map seed is out of bounds.");
+                    }
+                    if (mapSeed != _lastMapSeed)
+                    {
+                        _lastMapSeed = mapSeed;
+                        Items.ItemUnitIdsSeen.Clear();
+                        Items.ItemLog.Clear();
                     }
 
                     var actId = playerUnit.Act.ActId;
@@ -67,7 +74,8 @@ namespace MapAssist.Helpers
                         room.Update();
                     }
                     var monsterList = new List<UnitAny>();
-                    GetUnits(rooms, ref monsterList);
+                    var itemList = new List<UnitAny>();
+                    GetUnits(rooms, ref monsterList, ref itemList);
 
                     return new GameData
                     {
@@ -79,6 +87,7 @@ namespace MapAssist.Helpers
                         MainWindowHandle = GameManager.MainWindowHandle,
                         PlayerName = playerUnit.Name,
                         Monsters = monsterList,
+                        Items = itemList,
                     };
                 }
             }
@@ -89,7 +98,7 @@ namespace MapAssist.Helpers
                 return null;
             }
         }
-        private static void GetUnits(HashSet<Room> rooms, ref List<UnitAny> monsterList)
+        private static void GetUnits(HashSet<Room> rooms, ref List<UnitAny> monsterList, ref List<UnitAny> itemList)
         {
             foreach (var room in rooms)
             {
@@ -101,6 +110,25 @@ namespace MapAssist.Helpers
                         case UnitType.Monster:
                             if (!monsterList.Contains(unitAny) && unitAny.IsMonster()){ 
                                 monsterList.Add(unitAny); 
+                            }
+                            break;
+                        case UnitType.Item:
+                            if (!itemList.Contains(unitAny) && unitAny.IsDropped())
+                            {
+                                itemList.Add(unitAny);
+                                if (!Items.ItemUnitIdsSeen.Contains(unitAny.UnitId))
+                                {
+                                    Items.ItemUnitIdsSeen.Add(unitAny.UnitId);
+                                    if (Items.ItemLog.Count == 5)
+                                    {
+                                        Items.ItemLog.RemoveAt(0);
+                                        Items.ItemLog.Add(unitAny);
+                                    }
+                                    else
+                                    {
+                                        Items.ItemLog.Add(unitAny);
+                                    }
+                                }
                             }
                             break;
                     }

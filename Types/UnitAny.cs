@@ -36,6 +36,7 @@ namespace MapAssist.Types
         private Path _path;
         private Inventory _inventory;
         private MonsterData _monsterData;
+        private ItemData _itemData;
         private Dictionary<Stat, int> _statList;
         private List<Resist> _immunities;
         private string _name;
@@ -85,6 +86,12 @@ namespace MapAssist.Types
                                 _monsterData = processContext.Read<MonsterData>(_unitAny.pUnitData);
                             }
                             break;
+                        case UnitType.Item:
+                            if (IsDropped())
+                            {
+                                _itemData = processContext.Read<ItemData>(_unitAny.pUnitData);
+                            }
+                            break;
                     }
                 }
                 _updated = true;
@@ -98,7 +105,9 @@ namespace MapAssist.Types
         public uint UnitId => _unitAny.UnitId;
         public uint Mode => _unitAny.Mode;
         public IntPtr UnitDataPtr => _unitAny.pUnitData;
+        public Dictionary<Stat, int> Stats => _statList;
         public MonsterData MonsterData => _monsterData;
+        public ItemData ItemData => _itemData;
         public Act Act => _act;
         public Path Path => _path;
         public IntPtr StatsListExPtr => _unitAny.pStatsListEx;
@@ -168,6 +177,11 @@ namespace MapAssist.Types
         public bool IsElite()
         {
             return _monsterData.MonsterType > 0;
+        }
+        public bool IsDropped()
+        {
+            var itemMode = (ItemMode)_unitAny.Mode;
+            return itemMode == ItemMode.DROPPING || itemMode == ItemMode.ONGROUND;
         }
 
         private List<Resist> GetImmunities()

@@ -124,6 +124,7 @@
     <Compile Include="Structs\Act.cs" />
     <Compile Include="Structs\ActMisc.cs" />
     <Compile Include="Structs\Inventory.cs" />
+    <Compile Include="Structs\Items.cs" />
     <Compile Include="Structs\UiSettings.cs" />
     <Compile Include="Structs\Level.cs" />
     <Compile Include="Structs\MonsterData.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Structs\RoomEx.cs" />
     <Compile Include="Structs\UnitAny.cs" />
     <Compile Include="Structs\UnitHashTable.cs" />
+    <Compile Include="Types\Items.cs" />
     <Compile Include="Types\Stats.cs" />
     <Compile Include="Types\UiSettings.cs" />
     <Compile Include="Types\RoomEx.cs" />

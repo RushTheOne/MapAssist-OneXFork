@@ -133,14 +133,23 @@ namespace MapAssist.Helpers
                     }
                 }
 
+                var fontSize = 8;
+                var font = new Font("Times New Roman", fontSize);
                 foreach (var item in gameData.Items)
                 {
+                    var color = Items.ItemColors[item.ItemData.ItemQuality];
                     Bitmap icon = GetIcon(Rendering.SuperChest);
                     Point origin = item.Position
                         .OffsetFrom(_areaData.Origin)
                         .OffsetFrom(CropOffset)
                         .OffsetFrom(GetIconOffset(Rendering.SuperChest.IconSize));
                     imageGraphics.DrawImage(icon, origin);
+                    var itemBaseName = Items.ItemNames[item.TxtFileNo];
+                    imageGraphics.DrawString(itemBaseName, font,
+                    new SolidBrush(color), 
+                    item.Position
+                    .OffsetFrom(_areaData.Origin)
+                    .OffsetFrom(CropOffset).OffsetFrom(new Point((int)(itemBaseName.Length * 2.5f), 0)));
                 }
             }
 

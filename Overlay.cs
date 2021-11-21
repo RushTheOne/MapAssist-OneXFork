@@ -185,14 +185,23 @@ namespace MapAssist
             UpdateLocation();
 
             Bitmap gameMap = _compositor.Compose(_currentGameData, !Map.OverlayMode);
+
+            var fontSize = 14;
+            var font = new Font("Times New Roman", fontSize);
+            var stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Near;
+            stringFormat.LineAlignment = StringAlignment.Near;
+            var color = Color.Red;
+            e.Graphics.DrawString("Game IP: " + _currentGameData.GameIP, font,
+            new SolidBrush(color),
+            new Point(150, 20), stringFormat);
+
+
             for (var i = 0; i < Items.ItemLog.Count; i++)
             {
-                var fontSize = 14;
-                var font = new Font("Times New Roman", fontSize);
-                var stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Near;
                 stringFormat.LineAlignment = StringAlignment.Near;
-                var color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
                 var isEth = (Items.ItemLog[i].ItemData.ItemFlags & ItemFlags.IFLAG_ETHEREAL) == ItemFlags.IFLAG_ETHEREAL;
                 var itemBaseName = Items.ItemNames[Items.ItemLog[i].TxtFileNo];
                 var itemSpecialName = "";
@@ -204,11 +213,8 @@ namespace MapAssist
                 }
                 if(Items.ItemLog[i].Stats.TryGetValue(Stat.STAT_ITEM_NUMSOCKETS, out var numSockets))
                 {
-                    if (numSockets > 0)
-                    {
-                        itemLabelExtra += "[" + numSockets + " S] ";
-                        color = Items.ItemColors[ItemQuality.SUPERIOR];
-                    }
+                    itemLabelExtra += "[" + numSockets + " S] ";
+                    color = Items.ItemColors[ItemQuality.SUPERIOR];
                 }
                 switch (Items.ItemLog[i].ItemData.ItemQuality)
                 {
@@ -232,7 +238,7 @@ namespace MapAssist
                 }
                 e.Graphics.DrawString(itemLabelExtra + itemSpecialName + itemBaseName, font,
                 new SolidBrush(color),
-                new Point(150, 20 + (i * (fontSize + fontSize / 2))), stringFormat);
+                new Point(150, 40 + (i * (fontSize + fontSize / 2))), stringFormat);
             }
 
             if (Map.OverlayMode)

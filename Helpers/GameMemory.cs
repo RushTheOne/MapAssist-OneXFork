@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using MapAssist.Types;
 
 namespace MapAssist.Helpers
@@ -48,6 +49,8 @@ namespace MapAssist.Helpers
                         Items.ItemUnitIdsSeen.Clear();
                         Items.ItemLog.Clear();
                     }
+
+                    var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, 15)).TrimEnd((char)0);
 
                     var actId = playerUnit.Act.ActId;
 
@@ -88,6 +91,7 @@ namespace MapAssist.Helpers
                         PlayerName = playerUnit.Name,
                         Monsters = monsterList,
                         Items = itemList,
+                        GameIP = gameIP
                     };
                 }
             }

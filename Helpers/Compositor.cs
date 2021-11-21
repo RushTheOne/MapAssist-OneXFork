@@ -132,6 +132,16 @@ namespace MapAssist.Helpers
                         }
                     }
                 }
+
+                foreach (var item in gameData.Items)
+                {
+                    Bitmap icon = GetIcon(Rendering.SuperChest);
+                    Point origin = item.Position
+                        .OffsetFrom(_areaData.Origin)
+                        .OffsetFrom(CropOffset)
+                        .OffsetFrom(GetIconOffset(Rendering.SuperChest.IconSize));
+                    imageGraphics.DrawImage(icon, origin);
+                }
             }
 
             double multiplier = 1;

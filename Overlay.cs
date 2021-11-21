@@ -185,8 +185,7 @@ namespace MapAssist
             UpdateLocation();
 
             Bitmap gameMap = _compositor.Compose(_currentGameData, !Map.OverlayMode);
-
-            for(var i = Math.Max(0, Items.ItemLog.Count - 5); i < Items.ItemLog.Count; i++)
+            for (var i = 0; i < Items.ItemLog.Count; i++)
             {
                 var fontSize = 14;
                 var font = new Font("Times New Roman", fontSize);
@@ -195,17 +194,19 @@ namespace MapAssist
                 stringFormat.LineAlignment = StringAlignment.Near;
                 var color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
                 var isEth = (Items.ItemLog[i].ItemData.ItemFlags & ItemFlags.IFLAG_ETHEREAL) == ItemFlags.IFLAG_ETHEREAL;
-                var itemLabel = Items.ItemNames[Items.ItemLog[i].TxtFileNo];
+                var itemBaseName = Items.ItemNames[Items.ItemLog[i].TxtFileNo];
+                var itemSpecialName = "";
+                var itemLabelExtra = "";
                 if (isEth)
                 {
-                    itemLabel += " (Eth)";
+                    itemLabelExtra += "[Eth] ";
                     color = Items.ItemColors[ItemQuality.SUPERIOR];
                 }
                 if(Items.ItemLog[i].Stats.TryGetValue(Stat.STAT_ITEM_NUMSOCKETS, out var numSockets))
                 {
                     if (numSockets > 0)
                     {
-                        itemLabel += " (" + numSockets + " S)";
+                        itemLabelExtra += "[" + numSockets + " S] ";
                         color = Items.ItemColors[ItemQuality.SUPERIOR];
                     }
                 }
@@ -213,16 +214,26 @@ namespace MapAssist
                 {
                     case ItemQuality.UNIQUE:
                         color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        itemSpecialName = Items.UniqueFromCode[Items.ItemCodes[Items.ItemLog[i].TxtFileNo]] + " ";
                         break;
-                    default:
-
+                    case ItemQuality.SET:
+                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        itemSpecialName = Items.SetFromCode[Items.ItemCodes[Items.ItemLog[i].TxtFileNo]] + " ";
+                        break;
+                    case ItemQuality.CRAFT:
+                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        break;
+                    case ItemQuality.RARE:
+                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        break;
+                    case ItemQuality.MAGIC:
+                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
                         break;
                 }
-                e.Graphics.DrawString(itemLabel, font,
+                e.Graphics.DrawString(itemLabelExtra + itemSpecialName + itemBaseName, font,
                 new SolidBrush(color),
-                //new Point(Screen.PrimaryScreen.WorkingArea.Width / 2, 10 + ((_currentGameData.Items.Count - i) * (fontSize + fontSize / 2))), stringFormat);
-                new Point(150, 0 + ((Items.ItemLog.Count - i) * (fontSize + fontSize / 2))), stringFormat);
-        }
+                new Point(150, 20 + (i * (fontSize + fontSize / 2))), stringFormat);
+            }
 
             if (Map.OverlayMode)
             {

@@ -33,7 +33,7 @@ namespace MapAssist.Structs
         [FieldOffset(0x50)] public BodyLoc BodyLoc;
         [FieldOffset(0x51)] public InvPage InvPage;
         [FieldOffset(0x70)] public IntPtr InvPtr;
-        //[FieldOffset(0x88)] public StashType StashType1; //nodepos or something
-        //[FieldOffset(0x89)] public StashType StashType2; //nodeposother or something
+        //[FieldOffset(0x88)] public byte nodePos; // char?
+        //[FieldOffset(0x89)] public byte nodePosOther; // char?
     }
 }

@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Media;
 using System.Text;
+using MapAssist.Settings;
 using MapAssist.Types;
 
 namespace MapAssist.Helpers
@@ -123,8 +124,11 @@ namespace MapAssist.Helpers
                                 itemList.Add(unitAny);
                                 if (!Items.ItemUnitIdsSeen.Contains(unitAny.ItemHash()) && LootFilter.Filter(unitAny))
                                 {
-                                    var player = new SoundPlayer(Properties.Resources.ching);
-                                    player.Play();
+                                    if (Rendering.ItemLogPlaySoundOnDrop)
+                                    {
+                                        var player = new SoundPlayer(Properties.Resources.ching);
+                                        player.Play();
+                                    }
                                     Items.ItemUnitIdsSeen.Add(unitAny.ItemHash());
                                     if (Items.ItemLog.Count == Settings.Rendering.ItemLogMaxSize)
                                     {

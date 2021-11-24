@@ -135,18 +135,6 @@ namespace MapAssist
 
             _currentGameData = gameData;
 
-            if (ShouldHideMap())
-            {
-                //mapOverlay.Hide();
-            }
-            else
-            {
-                if (!mapOverlay.Visible)
-                {
-                    mapOverlay.Show();
-                    if (Map.AlwaysOnTop) SetTopMost();
-                }
-            }
             mapOverlay.Refresh();
 
             _timer.Start();
@@ -157,16 +145,6 @@ namespace MapAssist
             var initialStyle = (uint)WindowsExternal.GetWindowLongPtr(Handle, -20);
             WindowsExternal.SetWindowLong(Handle, -20, initialStyle | 0x80000 | 0x20);
             WindowsExternal.SetWindowPos(Handle, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
-        }
-
-        private bool ShouldHideMap()
-        {
-            if (!_show) return true;
-            if (!InGame()) return true;
-            if (_currentGameData.Area == Area.None) return true;
-            if (Array.Exists(Map.HiddenAreas, element => element == _currentGameData.Area)) return true;
-            if (Map.ToggleViaInGameMap && !_currentGameData.MapShown) return true;
-            return false;
         }
 
         private bool InGame()

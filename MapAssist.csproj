@@ -202,9 +202,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ItemFilter.txt">
+    <None Include="ItemFilter.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="Resources\ching.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

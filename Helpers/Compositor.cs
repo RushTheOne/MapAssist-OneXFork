@@ -149,10 +149,10 @@ namespace MapAssist.Helpers
                     imageGraphics.DrawImage(icon, origin);
                     var itemBaseName = Items.ItemNames[item.TxtFileNo];
                     imageGraphics.DrawString(itemBaseName, font,
-                    new SolidBrush(color), 
-                    item.Position
-                    .OffsetFrom(_areaData.Origin)
-                    .OffsetFrom(CropOffset).OffsetFrom(new Point((int)(itemBaseName.Length * 2.5f), 0)));
+                        new SolidBrush(color), 
+                        item.Position
+                        .OffsetFrom(_areaData.Origin)
+                        .OffsetFrom(CropOffset).OffsetFrom(new Point((int)(itemBaseName.Length * 2.5f), 0)));
                 }
             }
 

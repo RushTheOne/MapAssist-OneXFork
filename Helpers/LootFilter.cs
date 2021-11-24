@@ -26,6 +26,7 @@ using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using MapAssist.Types;
+using MapAssist.Settings;
 
 namespace MapAssist.Helpers
 {
@@ -40,6 +41,30 @@ namespace MapAssist.Helpers
     public static class LootFilter
     {
         public static Dictionary<string, List<ItemFilter>> yaml;
+        private static bool LoadFilter()
+        {
+            if (yaml == null)
+            {
+                var deserializer = new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
+                var yamlFileLocation = System.AppContext.BaseDirectory + @"\" + Rendering.ItemFilterFileName;
+                var rawYaml = "";
+                try
+                {
+                    rawYaml = File.ReadAllText(yamlFileLocation);
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Error reading from {0}. Message = {1}", yamlFileLocation, e.Message);
+                    return false;
+                }
+                yaml = deserializer.Deserialize<Dictionary<string, List<ItemFilter>>>(rawYaml);
+            }
+            if (yaml != null)
+            {
+                return true;
+            }
+            return false;
+        }
         public static bool Filter(UnitAny unitAny)
         {
             var baseName = Items.ItemNames[unitAny.TxtFileNo];
@@ -55,24 +80,13 @@ namespace MapAssist.Helpers
         }
         private static bool Filter(string baseName, string itemQuality, bool isEth, int numSockets, bool lowQuality)
         {
-            if (lowQuality)
+            if (!LoadFilter())
             {
                 return false;
             }
-            if(yaml == null)
+            if (lowQuality)
             {
-                var deserializer = new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
-                var yamlFileLocation = System.AppContext.BaseDirectory + @"\ItemFilter.txt";
-                var rawYaml = "";
-                try
-                {
-                    rawYaml = File.ReadAllText(yamlFileLocation);
-                }
-                catch
-                {
-                    return false;
-                }
-                yaml = deserializer.Deserialize<Dictionary<string, List<ItemFilter>>>(rawYaml);
+                return false;
             }
             var qualityReqMet = false;
             //populate a list of filter rules by combining rules from "Any" and the item base name

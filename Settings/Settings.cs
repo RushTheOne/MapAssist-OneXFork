@@ -43,8 +43,10 @@ namespace MapAssist.Settings
 
         public static bool GameInfoAlwaysShow = Convert.ToBoolean(ConfigurationManager.AppSettings["GameInfo.AlwaysShow"]);
 
+        public static string ItemFilterFileName = Convert.ToString(ConfigurationManager.AppSettings["ItemLog.FilterFileName"]);
         public static int ItemLogMaxSize = Convert.ToInt16(ConfigurationManager.AppSettings["ItemLog.MaxSize"]);
         public static bool ItemLogAlwaysShow = Convert.ToBoolean(ConfigurationManager.AppSettings["ItemLog.AlwaysShow"]);
+        public static bool ItemLogPlaySoundOnDrop = Convert.ToBoolean(ConfigurationManager.AppSettings["ItemLog.PlaySoundOnDrop"]);
         public static PointOfInterestRendering Item = Utils.GetRenderingSettingsForPrefix("Item");
         public static PointOfInterestRendering ItemLog = Utils.GetRenderingSettingsForPrefix("ItemLog");
 

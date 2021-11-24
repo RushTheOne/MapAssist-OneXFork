@@ -137,7 +137,7 @@ namespace MapAssist
 
             if (ShouldHideMap())
             {
-                mapOverlay.Hide();
+                //mapOverlay.Hide();
             }
             else
             {
@@ -146,8 +146,8 @@ namespace MapAssist
                     mapOverlay.Show();
                     if (Map.AlwaysOnTop) SetTopMost();
                 }
-                mapOverlay.Refresh();
             }
+            mapOverlay.Refresh();
 
             _timer.Start();
         }
@@ -177,25 +177,30 @@ namespace MapAssist
 
         private void MapOverlay_Paint(object sender, PaintEventArgs e)
         {
-            if (_compositor == null)
+            if (_compositor == null || !InGame())
             {
                 return;
             }
 
-            UpdateLocation();
+            if (Rendering.GameInfoAlwaysShow == false && !_show)
+            {
+                return;
+            }
 
-            Bitmap gameMap = _compositor.Compose(_currentGameData, !Map.OverlayMode);
-
-            var fontSize = 14;
-            var font = new Font("Times New Roman", fontSize);
+            var fontSize = Rendering.ItemLog.LabelFontSize;
+            var font = new Font(Rendering.ItemLog.LabelFont, fontSize);
             var stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Near;
             stringFormat.LineAlignment = StringAlignment.Near;
             var color = Color.Red;
             e.Graphics.DrawString("Game IP: " + _currentGameData.GameIP, font,
             new SolidBrush(color),
-            new Point(150, 20), stringFormat);
+            new Point(150, 0 + (fontSize + fontSize / 2)), stringFormat);
 
+            if (Rendering.ItemLogAlwaysShow == false && !_show)
+            {
+                return;
+            }
 
             for (var i = 0; i < Items.ItemLog.Count; i++)
             {
@@ -238,8 +243,17 @@ namespace MapAssist
                 }
                 e.Graphics.DrawString(itemLabelExtra + itemSpecialName + itemBaseName, font,
                 new SolidBrush(color),
-                new Point(150, 40 + (i * (fontSize + fontSize / 2))), stringFormat);
+                new Point(150, ((fontSize + fontSize / 2) * 2) + (i * (fontSize + fontSize / 2))), stringFormat);
             }
+
+            if (!_show)
+            {
+                return;
+            }
+
+            UpdateLocation();
+
+            Bitmap gameMap = _compositor.Compose(_currentGameData, !Map.OverlayMode);
 
             if (Map.OverlayMode)
             {
@@ -295,10 +309,10 @@ namespace MapAssist
                 var p4 = Transform(new Vector2(0, gameMap.Height));
 
                 PointF[] destinationPoints = {
-                    new PointF(p1.X, p1.Y),
-                    new PointF(p2.X, p2.Y),
-                    new PointF(p4.X, p4.Y)
-                };
+                new PointF(p1.X, p1.Y),
+                new PointF(p2.X, p2.Y),
+                new PointF(p4.X, p4.Y)
+            };
 
                 e.Graphics.DrawImage(gameMap, destinationPoints);
             }

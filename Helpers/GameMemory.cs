@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Media;
 using System.Text;
 using MapAssist.Types;
 
@@ -120,10 +121,12 @@ namespace MapAssist.Helpers
                             if (!itemList.Contains(unitAny) && unitAny.IsDropped())
                             {
                                 itemList.Add(unitAny);
-                                if (!Items.ItemUnitIdsSeen.Contains(unitAny.UnitId))
+                                if (!Items.ItemUnitIdsSeen.Contains(unitAny.UnitId) && LootFilter.Filter(unitAny))
                                 {
+                                    var player = new SoundPlayer(Properties.Resources.ching);
+                                    player.Play();
                                     Items.ItemUnitIdsSeen.Add(unitAny.UnitId);
-                                    if (Items.ItemLog.Count == 5)
+                                    if (Items.ItemLog.Count == Settings.Rendering.ItemLogMaxSize)
                                     {
                                         Items.ItemLog.RemoveAt(0);
                                         Items.ItemLog.Add(unitAny);

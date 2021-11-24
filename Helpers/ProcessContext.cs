@@ -169,8 +169,8 @@ namespace MapAssist.Helpers
         {
             var buffer = GetProcessMemory();
             IntPtr patternAddress = FindPatternEx(ref buffer, _baseAddr, _moduleSize,
-                "\x48\x8D\x0D\x00\x00\x00\x00\x44\x88\x2D\x00\x00\x00\x00", 
-                "xxx????xxx????");
+                "\x48\x8D\x0D\x00\x00\x00\x00\x44\x88\x2D", 
+                "xxx????xxx");
             var offsetBuffer = new byte[4];
             var resultRelativeAddress = IntPtr.Add(patternAddress, 3);
             if (!WindowsExternal.ReadProcessMemory(_handle, resultRelativeAddress, offsetBuffer, sizeof(int), out _))

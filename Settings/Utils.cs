@@ -50,7 +50,7 @@ namespace MapAssist.Settings
 
         private static T GetConfigValue<T>(string key, Func<string, IFormatProvider, T> converter, IFormatProvider format, T fallback = default)
         {
-            string valueString = ConfigurationManager.AppSettings[key];
+            var valueString = ConfigurationManager.AppSettings[key];
             return string.IsNullOrWhiteSpace(valueString) ? fallback : converter.Invoke(valueString, format);
         }
 

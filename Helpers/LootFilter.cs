@@ -39,6 +39,7 @@ namespace MapAssist.Helpers
     }
     public static class LootFilter
     {
+        public static Dictionary<string, List<ItemFilter>> yaml;
         public static bool Filter(UnitAny unitAny)
         {
             var baseName = Items.ItemNames[unitAny.TxtFileNo];
@@ -58,10 +59,21 @@ namespace MapAssist.Helpers
             {
                 return false;
             }
-            var deserializer = new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
-            var yamlFileLocation = System.AppContext.BaseDirectory + @"\ItemFilter.txt";
-            var rawYaml = File.ReadAllText(yamlFileLocation);
-            var yaml = deserializer.Deserialize<Dictionary<string, List<ItemFilter>>>(rawYaml);
+            if(yaml == null)
+            {
+                var deserializer = new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
+                var yamlFileLocation = System.AppContext.BaseDirectory + @"\ItemFilter.txt";
+                var rawYaml = "";
+                try
+                {
+                    rawYaml = File.ReadAllText(yamlFileLocation);
+                }
+                catch
+                {
+                    return false;
+                }
+                yaml = deserializer.Deserialize<Dictionary<string, List<ItemFilter>>>(rawYaml);
+            }
             var qualityReqMet = false;
             //populate a list of filter rules by combining rules from "Any" and the item base name
             //use only one list or the other depending on if "Any" exists
@@ -126,6 +138,11 @@ namespace MapAssist.Helpers
                 }
                 var otherReqsMet = (item.Ethereal == null || item.Ethereal == isEth) && (item.Sockets == null || socketReqMet);
                 if (qualityReqMet && otherReqsMet) { return true; }
+            }
+            if (fullFilterList.Count == 0 && yaml.TryGetValue(baseName, out var _))
+            {
+                //there are no rules
+                return true;
             }
             return false;
         }

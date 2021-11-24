@@ -246,7 +246,7 @@ namespace MapAssist
                 new Point(150, ((fontSize + fontSize / 2) * 2) + (i * (fontSize + fontSize / 2))), stringFormat);
             }
 
-            if (!_show)
+            if (!_show || Array.Exists(Map.HiddenAreas, element => element == _currentGameData.Area))
             {
                 return;
             }

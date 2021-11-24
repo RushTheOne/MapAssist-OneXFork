@@ -27,3 +27,45 @@ Ring:
  - Quality: magic
  - Quality: rare
  - Quality: unique
+
+#Merc weapons
+Giant Thresher:
+ - Ethereal: true
+   Quality: normal/superior
+   Sockets: 4
+Cryptic Axe:
+ - Ethereal: true
+   Quality: normal/superior
+   Sockets: 4
+Colossus Voulge:
+ - Ethereal: true
+   Quality: normal/superior
+   Sockets: 4
+
+#Misc
+Amulet:
+ - Quality: magic
+ - Quality: rare
+ - Quality: unique
+Key of Terror:
+Key of Hate:
+Key of Destruction:
+
+#Runes
+Pul Rune:
+Um Rune:
+Mal Rune:
+Ist Rune:
+Gul Rune:
+Vex Rune:
+Ohm Rune:
+Lo Rune:
+Sur Rune:
+Ber Rune:
+Jah Rune:
+Cham Rune:
+Zod Rune:
+
+#Uniques
+Quarterstaff:
+ - Quality: unique

@@ -183,6 +183,10 @@ namespace MapAssist.Types
             var itemMode = (ItemMode)_unitAny.Mode;
             return itemMode == ItemMode.DROPPING || itemMode == ItemMode.ONGROUND;
         }
+        public string ItemHash()
+        {
+            return Items.ItemNames[TxtFileNo] + "/" + Position.X + "/" + Position.Y;
+        }
 
         private List<Resist> GetImmunities()
         {

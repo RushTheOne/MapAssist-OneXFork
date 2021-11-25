@@ -167,6 +167,12 @@ namespace MapAssist
                 return;
             }
             var screenW = Screen.PrimaryScreen.WorkingArea.Width;
+            var blackBarWidth = 0;
+            if (screenW > 2880)
+            {
+                blackBarWidth = (screenW - 2880) / 4;
+            }
+            var textXOffset = blackBarWidth + (int)(screenW * .06f);
             var fontSize = Rendering.ItemLog.LabelFontSize;
             var font = new Font(Rendering.ItemLog.LabelFont, fontSize);
             var stringFormat = new StringFormat();
@@ -175,7 +181,7 @@ namespace MapAssist
             var color = Color.Red;
             e.Graphics.DrawString("Game IP: " + _currentGameData.GameIP, font,
             new SolidBrush(color),
-            new Point((int)(screenW * .06f), 0 + (fontSize + fontSize / 2)), stringFormat);
+            new Point(textXOffset, 0 + (fontSize + fontSize / 2)), stringFormat);
 
             if (Rendering.ItemLogAlwaysShow == false && !_show)
             {
@@ -223,7 +229,7 @@ namespace MapAssist
                 }
                 e.Graphics.DrawString(itemLabelExtra + itemSpecialName + itemBaseName, font,
                 new SolidBrush(color),
-                new Point((int)(screenW * .06f), ((fontSize + fontSize / 2) * 2) + (i * (fontSize + fontSize / 2))), stringFormat);
+                new Point(textXOffset, ((fontSize + fontSize / 2) * 2) + (i * (fontSize + fontSize / 2))), stringFormat);
             }
 
             if (!_show || Array.Exists(Map.HiddenAreas, element => element == _currentGameData.Area) || (Map.ToggleViaInGameMap && !_currentGameData.MapShown) || (_currentGameData.Area == Area.None))

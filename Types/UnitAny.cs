@@ -59,7 +59,8 @@ namespace MapAssist.Types
                     _path = new Path(_unitAny.pPath);
                     var statListStruct = processContext.Read<StatListStruct>(_unitAny.pStatsListEx);
                     var statList = new Dictionary<Stat, int>();
-                    var statValues = processContext.Read<StatValue>(statListStruct.Stats.FirstStatPtr, Convert.ToInt32(statListStruct.Stats.Size));
+                    var statValues = processContext.Read<StatValue>(statListStruct.Stats.FirstStatPtr,
+                        Convert.ToInt32(statListStruct.Stats.Size));
                     foreach (var stat in statValues)
                     {
                         //ensure we dont add duplicates
@@ -68,6 +69,7 @@ namespace MapAssist.Types
                             statList.Add(stat.Stat, stat.Value);
                         }
                     }
+
                     _statList = statList;
                     _immunities = GetImmunities();
                     switch (_unitAny.UnitType)
@@ -75,16 +77,19 @@ namespace MapAssist.Types
                         case UnitType.Player:
                             if (IsPlayer())
                             {
-                                _name = Encoding.ASCII.GetString(processContext.Read<byte>(_unitAny.pUnitData, 16)).TrimEnd((char)0);
+                                _name = Encoding.ASCII.GetString(processContext.Read<byte>(_unitAny.pUnitData, 16))
+                                    .TrimEnd((char)0);
                                 _inventory = processContext.Read<Inventory>(_unitAny.pInventory);
                                 _act = new Act(_unitAny.pAct);
                             }
+
                             break;
                         case UnitType.Monster:
                             if (IsMonster())
                             {
                                 _monsterData = processContext.Read<MonsterData>(_unitAny.pUnitData);
                             }
+
                             break;
                         case UnitType.Item:
                             if (IsDropped())
@@ -94,8 +99,10 @@ namespace MapAssist.Types
                             break;
                     }
                 }
+
                 _updated = true;
             }
+
             return this;
         }
 
@@ -149,6 +156,7 @@ namespace MapAssist.Types
                         userBaseOffset = 0x70;
                         checkUser1 = 0;
                     }
+
                     var userBaseCheck = processContext.Read<int>(IntPtr.Add(_unitAny.pInventory, userBaseOffset));
                     if (userBaseCheck != checkUser1)
                     {
@@ -156,6 +164,7 @@ namespace MapAssist.Types
                     }
                 }
             }
+
             return false;
         }
 
@@ -164,11 +173,13 @@ namespace MapAssist.Types
             if (_updated)
             {
                 return _isMonster;
-            } else
+            }
+            else
             {
                 if (_unitAny.UnitType != UnitType.Monster) return false;
                 if (_unitAny.Mode == 0 || _unitAny.Mode == 12) return false;
                 if (NPC.Dummies.TryGetValue(_unitAny.TxtFileNo, out var _)) { return false; }
+
                 _isMonster = true;
                 return true;
             }
@@ -197,7 +208,15 @@ namespace MapAssist.Types
             _statList.TryGetValue(Stat.STAT_COLDRESIST, out var resistanceCold);
             _statList.TryGetValue(Stat.STAT_POISONRESIST, out var resistancePoison);
 
-            var resists = new List<int> { resistanceDamage, resistanceMagic, resistanceFire, resistanceLightning, resistanceCold, resistancePoison };
+            var resists = new List<int>
+            {
+                resistanceDamage,
+                resistanceMagic,
+                resistanceFire,
+                resistanceLightning,
+                resistanceCold,
+                resistancePoison
+            };
             var immunities = new List<Resist>();
 
             for (var i = 0; i < 6; i++)

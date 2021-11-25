@@ -92,7 +92,7 @@ namespace MapAssist.Settings
 
         public static double Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["Opacity"],
             System.Globalization.CultureInfo.InvariantCulture);
-            
+
         public static bool OverlayMode = Convert.ToBoolean(ConfigurationManager.AppSettings["OverlayMode"]);
 
         public static bool AlwaysOnTop = Convert.ToBoolean(ConfigurationManager.AppSettings["AlwaysOnTop"]);
@@ -110,7 +110,9 @@ namespace MapAssist.Settings
         public static char ToggleKey = Convert.ToChar(ConfigurationManager.AppSettings["ToggleKey"]);
         public static char ZoomInKey = Convert.ToChar(ConfigurationManager.AppSettings["ZoomInKey"]);
         public static char ZoomOutKey = Convert.ToChar(ConfigurationManager.AppSettings["ZoomOutKey"]);
-        public static float ZoomLevel = Convert.ToSingle(ConfigurationManager.AppSettings["ZoomLevelDefault"], CultureInfo.InvariantCulture);
+
+        public static float ZoomLevel = Convert.ToSingle(ConfigurationManager.AppSettings["ZoomLevelDefault"],
+            CultureInfo.InvariantCulture);
 
         public static Area[] PrefetchAreas =
             Utils.ParseCommaSeparatedAreasByName(ConfigurationManager.AppSettings["PrefetchAreas"]);

@@ -66,6 +66,7 @@ namespace MapAssist.Helpers
                 {
                     windowInFocus = WindowsExternal.GetForegroundWindow();
                 }
+
                 gameProcess = processes.FirstOrDefault(p => p.MainWindowHandle == windowInFocus);
 
                 if (gameProcess == null)
@@ -150,6 +151,7 @@ namespace MapAssist.Helpers
                     {
                         _UiSettingOffset = processContext.GetUiSettingsOffset();
                     }
+
                     return new Types.UiSettings(_UiSettingOffset);
                 }
             }

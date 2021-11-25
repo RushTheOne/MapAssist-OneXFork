@@ -72,12 +72,13 @@ namespace MapAssist.Helpers
 
                     var mapShown = GameManager.UiSettings.MapShown;
 
-                    var rooms = new HashSet<Room>() { playerUnit.Path.Room };
+                    var rooms = new HashSet<Room>() {playerUnit.Path.Room};
                     rooms = GetRooms(playerUnit.Path.Room, ref rooms);
                     foreach (var room in rooms)
                     {
                         room.Update();
                     }
+
                     var monsterList = new List<UnitAny>();
                     var itemList = new List<UnitAny>();
                     GetUnits(rooms, ref monsterList, ref itemList);
@@ -114,9 +115,11 @@ namespace MapAssist.Helpers
                     switch (unitAny.UnitType)
                     {
                         case UnitType.Monster:
-                            if (!monsterList.Contains(unitAny) && unitAny.IsMonster()){ 
-                                monsterList.Add(unitAny); 
+                            if (!monsterList.Contains(unitAny) && unitAny.IsMonster())
+                            {
+                                monsterList.Add(unitAny);
                             }
+
                             break;
                         case UnitType.Item:
                             if (!itemList.Contains(unitAny) && unitAny.IsDropped())
@@ -143,10 +146,12 @@ namespace MapAssist.Helpers
                             }
                             break;
                     }
+
                     unitAny = unitAny.RoomNext;
                 }
             }
         }
+
         private static HashSet<Room> GetRooms(Room startingRoom, ref HashSet<Room> roomsList)
         {
             var roomsNear = startingRoom.RoomsNear;
@@ -158,11 +163,13 @@ namespace MapAssist.Helpers
                     GetRooms(roomNear, ref roomsList);
                 }
             }
+
             if (!roomsList.Contains(startingRoom.RoomNextFast))
             {
                 roomsList.Add(startingRoom.RoomNextFast);
                 GetRooms(startingRoom.RoomNextFast, ref roomsList);
             }
+
             return roomsList;
         }
     }

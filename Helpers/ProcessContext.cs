@@ -240,5 +240,7 @@ namespace MapAssist.Helpers
             var offset = FindPattern(ref buffer, ref size, ref pattern, ref mask);
             return offset != 0 ? IntPtr.Add(baseAddr, offset) : IntPtr.Zero;
         }
+
+        public int ProcessId => _process.Id;
     }
 }

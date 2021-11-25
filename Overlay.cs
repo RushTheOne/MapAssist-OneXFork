@@ -175,27 +175,44 @@ namespace MapAssist
             var overlayWidthDiff = screenW - Width;
             var textXOffset = blackBarWidth + (int)(screenW * .06f) - overlayWidthDiff;
             var fontSize = Rendering.ItemLog.LabelFontSize;
+            var fontHeight = (fontSize + fontSize / 2);
             var font = new Font(Rendering.ItemLog.LabelFont, fontSize);
             var stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Near;
             stringFormat.LineAlignment = StringAlignment.Near;
+
             var color = Color.Red;
             e.Graphics.DrawString("Game IP: " + _currentGameData.GameIP, font,
             new SolidBrush(color),
-            new Point(textXOffset, 0 + (fontSize + fontSize / 2)), stringFormat);
+            new Point(textXOffset, fontHeight), stringFormat);
+
+            /*stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Near;
+            var stateList = _currentGameData.PlayerUnit.StateList;
+            color = Color.DarkOrange;
+            var stateCount = 0;
+            foreach (var state in stateList)
+            {
+                var stateStr = Enum.GetName(typeof(State), state).Substring(6);
+                e.Graphics.DrawString(stateStr, font,
+                new SolidBrush(color),
+                new Point(screenW / 2, (stateCount * fontHeight)), stringFormat);
+                stateCount++;
+            }*/
 
             if (Rendering.ItemLogAlwaysShow == false && !_show)
             {
                 return;
             }
 
-            for (var i = 0; i < Items.ItemLog.Count; i++)
+
+            stringFormat.Alignment = StringAlignment.Near;
+            stringFormat.LineAlignment = StringAlignment.Near;
+            for (var i = 0; i < Items.CurrentItemLog.Count; i++)
             {
-                stringFormat.Alignment = StringAlignment.Near;
-                stringFormat.LineAlignment = StringAlignment.Near;
-                color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
-                var isEth = (Items.ItemLog[i].ItemData.ItemFlags & ItemFlags.IFLAG_ETHEREAL) == ItemFlags.IFLAG_ETHEREAL;
-                var itemBaseName = Items.ItemNames[Items.ItemLog[i].TxtFileNo];
+                color = Items.ItemColors[Items.CurrentItemLog[i].ItemData.ItemQuality];
+                var isEth = (Items.CurrentItemLog[i].ItemData.ItemFlags & ItemFlags.IFLAG_ETHEREAL) == ItemFlags.IFLAG_ETHEREAL;
+                var itemBaseName = Items.ItemNames[Items.CurrentItemLog[i].TxtFileNo];
                 var itemSpecialName = "";
                 var itemLabelExtra = "";
                 if (isEth)
@@ -203,34 +220,34 @@ namespace MapAssist
                     itemLabelExtra += "[Eth] ";
                     color = Items.ItemColors[ItemQuality.SUPERIOR];
                 }
-                if(Items.ItemLog[i].Stats.TryGetValue(Stat.STAT_ITEM_NUMSOCKETS, out var numSockets))
+                if(Items.CurrentItemLog[i].Stats.TryGetValue(Stat.STAT_ITEM_NUMSOCKETS, out var numSockets))
                 {
                     itemLabelExtra += "[" + numSockets + " S] ";
                     color = Items.ItemColors[ItemQuality.SUPERIOR];
                 }
-                switch (Items.ItemLog[i].ItemData.ItemQuality)
+                switch (Items.CurrentItemLog[i].ItemData.ItemQuality)
                 {
                     case ItemQuality.UNIQUE:
-                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
-                        itemSpecialName = Items.UniqueFromCode[Items.ItemCodes[Items.ItemLog[i].TxtFileNo]] + " ";
+                        color = Items.ItemColors[Items.CurrentItemLog[i].ItemData.ItemQuality];
+                        itemSpecialName = Items.UniqueFromCode[Items.ItemCodes[Items.CurrentItemLog[i].TxtFileNo]] + " ";
                         break;
                     case ItemQuality.SET:
-                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
-                        itemSpecialName = Items.SetFromCode[Items.ItemCodes[Items.ItemLog[i].TxtFileNo]] + " ";
+                        color = Items.ItemColors[Items.CurrentItemLog[i].ItemData.ItemQuality];
+                        itemSpecialName = Items.SetFromCode[Items.ItemCodes[Items.CurrentItemLog[i].TxtFileNo]] + " ";
                         break;
                     case ItemQuality.CRAFT:
-                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        color = Items.ItemColors[Items.CurrentItemLog[i].ItemData.ItemQuality];
                         break;
                     case ItemQuality.RARE:
-                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        color = Items.ItemColors[Items.CurrentItemLog[i].ItemData.ItemQuality];
                         break;
                     case ItemQuality.MAGIC:
-                        color = Items.ItemColors[Items.ItemLog[i].ItemData.ItemQuality];
+                        color = Items.ItemColors[Items.CurrentItemLog[i].ItemData.ItemQuality];
                         break;
                 }
                 e.Graphics.DrawString(itemLabelExtra + itemSpecialName + itemBaseName, font,
                 new SolidBrush(color),
-                new Point(textXOffset, ((fontSize + fontSize / 2) * 2) + (i * (fontSize + fontSize / 2))), stringFormat);
+                new Point(textXOffset, (fontHeight * 2) + (i * (fontSize + fontSize / 2))), stringFormat);
             }
 
             if (!_show || Array.Exists(Map.HiddenAreas, element => element == _currentGameData.Area) || (Map.ToggleViaInGameMap && !_currentGameData.MapShown) || (_currentGameData.Area == Area.None))

@@ -98,8 +98,9 @@ namespace MapAssist.Types
     };
     class Items
     {
-        public static HashSet<string> ItemUnitIdsSeen = new HashSet<string>();
-        public static List<UnitAny> ItemLog = new List<UnitAny>();
+        public static Dictionary<int, HashSet<string>> ItemUnitIdsSeen = new Dictionary<int, HashSet<string>>();
+        public static Dictionary<int, List<UnitAny>> ItemLog = new Dictionary<int, List<UnitAny>>();
+        public static List<UnitAny> CurrentItemLog = new List<UnitAny>();
         public readonly static Dictionary<ItemQuality, Color> ItemColors = new Dictionary<ItemQuality, Color>()
         {
             { ItemQuality.INFERIOR, Color.White },

@@ -39,6 +39,8 @@ namespace MapAssist.Types
         private ItemData _itemData;
         private Dictionary<Stat, int> _statList;
         private List<Resist> _immunities;
+        private uint[] _stateFlags;
+        private List<State> _stateList;
         private string _name;
         private bool _isMonster;
         private bool _updated;
@@ -77,6 +79,8 @@ namespace MapAssist.Types
                         case UnitType.Player:
                             if (IsPlayer())
                             {
+                                _stateFlags = statListStruct.StateFlags;
+                                _stateList = GetStateList();
                                 _name = Encoding.ASCII.GetString(processContext.Read<byte>(_unitAny.pUnitData, 16))
                                     .TrimEnd((char)0);
                                 _inventory = processContext.Read<Inventory>(_unitAny.pInventory);
@@ -126,6 +130,8 @@ namespace MapAssist.Types
         public UnitAny ListNext => new UnitAny(_unitAny.pListNext);
         public UnitAny RoomNext => new UnitAny(_unitAny.pRoomNext);
         public List<Resist> Immunities => _immunities;
+        public uint[] StateFlags => _stateFlags;
+        public List<State> StateList => _stateList;
 
         public bool IsMovable()
         {
@@ -228,6 +234,23 @@ namespace MapAssist.Types
             }
 
             return immunities;
+        }
+        
+        public bool GetState(State state)
+        {
+            return (StateFlags[(int)state >> 5] & StateMasks.gdwBitMasks[(int)state & 31]) > 0;
+        }
+        private List<State> GetStateList()
+        {
+            var stateList = new List<State>();
+            for (var i = 0; i <= States.StateCount; i++)
+            {
+                if (GetState((State)i))
+                {
+                    stateList.Add((State)i);
+                }
+            }
+            return stateList;
         }
 
         public override bool Equals(object obj) => obj is UnitAny other && Equals(other);

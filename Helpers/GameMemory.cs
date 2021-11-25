@@ -30,12 +30,14 @@ namespace MapAssist.Helpers
     public static class GameMemory
     {
         private static uint _lastMapSeed;
+        private static int _currentProcessId;
         public static GameData GetGameData()
         {
             try
             {
                 using (var processContext = GameManager.GetProcessContext())
                 {
+                    _currentProcessId = processContext.ProcessId;
                     var playerUnit = GameManager.PlayerUnit;
                     playerUnit.Update();
 
@@ -48,8 +50,15 @@ namespace MapAssist.Helpers
                     if (mapSeed != _lastMapSeed)
                     {
                         _lastMapSeed = mapSeed;
-                        Items.ItemUnitIdsSeen.Clear();
-                        Items.ItemLog.Clear();
+                        if(!Items.ItemUnitIdsSeen.TryGetValue(_currentProcessId, out var _))
+                        {
+                            Items.ItemUnitIdsSeen.Add(_currentProcessId, new HashSet<string>());
+                            Items.ItemLog.Add(_currentProcessId, new List<UnitAny>());
+                        } else
+                        {
+                            Items.ItemUnitIdsSeen[_currentProcessId].Clear();
+                            Items.ItemLog[_currentProcessId].Clear();
+                        }
                     }
 
                     var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, 15)).TrimEnd((char)0);
@@ -82,6 +91,7 @@ namespace MapAssist.Helpers
                     var monsterList = new List<UnitAny>();
                     var itemList = new List<UnitAny>();
                     GetUnits(rooms, ref monsterList, ref itemList);
+                    Items.CurrentItemLog = Items.ItemLog[_currentProcessId];
 
                     return new GameData
                     {
@@ -94,7 +104,8 @@ namespace MapAssist.Helpers
                         PlayerName = playerUnit.Name,
                         Monsters = monsterList,
                         Items = itemList,
-                        GameIP = gameIP
+                        GameIP = gameIP,
+                        PlayerUnit = playerUnit
                     };
                 }
             }
@@ -125,22 +136,22 @@ namespace MapAssist.Helpers
                             if (!itemList.Contains(unitAny) && unitAny.IsDropped())
                             {
                                 itemList.Add(unitAny);
-                                if (!Items.ItemUnitIdsSeen.Contains(unitAny.ItemHash()) && LootFilter.Filter(unitAny))
+                                if (!Items.ItemUnitIdsSeen[_currentProcessId].Contains(unitAny.ItemHash()) && LootFilter.Filter(unitAny))
                                 {
                                     if (Rendering.ItemLogPlaySoundOnDrop)
                                     {
                                         var player = new SoundPlayer(Properties.Resources.ching);
                                         player.Play();
                                     }
-                                    Items.ItemUnitIdsSeen.Add(unitAny.ItemHash());
-                                    if (Items.ItemLog.Count == Settings.Rendering.ItemLogMaxSize)
+                                    Items.ItemUnitIdsSeen[_currentProcessId].Add(unitAny.ItemHash());
+                                    if (Items.ItemLog.Count == Rendering.ItemLogMaxSize)
                                     {
-                                        Items.ItemLog.RemoveAt(0);
-                                        Items.ItemLog.Add(unitAny);
+                                        Items.ItemLog[_currentProcessId].RemoveAt(0);
+                                        Items.ItemLog[_currentProcessId].Add(unitAny);
                                     }
                                     else
                                     {
-                                        Items.ItemLog.Add(unitAny);
+                                        Items.ItemLog[_currentProcessId].Add(unitAny);
                                     }
                                 }
                             }

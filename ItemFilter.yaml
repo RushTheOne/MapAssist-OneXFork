@@ -24,9 +24,7 @@ Monarch:
  - Sockets: 4
 #This ring rule will show all magic, rare, and unique rings
 Ring:
- - Quality: magic
- - Quality: rare
- - Quality: unique
+ - Quality: magic/rare/unique
 
 ###Merc weapons
 Giant Thresher:

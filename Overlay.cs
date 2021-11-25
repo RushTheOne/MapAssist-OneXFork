@@ -172,7 +172,8 @@ namespace MapAssist
             {
                 blackBarWidth = (screenW - 2880) / 4;
             }
-            var textXOffset = blackBarWidth + (int)(screenW * .06f);
+            var overlayWidthDiff = screenW - Width;
+            var textXOffset = blackBarWidth + (int)(screenW * .06f) - overlayWidthDiff;
             var fontSize = Rendering.ItemLog.LabelFontSize;
             var font = new Font(Rendering.ItemLog.LabelFont, fontSize);
             var stringFormat = new StringFormat();

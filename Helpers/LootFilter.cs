@@ -51,13 +51,13 @@ namespace MapAssist.Helpers
                 try
                 {
                     rawYaml = File.ReadAllText(yamlFileLocation);
+                    yaml = deserializer.Deserialize<Dictionary<string, List<ItemFilter>>>(rawYaml);
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine("Error reading from {0}. Message = {1}", yamlFileLocation, e.Message);
                     return false;
                 }
-                yaml = deserializer.Deserialize<Dictionary<string, List<ItemFilter>>>(rawYaml);
             }
             if (yaml != null)
             {

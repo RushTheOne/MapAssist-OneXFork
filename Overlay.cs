@@ -57,7 +57,6 @@ namespace MapAssist
             _trayIcon = new NotifyIcon()
             {
                 Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location),
-                //Icon = MapAssist.Properties.Resources.Icon1, //No clue how to get this one to work
                 ContextMenu = new ContextMenu(new MenuItem[] {
                     new MenuItem("Config", Config),
                     new MenuItem("Exit", Exit)

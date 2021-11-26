@@ -52,7 +52,7 @@ namespace MapAssist
         {
             InitializeComponent();
             
-                        ShowInTaskbar = false;  // Removes the application from the taskbar
+            ShowInTaskbar = false;  // Removes the application from the taskbar
 
             _trayIcon = new NotifyIcon()
             {

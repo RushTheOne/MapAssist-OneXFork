@@ -95,7 +95,20 @@ namespace MapAssist.Helpers
             yaml.TryGetValue("Any", out var filterlist);
             if (yaml.TryGetValue(baseName, out var filterlist2) && filterlist != null)
             {
-                fullFilterList = filterlist.Concat(filterlist2).ToList();
+                if (filterlist2 != null)
+                {
+                    fullFilterList = filterlist.Concat(filterlist2).ToList();
+                } else
+                {
+                    //no rules were specified for baseName item, so add null rules
+                    filterlist2 = new List<ItemFilter>();
+                    var nullRule = new ItemFilter();
+                    nullRule.Quality = null;
+                    nullRule.Ethereal = null;
+                    nullRule.Sockets = null;
+                    filterlist2.Add(nullRule);
+                    fullFilterList = filterlist.Concat(filterlist2).ToList();
+                }
             }
             else
             {

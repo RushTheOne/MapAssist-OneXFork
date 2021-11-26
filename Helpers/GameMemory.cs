@@ -50,12 +50,14 @@ namespace MapAssist.Helpers
                     if (mapSeed != _lastMapSeed)
                     {
                         _lastMapSeed = mapSeed;
-                        if(!Items.ItemUnitIdsSeen.TryGetValue(_currentProcessId, out var _))
+                        if(!Items.ItemUnitHashesSeen.TryGetValue(_currentProcessId, out var _))
                         {
-                            Items.ItemUnitIdsSeen.Add(_currentProcessId, new HashSet<string>());
+                            Items.ItemUnitHashesSeen.Add(_currentProcessId, new HashSet<string>());
+                            Items.ItemUnitIdsSeen.Add(_currentProcessId, new HashSet<uint>());
                             Items.ItemLog.Add(_currentProcessId, new List<UnitAny>());
                         } else
                         {
+                            Items.ItemUnitHashesSeen[_currentProcessId].Clear();
                             Items.ItemUnitIdsSeen[_currentProcessId].Clear();
                             Items.ItemLog[_currentProcessId].Clear();
                         }
@@ -136,14 +138,15 @@ namespace MapAssist.Helpers
                             if (!itemList.Contains(unitAny) && unitAny.IsDropped())
                             {
                                 itemList.Add(unitAny);
-                                if (!Items.ItemUnitIdsSeen[_currentProcessId].Contains(unitAny.ItemHash()) && LootFilter.Filter(unitAny))
+                                if ((!Items.ItemUnitHashesSeen[_currentProcessId].Contains(unitAny.ItemHash()) && !Items.ItemUnitIdsSeen[_currentProcessId].Contains(unitAny.UnitId)) && LootFilter.Filter(unitAny))
                                 {
                                     if (Rendering.ItemLogPlaySoundOnDrop)
                                     {
                                         var player = new SoundPlayer(Properties.Resources.ching);
                                         player.Play();
                                     }
-                                    Items.ItemUnitIdsSeen[_currentProcessId].Add(unitAny.ItemHash());
+                                    Items.ItemUnitHashesSeen[_currentProcessId].Add(unitAny.ItemHash());
+                                    Items.ItemUnitIdsSeen[_currentProcessId].Add(unitAny.UnitId);
                                     if (Items.ItemLog.Count == Rendering.ItemLogMaxSize)
                                     {
                                         Items.ItemLog[_currentProcessId].RemoveAt(0);

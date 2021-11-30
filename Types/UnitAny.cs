@@ -146,11 +146,7 @@ namespace MapAssist.Types
         }
         public bool IsValidUnit()
         {
-            if (_unitAny.pUnitData != IntPtr.Zero && _unitAny.pStatsListEx != IntPtr.Zero && _unitAny.UnitType <= UnitType.Tile)
-            {
-                return true;
-            }
-            return false;
+            return _unitAny.pUnitData != IntPtr.Zero && _unitAny.pStatsListEx != IntPtr.Zero && _unitAny.UnitType <= UnitType.Tile;
         }
 
         public bool IsPlayer()

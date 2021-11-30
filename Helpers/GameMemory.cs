@@ -123,8 +123,8 @@ namespace MapAssist.Helpers
                 var unitType = (UnitType)i;
                 foreach (var pUnitAny in unitHashTable.UnitTable)
                 {
-                    var unitAny = new Types.UnitAny(pUnitAny);
-                    while (unitAny.IsValid())
+                    var unitAny = new UnitAny(pUnitAny);
+                    while (unitAny.IsValidUnit())
                     {
                         switch (unitType)
                         {
@@ -169,7 +169,7 @@ namespace MapAssist.Helpers
             foreach (var room in rooms)
             {
                 var unitAny = room.UnitFirst;
-                while (unitAny.IsValid())
+                while (unitAny.IsValidUnit())
                 {
                     switch (unitAny.UnitType)
                     {

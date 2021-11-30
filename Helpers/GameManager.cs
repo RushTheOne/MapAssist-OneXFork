@@ -103,7 +103,7 @@ namespace MapAssist.Helpers
                         {
                             var unitAny = new Types.UnitAny(pUnitAny);
 
-                            while (unitAny.IsValid())
+                            while (unitAny.IsValidUnit())
                             {
                                 if (unitAny.IsPlayerUnit())
                                 {

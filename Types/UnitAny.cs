@@ -53,58 +53,60 @@ namespace MapAssist.Types
 
         public UnitAny Update()
         {
-            if (IsValid())
+            if (IsValidPointer())
             {
                 using (var processContext = GameManager.GetProcessContext())
                 {
                     _unitAny = processContext.Read<Structs.UnitAny>(_pUnit);
-                    _path = new Path(_unitAny.pPath);
-                    var statListStruct = processContext.Read<StatListStruct>(_unitAny.pStatsListEx);
-                    var statList = new Dictionary<Stat, int>();
-                    var statValues = processContext.Read<StatValue>(statListStruct.Stats.FirstStatPtr,
-                        Convert.ToInt32(statListStruct.Stats.Size));
-                    foreach (var stat in statValues)
+                    if (IsValidUnit())
                     {
-                        //ensure we dont add duplicates
-                        if (!statList.TryGetValue(stat.Stat, out var _))
+                        _path = new Path(_unitAny.pPath);
+                        var statListStruct = processContext.Read<StatListStruct>(_unitAny.pStatsListEx);
+                        var statList = new Dictionary<Stat, int>();
+                        var statValues = processContext.Read<StatValue>(statListStruct.Stats.FirstStatPtr,
+                            Convert.ToInt32(statListStruct.Stats.Size));
+                        foreach (var stat in statValues)
                         {
-                            statList.Add(stat.Stat, stat.Value);
+                            //ensure we dont add duplicates
+                            if (!statList.TryGetValue(stat.Stat, out var _))
+                            {
+                                statList.Add(stat.Stat, stat.Value);
+                            }
                         }
-                    }
 
-                    _statList = statList;
-                    _immunities = GetImmunities();
-                    switch (_unitAny.UnitType)
-                    {
-                        case UnitType.Player:
-                            if (IsPlayer())
-                            {
-                                _stateFlags = statListStruct.StateFlags;
-                                _stateList = GetStateList();
-                                _name = Encoding.ASCII.GetString(processContext.Read<byte>(_unitAny.pUnitData, 16))
-                                    .TrimEnd((char)0);
-                                _inventory = processContext.Read<Inventory>(_unitAny.pInventory);
-                                _act = new Act(_unitAny.pAct);
-                            }
+                        _statList = statList;
+                        _immunities = GetImmunities();
+                        switch (_unitAny.UnitType)
+                        {
+                            case UnitType.Player:
+                                if (IsPlayer())
+                                {
+                                    _stateFlags = statListStruct.StateFlags;
+                                    _stateList = GetStateList();
+                                    _name = Encoding.ASCII.GetString(processContext.Read<byte>(_unitAny.pUnitData, 16))
+                                        .TrimEnd((char)0);
+                                    _inventory = processContext.Read<Inventory>(_unitAny.pInventory);
+                                    _act = new Act(_unitAny.pAct);
+                                }
 
-                            break;
-                        case UnitType.Monster:
-                            if (IsMonster())
-                            {
-                                _monsterData = processContext.Read<MonsterData>(_unitAny.pUnitData);
-                            }
+                                break;
+                            case UnitType.Monster:
+                                if (IsMonster())
+                                {
+                                    _monsterData = processContext.Read<MonsterData>(_unitAny.pUnitData);
+                                }
 
-                            break;
-                        case UnitType.Item:
-                            if (IsDropped())
-                            {
-                                _itemData = processContext.Read<ItemData>(_unitAny.pUnitData);
-                            }
-                            break;
+                                break;
+                            case UnitType.Item:
+                                if (IsDropped())
+                                {
+                                    _itemData = processContext.Read<ItemData>(_unitAny.pUnitData);
+                                }
+                                break;
+                        }
+                        _updated = true;
                     }
                 }
-
-                _updated = true;
             }
 
             return this;
@@ -138,9 +140,17 @@ namespace MapAssist.Types
             return !(UnitType == UnitType.Object || UnitType == UnitType.Item);
         }
 
-        public bool IsValid()
+        public bool IsValidPointer()
         {
             return _pUnit != IntPtr.Zero;
+        }
+        public bool IsValidUnit()
+        {
+            if (_unitAny.pUnitData != IntPtr.Zero && _unitAny.pStatsListEx != IntPtr.Zero && _unitAny.UnitType <= UnitType.Tile)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool IsPlayer()

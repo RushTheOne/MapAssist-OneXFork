@@ -39,6 +39,7 @@ namespace MapAssist.Helpers
         private static IntPtr _ExpansionCheckOffset;
         private static IntPtr _GameIPOffset;
         private static IntPtr _MenuOpenOffset;
+        private static IntPtr _ExitMenuOpenOffset;
 
         public static ProcessContext GetProcessContext()
         {
@@ -206,6 +207,23 @@ namespace MapAssist.Helpers
                 return _MenuOpenOffset;
             }
         }
+        public static IntPtr ExitMenuOpenOffset
+        {
+            get
+            {
+                if (_ExitMenuOpenOffset != IntPtr.Zero)
+                {
+                    return _ExitMenuOpenOffset;
+                }
+
+                using (var processContext = GetProcessContext())
+                {
+                    _ExitMenuOpenOffset = processContext.GetMenuOpenOffset();
+                }
+
+                return _ExitMenuOpenOffset;
+            }
+        }
 
         public static void ResetPlayerUnit()
         {
@@ -214,6 +232,8 @@ namespace MapAssist.Helpers
             _UnitHashTableOffset = IntPtr.Zero;
             _ExpansionCheckOffset = IntPtr.Zero;
             _GameIPOffset = IntPtr.Zero;
+            _MenuOpenOffset = IntPtr.Zero;
+            _ExitMenuOpenOffset = IntPtr.Zero;
         }
     }
 }

@@ -71,6 +71,8 @@ namespace MapAssist.Helpers
                     var menuOpen = processContext.Read<byte>(GameManager.MenuOpenOffset);
                     //no menu open = 0, left menu open = 1, right menu open = 2, both menus open = 3
 
+                    var exitMenuOpen = processContext.Read<byte>(GameManager.ExitMenuOpenOffset) == 1;
+
                     var actId = playerUnit.Act.ActId;
 
                     var gameDifficulty = playerUnit.Act.ActMisc.GameDifficulty;
@@ -107,7 +109,8 @@ namespace MapAssist.Helpers
                         Items = itemList,
                         GameIP = gameIP,
                         PlayerUnit = playerUnit,
-                        MenuOpen = menuOpen
+                        MenuOpen = menuOpen,
+                        ExitMenuOpen = exitMenuOpen
                     };
                 }
             }

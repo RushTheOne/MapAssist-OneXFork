@@ -69,9 +69,8 @@ namespace MapAssist.Helpers
                     var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, 15)).TrimEnd((char)0);
 
                     var menuOpen = processContext.Read<byte>(GameManager.MenuOpenOffset);
-                    //no menu open = 0, left menu open = 1, right menu open = 2, both menus open = 3
 
-                    var exitMenuOpen = processContext.Read<byte>(GameManager.ExitMenuOpenOffset) == 1;
+                    var menuData = processContext.Read<Structs.MenuData>(GameManager.MenuDataOffset);
 
                     var actId = playerUnit.Act.ActId;
 
@@ -89,8 +88,6 @@ namespace MapAssist.Helpers
                         throw new Exception("Level id out of bounds.");
                     }
 
-                    var mapShown = GameManager.UiSettings.MapShown;
-
                     var monsterList = new List<UnitAny>();
                     var itemList = new List<UnitAny>();
                     GetUnits(ref monsterList, ref itemList);
@@ -102,15 +99,14 @@ namespace MapAssist.Helpers
                         MapSeed = mapSeed,
                         Area = levelId,
                         Difficulty = gameDifficulty,
-                        MapShown = mapShown,
                         MainWindowHandle = GameManager.MainWindowHandle,
                         PlayerName = playerUnit.Name,
                         Monsters = monsterList,
                         Items = itemList,
                         GameIP = gameIP,
                         PlayerUnit = playerUnit,
-                        MenuOpen = menuOpen,
-                        ExitMenuOpen = exitMenuOpen
+                        MenuOpen = menuData,
+                        MenuPanelOpen = menuOpen
                     };
                 }
             }

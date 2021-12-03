@@ -35,11 +35,10 @@ namespace MapAssist.Helpers
         private static ProcessContext _ProcessContext;
         private static Process GameProcess;
         private static IntPtr _UnitHashTableOffset;
-        private static IntPtr _UiSettingOffset;
         private static IntPtr _ExpansionCheckOffset;
         private static IntPtr _GameIPOffset;
-        private static IntPtr _MenuOpenOffset;
-        private static IntPtr _ExitMenuOpenOffset;
+        private static IntPtr _MenuPanelOpenOffset;
+        private static IntPtr _MenuDataOffset;
 
         public static ProcessContext GetProcessContext()
         {
@@ -140,22 +139,6 @@ namespace MapAssist.Helpers
             }
         }
 
-        public static Types.UiSettings UiSettings
-        {
-            get
-            {
-                using (var processContext = GetProcessContext())
-                {
-                    if (_UiSettingOffset == IntPtr.Zero)
-                    {
-                        _UiSettingOffset = processContext.GetUiSettingsOffset();
-                    }
-
-                    return new Types.UiSettings(_UiSettingOffset);
-                }
-            }
-        }
-
         public static IntPtr ExpansionCheckOffset
         {
             get
@@ -194,46 +177,45 @@ namespace MapAssist.Helpers
         {
             get
             {
-                if (_MenuOpenOffset != IntPtr.Zero)
+                if (_MenuPanelOpenOffset != IntPtr.Zero)
                 {
-                    return _MenuOpenOffset;
+                    return _MenuPanelOpenOffset;
                 }
 
                 using (var processContext = GetProcessContext())
                 {
-                    _MenuOpenOffset = processContext.GetMenuOpenOffset();
+                    _MenuPanelOpenOffset = processContext.GetMenuOpenOffset();
                 }
 
-                return _MenuOpenOffset;
+                return _MenuPanelOpenOffset;
             }
         }
-        public static IntPtr ExitMenuOpenOffset
+        public static IntPtr MenuDataOffset
         {
             get
             {
-                if (_ExitMenuOpenOffset != IntPtr.Zero)
+                if (_MenuDataOffset != IntPtr.Zero)
                 {
-                    return _ExitMenuOpenOffset;
+                    return _MenuDataOffset;
                 }
 
                 using (var processContext = GetProcessContext())
                 {
-                    _ExitMenuOpenOffset = processContext.GetMenuOpenOffset();
+                    _MenuDataOffset = processContext.GetMenuDataOffset();
                 }
 
-                return _ExitMenuOpenOffset;
+                return _MenuDataOffset;
             }
         }
 
         public static void ResetPlayerUnit()
         {
             _PlayerUnit = default;
-            _UiSettingOffset = IntPtr.Zero;
             _UnitHashTableOffset = IntPtr.Zero;
             _ExpansionCheckOffset = IntPtr.Zero;
             _GameIPOffset = IntPtr.Zero;
-            _MenuOpenOffset = IntPtr.Zero;
-            _ExitMenuOpenOffset = IntPtr.Zero;
+            _MenuPanelOpenOffset = IntPtr.Zero;
+            _MenuDataOffset = IntPtr.Zero;
         }
     }
 }

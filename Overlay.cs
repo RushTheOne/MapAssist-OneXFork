@@ -117,11 +117,11 @@ namespace MapAssist
                 UpdateLocation();
                 DrawGameInfo(gfx, e.DeltaTime.ToString());
 
-                if (!_show || _currentGameData.MenuOpen > 0 ||
+                if (!_show || _currentGameData.MenuPanelOpen > 0 ||
                     Array.Exists(MapAssistConfiguration.Loaded.HiddenAreas,
                         element => element == _currentGameData.Area) ||
                     (MapAssistConfiguration.Loaded.RenderingConfiguration.ToggleViaInGameMap &&
-                     !_currentGameData.MapShown) || (_currentGameData.Area == Area.None))
+                     !_currentGameData.MenuOpen.Map) || (_currentGameData.Area == Area.None))
                 {
                     return;
                 }

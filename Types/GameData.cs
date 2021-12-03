@@ -37,6 +37,7 @@ namespace MapAssist.Types
         public string GameIP;
         public UnitAny PlayerUnit;
         public byte MenuOpen;
+        public bool ExitMenuOpen;
 
         public bool HasGameChanged(GameData other)
         {

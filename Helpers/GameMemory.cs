@@ -71,7 +71,8 @@ namespace MapAssist.Helpers
                         }
                     }
 
-                    var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, 15)).TrimEnd((char)0);
+                    var gameIPLength = processContext.Read<byte>(GameManager.GameIPOffset - 16);
+                    var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, gameIPLength));
 
                     var menuOpen = processContext.Read<byte>(GameManager.MenuOpenOffset);
                     //no menu open = 0, left menu open = 1, right menu open = 2, both menus open = 3

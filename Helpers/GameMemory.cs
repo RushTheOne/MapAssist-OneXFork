@@ -40,6 +40,11 @@ namespace MapAssist.Helpers
                     var playerUnit = GameManager.PlayerUnit;
                     playerUnit.Update();
 
+                    if (!playerUnit.IsValidUnit())
+                    {
+                        throw new Exception("Player unit not found");
+                    }
+
                     var mapSeed = playerUnit.Act.MapSeed;
 
                     if (mapSeed <= 0 || mapSeed > 0xFFFFFFFF)
@@ -66,7 +71,8 @@ namespace MapAssist.Helpers
                         }
                     }
 
-                    var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, 15)).TrimEnd((char)0);
+                    var gameIPLength = processContext.Read<byte>(GameManager.GameIPOffset - 16);
+                    var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, gameIPLength));
 
                     var menuOpen = processContext.Read<byte>(GameManager.MenuOpenOffset);
 

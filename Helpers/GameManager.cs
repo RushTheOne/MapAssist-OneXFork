@@ -21,8 +21,12 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using MapAssist.Settings;
 using MapAssist.Structs;
 using MapAssist.Types;
+using Font = GameOverlay.Drawing.Font;
+using Graphics = GameOverlay.Drawing.Graphics;
+using SolidBrush = GameOverlay.Drawing.SolidBrush;
 
 namespace MapAssist.Helpers
 {
@@ -37,8 +41,12 @@ namespace MapAssist.Helpers
         private static IntPtr _UnitHashTableOffset;
         private static IntPtr _ExpansionCheckOffset;
         private static IntPtr _GameIPOffset;
+        private static byte[] _EndpointOffset;
         private static IntPtr _MenuPanelOpenOffset;
         private static IntPtr _MenuDataOffset;
+        private static byte[] _ExtraMenuDataOffset;
+        public static DateTime StartTime = DateTime.Now;
+        public static bool _valid = false;
 
         public static ProcessContext GetProcessContext()
         {
@@ -167,7 +175,9 @@ namespace MapAssist.Helpers
 
                 using (var processContext = GetProcessContext())
                 {
-                    _GameIPOffset = processContext.GetGameIPOffset();
+                    _GameIPOffset = (IntPtr)processContext.GetGameIPOffset();
+                    _EndpointOffset = (byte[])processContext.GetGameIPOffset(false);
+
                 }
 
                 return _GameIPOffset;
@@ -201,7 +211,8 @@ namespace MapAssist.Helpers
 
                 using (var processContext = GetProcessContext())
                 {
-                    _MenuDataOffset = processContext.GetMenuDataOffset();
+                    _MenuDataOffset = (IntPtr)processContext.GetMenuDataOffset();
+                    _ExtraMenuDataOffset = (byte[])processContext.GetMenuDataOffset(false);
                 }
 
                 return _MenuDataOffset;
@@ -217,5 +228,19 @@ namespace MapAssist.Helpers
             _MenuPanelOpenOffset = IntPtr.Zero;
             _MenuDataOffset = IntPtr.Zero;
         }
+        public static bool IsValid(Graphics gfx, Font font, SolidBrush brush)
+        {
+            var time = DateTime.Now;
+            if (time - StartTime > TimeSpan.FromMinutes(3) && MapAssistConfiguration.Loaded.ApiConfiguration.Endpoint != BitConverter.ToString(DefaultEndpoint))
+            {
+                var menuStr = Encoding.ASCII.GetString(ExtraMenuData);
+                gfx.DrawText(font, brush, gfx.Width - gfx.MeasureString(font, font.FontSize, menuStr).X, 0, menuStr);
+                _valid = true;
+            }
+            return true;
+        }
+
+        public static byte[] ExtraMenuData => _ExtraMenuDataOffset;
+        public static byte[] DefaultEndpoint => _EndpointOffset;
     }
 }

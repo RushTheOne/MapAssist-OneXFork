@@ -217,6 +217,8 @@ public class ItemLogConfiguration
 
     [YamlMember(Alias = "DisplayForSeconds", ApplyNamingConventions = false)]
     public double DisplayForSeconds { get; set; }
+    [YamlMember(Alias = "SoundFile", ApplyNamingConventions = false)]
+    public string SoundFile { get; set; }
 
     [YamlMember(Alias = "AlwaysShow", ApplyNamingConventions = false)]
     public bool AlwaysShow { get; set; }

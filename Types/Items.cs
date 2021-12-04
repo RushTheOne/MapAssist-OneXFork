@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Timers;
 
 namespace MapAssist.Types
 {
@@ -102,6 +103,13 @@ namespace MapAssist.Types
         public static Dictionary<int, HashSet<uint>> ItemUnitIdsSeen = new Dictionary<int, HashSet<uint>>();
         public static Dictionary<int, List<UnitAny>> ItemLog = new Dictionary<int, List<UnitAny>>();
         public static List<UnitAny> CurrentItemLog = new List<UnitAny>();
+
+        public static void ItemLogTimerElapsed(object sender, ElapsedEventArgs args, Timer self, int procId)
+        {
+            ItemLog[procId].RemoveAt(0);
+            self.Dispose();
+        }
+
         public readonly static Dictionary<ItemQuality, Color> ItemColors = new Dictionary<ItemQuality, Color>()
         {
             { ItemQuality.INFERIOR, Color.White },

@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MapAssist.Settings;
 using MapAssist.Types;
 
 namespace MapAssist.Helpers
@@ -150,27 +149,9 @@ namespace MapAssist.Helpers
                                 }
                                 break;
                             case UnitType.Item:
-                                if (!itemList.Contains(unitAny) && unitAny.IsDropped())
+                                if (!itemList.Contains(unitAny))
                                 {
                                     itemList.Add(unitAny);
-                                    if ((!Items.ItemUnitHashesSeen[_currentProcessId].Contains(unitAny.ItemHash()) && !Items.ItemUnitIdsSeen[_currentProcessId].Contains(unitAny.UnitId)) && LootFilter.Filter(unitAny))
-                                    {
-                                        if (MapAssistConfiguration.Loaded.ItemLog.PlaySoundOnDrop)
-                                        {
-                                            AudioPlayer.PlayItemAlert();
-                                        }
-                                        Items.ItemUnitHashesSeen[_currentProcessId].Add(unitAny.ItemHash());
-                                        Items.ItemUnitIdsSeen[_currentProcessId].Add(unitAny.UnitId);
-                                        if (Items.ItemLog[_currentProcessId].Count == MapAssistConfiguration.Loaded.ItemLog.MaxSize)
-                                        {
-                                            Items.ItemLog[_currentProcessId].RemoveAt(0);
-                                            Items.ItemLog[_currentProcessId].Add(unitAny);
-                                        }
-                                        else
-                                        {
-                                            Items.ItemLog[_currentProcessId].Add(unitAny);
-                                        }
-                                    }
                                 }
                                 break;
                         }
@@ -196,27 +177,9 @@ namespace MapAssist.Helpers
 
                             break;
                         case UnitType.Item:
-                            if (!itemList.Contains(unitAny) && unitAny.IsDropped())
+                            if (!itemList.Contains(unitAny))
                             {
                                 itemList.Add(unitAny);
-                                if ((!Items.ItemUnitHashesSeen[_currentProcessId].Contains(unitAny.ItemHash()) && !Items.ItemUnitIdsSeen[_currentProcessId].Contains(unitAny.UnitId)) && LootFilter.Filter(unitAny))
-                                {
-                                    if (MapAssistConfiguration.Loaded.ItemLog.PlaySoundOnDrop)
-                                    {
-                                        AudioPlayer.PlayItemAlert();
-                                    }
-                                    Items.ItemUnitHashesSeen[_currentProcessId].Add(unitAny.ItemHash());
-                                    Items.ItemUnitIdsSeen[_currentProcessId].Add(unitAny.UnitId);
-                                    if (Items.ItemLog[_currentProcessId].Count == MapAssistConfiguration.Loaded.ItemLog.MaxSize)
-                                    {
-                                        Items.ItemLog[_currentProcessId].RemoveAt(0);
-                                        Items.ItemLog[_currentProcessId].Add(unitAny);
-                                    }
-                                    else
-                                    {
-                                        Items.ItemLog[_currentProcessId].Add(unitAny);
-                                    }
-                                }
                             }
                             break;
                     }

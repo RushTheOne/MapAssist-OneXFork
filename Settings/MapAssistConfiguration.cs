@@ -206,8 +206,8 @@ public class ItemLogConfiguration
     [YamlMember(Alias = "PlaySoundOnDrop", ApplyNamingConventions = false)]
     public bool PlaySoundOnDrop { get; set; }
 
-    [YamlMember(Alias = "MaxSize", ApplyNamingConventions = false)]
-    public int MaxSize { get; set; }
+    [YamlMember(Alias = "DisplayForSeconds", ApplyNamingConventions = false)]
+    public double DisplayForSeconds { get; set; }
 
     [YamlMember(Alias = "AlwaysShow", ApplyNamingConventions = false)]
     public bool AlwaysShow { get; set; }

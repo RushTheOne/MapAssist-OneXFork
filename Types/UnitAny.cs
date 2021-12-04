@@ -22,8 +22,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using MapAssist.Helpers;
 using MapAssist.Interfaces;
+using MapAssist.Settings;
 using MapAssist.Structs;
 
 namespace MapAssist.Types
@@ -98,9 +100,23 @@ namespace MapAssist.Types
 
                                 break;
                             case UnitType.Item:
+                                _itemData = processContext.Read<ItemData>(_unitAny.pUnitData);
                                 if (IsDropped())
                                 {
-                                    _itemData = processContext.Read<ItemData>(_unitAny.pUnitData);
+                                    var processId = processContext.ProcessId;
+                                    if ((!Items.ItemUnitHashesSeen[processId].Contains(ItemHash()) && !Items.ItemUnitIdsSeen[processId].Contains(_unitAny.UnitId)) && LootFilter.Filter(this))
+                                    {
+                                        if (MapAssistConfiguration.Loaded.ItemLog.PlaySoundOnDrop)
+                                        {
+                                            AudioPlayer.PlayItemAlert();
+                                        }
+                                        Items.ItemUnitHashesSeen[processId].Add(ItemHash());
+                                        Items.ItemUnitIdsSeen[processId].Add(UnitId);
+                                        Items.ItemLog[processId].Add(this);
+                                        var timer = new Timer(MapAssistConfiguration.Loaded.ItemLog.DisplayForSeconds * 1000);
+                                        timer.Elapsed += (sender, args) => Items.ItemLogTimerElapsed(sender, args, timer, processId);
+                                        timer.Start();
+                                    }
                                 }
                                 break;
                         }

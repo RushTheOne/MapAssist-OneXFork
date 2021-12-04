@@ -104,19 +104,7 @@ namespace MapAssist.Types
                                 if (IsDropped())
                                 {
                                     var processId = processContext.ProcessId;
-                                    if ((!Items.ItemUnitHashesSeen[processId].Contains(ItemHash()) && !Items.ItemUnitIdsSeen[processId].Contains(_unitAny.UnitId)) && LootFilter.Filter(this))
-                                    {
-                                        if (MapAssistConfiguration.Loaded.ItemLog.PlaySoundOnDrop)
-                                        {
-                                            AudioPlayer.PlayItemAlert();
-                                        }
-                                        Items.ItemUnitHashesSeen[processId].Add(ItemHash());
-                                        Items.ItemUnitIdsSeen[processId].Add(UnitId);
-                                        Items.ItemLog[processId].Add(this);
-                                        var timer = new Timer(MapAssistConfiguration.Loaded.ItemLog.DisplayForSeconds * 1000);
-                                        timer.Elapsed += (sender, args) => Items.ItemLogTimerElapsed(sender, args, timer, processId);
-                                        timer.Start();
-                                    }
+                                    Items.LogItem(this, processId);
                                 }
                                 break;
                         }

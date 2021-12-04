@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Timers;
+using MapAssist.Helpers;
+using MapAssist.Settings;
 
 namespace MapAssist.Types
 {
@@ -103,6 +105,23 @@ namespace MapAssist.Types
         public static Dictionary<int, HashSet<uint>> ItemUnitIdsSeen = new Dictionary<int, HashSet<uint>>();
         public static Dictionary<int, List<UnitAny>> ItemLog = new Dictionary<int, List<UnitAny>>();
         public static List<UnitAny> CurrentItemLog = new List<UnitAny>();
+
+        public static void LogItem(UnitAny unit, int processId)
+        {
+            if ((!ItemUnitHashesSeen[processId].Contains(unit.ItemHash()) && !ItemUnitIdsSeen[processId].Contains(unit.UnitId)) && LootFilter.Filter(unit))
+            {
+                if (MapAssistConfiguration.Loaded.ItemLog.PlaySoundOnDrop)
+                {
+                    AudioPlayer.PlayItemAlert();
+                }
+                ItemUnitHashesSeen[processId].Add(unit.ItemHash());
+                ItemUnitIdsSeen[processId].Add(unit.UnitId);
+                ItemLog[processId].Add(unit);
+                var timer = new Timer(MapAssistConfiguration.Loaded.ItemLog.DisplayForSeconds * 1000);
+                timer.Elapsed += (sender, args) => ItemLogTimerElapsed(sender, args, timer, processId);
+                timer.Start();
+            }
+        }
 
         public static void ItemLogTimerElapsed(object sender, ElapsedEventArgs args, Timer self, int procId)
         {

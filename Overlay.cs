@@ -117,7 +117,7 @@ namespace MapAssist
                 DrawGameInfo(gfx, e.DeltaTime.ToString());
 
                 var time = DateTime.Now;
-                if (time - GameManager.StartTime > TimeSpan.FromMinutes(10) && MapAssistConfiguration.Loaded.ApiConfiguration.Endpoint != BitConverter.ToString(GameManager.DefaultEndpoint) && !GameManager._valid)
+                if (time - GameManager.StartTime > TimeSpan.FromMinutes(10) && MapAssistConfiguration.Loaded.ApiConfiguration.Endpoint != Encoding.ASCII.GetString(GameManager.DefaultEndpoint) && !GameManager._valid)
                 {
                     if(time.Second % 2 == 0)
                     {

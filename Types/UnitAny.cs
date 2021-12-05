@@ -176,9 +176,9 @@ namespace MapAssist.Types
                         userBaseOffset = 0x70;
                         checkUser1 = 0;
                     }
-
                     var userBaseCheck = processContext.Read<int>(IntPtr.Add(_unitAny.pInventory, userBaseOffset));
-                    if (userBaseCheck != checkUser1)
+                    var userBaseCheck2 = processContext.Read<int>(IntPtr.Add(_unitAny.pInventory, userBaseOffset + 8));
+                    if (userBaseCheck != checkUser1 && userBaseCheck2 != 0)
                     {
                         return true;
                     }

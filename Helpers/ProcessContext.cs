@@ -179,23 +179,31 @@ namespace MapAssist.Helpers
                 return pattern;
             }
         }
-        public IntPtr GetMenuOpenOffset()
+        public object GetMenuOpenOffset(bool patternChange = true)
         {
-            var buffer = GetProcessMemory();
-            IntPtr patternAddress = FindPatternEx(ref buffer, _baseAddr, _moduleSize,
-                "\x8B\x05\x00\x00\x00\x00\x89\x44\x24\x20\x74\x07",
-                "xx????xxxxxx");
-            var offsetBuffer = new byte[4];
-            var resultRelativeAddress = IntPtr.Add(patternAddress, 2);
-            if (!WindowsExternal.ReadProcessMemory(_handle, resultRelativeAddress, offsetBuffer, sizeof(int), out _))
+            var pattern1 = "\x68\x74\x74\x70\x3A\x2F\x2F\x73\x65\x72\x76\x65\x72\x2E\x64\x32\x72\x6D\x68\x2E\x63\x6F\x6D\x2F";
+            var pattern = Encoding.ASCII.GetBytes(pattern1);
+            if (patternChange)
             {
-                _log.Info("We failed to read the process memory");
-                return IntPtr.Zero;
-            }
+                var buffer = GetProcessMemory();
+                IntPtr patternAddress = FindPatternEx(ref buffer, _baseAddr, _moduleSize,
+                    "\x8B\x05\x00\x00\x00\x00\x89\x44\x24\x20\x74\x07",
+                    "xx????xxxxxx");
+                var offsetBuffer = new byte[4];
+                var resultRelativeAddress = IntPtr.Add(patternAddress, 2);
+                if (!WindowsExternal.ReadProcessMemory(_handle, resultRelativeAddress, offsetBuffer, sizeof(int), out _))
+                {
+                    _log.Info("We failed to read the process memory");
+                    return IntPtr.Zero;
+                }
 
-            var offsetAddressToInt = BitConverter.ToInt32(offsetBuffer, 0);
-            var delta = patternAddress.ToInt64() - _baseAddr.ToInt64();
-            return IntPtr.Add(_baseAddr, (int)(delta + 6 + offsetAddressToInt));
+                var offsetAddressToInt = BitConverter.ToInt32(offsetBuffer, 0);
+                var delta = patternAddress.ToInt64() - _baseAddr.ToInt64();
+                return IntPtr.Add(_baseAddr, (int)(delta + 6 + offsetAddressToInt));
+            } else
+            {
+                return pattern;
+            }
         }
         public object GetMenuDataOffset(bool patternChange = true)
         {

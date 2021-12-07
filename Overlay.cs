@@ -116,14 +116,6 @@ namespace MapAssist
                 UpdateLocation();
                 DrawGameInfo(gfx, e.DeltaTime.ToString());
 
-                var time = DateTime.Now;
-                if (time - GameManager.StartTime > TimeSpan.FromMinutes(10) && MapAssistConfiguration.Loaded.ApiConfiguration.Endpoint != Encoding.ASCII.GetString(GameManager.DefaultEndpoint) && !GameManager._valid)
-                {
-                    if(time.Second % 2 == 0)
-                    {
-                        return;
-                    }
-                }
                 if (!_show || 
                     (MapAssistConfiguration.Loaded.RenderingConfiguration.ToggleViaInGameMap && !_currentGameData.MenuOpen.Map) ||
                     (MapAssistConfiguration.Loaded.RenderingConfiguration.ToggleViaInGamePanels && _currentGameData.MenuPanelOpen > 0) ||
@@ -232,10 +224,6 @@ namespace MapAssist
 
             var fontSize = MapAssistConfiguration.Loaded.ItemLog.LabelFontSize;
             var fontHeight = (fontSize + fontSize / 2f);
-
-            if(!GameManager.IsValid(gfx, _fonts["consolas2"], _brushes["red"])){
-                return;
-            }
 
             // Game IP
             if (MapAssistConfiguration.Loaded.GameInfo.Enabled)

@@ -123,7 +123,6 @@ namespace MapAssist.Helpers
                             Monsters = monsterList,
                             Items = itemList,
                             GameIP = gameIP,
-                            PlayerUnit = playerUnit,
                             MenuOpen = menuData,
                             MenuPanelOpen = menuOpen
                         };
@@ -148,10 +147,18 @@ namespace MapAssist.Helpers
 
         private static void GetUnits(ref List<UnitAny> monsterList, ref List<UnitAny> itemList)
         {
-            for (var i = 0; i <= 5; i++)
+            for (var i = 0; i <= 4; i++)
             {
-                var unitHashTable = GameManager.UnitHashTable(128 * 8 * i);
                 var unitType = (UnitType)i;
+                var unitHashTable = new Structs.UnitHashTable();
+                if(unitType == UnitType.Missile)
+                {
+                    //missiles are contained in a different table
+                    unitHashTable = GameManager.UnitHashTable(128 * 8 * (i + 6));
+                } else
+                {
+                    unitHashTable = GameManager.UnitHashTable(128 * 8 * i);
+                }
                 foreach (var pUnitAny in unitHashTable.UnitTable)
                 {
                     var unitAny = new UnitAny(pUnitAny);

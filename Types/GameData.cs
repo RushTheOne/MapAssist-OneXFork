@@ -35,7 +35,6 @@ namespace MapAssist.Types
         public List<UnitAny> Monsters;
         public List<UnitAny> Items;
         public string GameIP;
-        public UnitAny PlayerUnit;
         public byte MenuPanelOpen;
         public MenuData MenuOpen;
 

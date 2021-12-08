@@ -38,6 +38,7 @@ namespace MapAssist.Types
         public UnitAny PlayerUnit;
         public byte MenuPanelOpen;
         public MenuData MenuOpen;
+        public bool SeedCorrect;
 
         public bool HasGameChanged(GameData other)
         {

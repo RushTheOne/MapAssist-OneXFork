@@ -46,8 +46,6 @@ namespace MapAssist.Helpers
         private static IntPtr _GameIPOffset;
         private static IntPtr _MenuPanelOpenOffset;
         private static IntPtr _MenuDataOffset;
-        public static DateTime StartTime = DateTime.Now;
-        public static bool _valid = false;
 
         private static WindowsExternal.WinEventDelegate _eventDelegate = null;
 
@@ -186,7 +184,6 @@ namespace MapAssist.Helpers
             {
                 if (_UnitHashTableOffset == IntPtr.Zero)
                 {
-
                     _UnitHashTableOffset = processContext.GetUnitHashtableOffset();
                 }
 

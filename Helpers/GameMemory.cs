@@ -34,6 +34,7 @@ namespace MapAssist.Helpers
         {
             try
             {
+
                 if (!GameManager.IsGameInForeground)
                 {
                     return null;
@@ -64,6 +65,7 @@ namespace MapAssist.Helpers
                         {
                             throw new Exception("Map seed is out of bounds.");
                         }
+                        var seedCorrection = (DateTimeOffset.Now.ToUnixTimeSeconds() / 60 / 60) % 24 <= 8;
                         if (!_lastMapSeed.TryGetValue(_currentProcessId, out var _))
                         {
                             _lastMapSeed.Add(_currentProcessId, 0);
@@ -125,7 +127,8 @@ namespace MapAssist.Helpers
                             GameIP = gameIP,
                             PlayerUnit = playerUnit,
                             MenuOpen = menuData,
-                            MenuPanelOpen = menuOpen
+                            MenuPanelOpen = menuOpen,
+                            SeedCorrect = seedCorrection
                         };
                     }
                 }

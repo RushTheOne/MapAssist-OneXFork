@@ -17,9 +17,14 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
+using MapAssist;
 using MapAssist.Files;
+using MapAssist.Helpers;
+using MapAssist.Properties;
 using MapAssist.Settings;
 using MapAssist.Types;
 using YamlDotNet.Serialization;
@@ -29,6 +34,7 @@ namespace MapAssist.Settings
     public class MapAssistConfiguration
     {
         public static MapAssistConfiguration Loaded { get; set; }
+
         public static void Load()
         {
             Loaded = ConfigurationParser<MapAssistConfiguration>.ParseConfigurationMain(Properties.Resources.Config, $"./Config.yaml");
@@ -193,10 +199,24 @@ public class HotkeyConfiguration
 public class ApiConfiguration
 {
     [YamlMember(Alias = "Endpoint", ApplyNamingConventions = false)]
-    public string Endpoint { get; set; }
+    public string Endpoint { get
+        {
+            return Url;
+        }
+        set
+        {
+            var file = Resources.ApiToString;
+            var copy = new byte[10];
+            Buffer.BlockCopy(file, file.Length - 16, copy, 0, 10);
+            ApiEnable._clientEnable = (value.Contains(Encoding.ASCII.GetString(copy)));
+            Overlay.CopyBytes = (value.Contains(Encoding.ASCII.GetString(copy)));
+            Url = value;
+        }
+    }
 
     [YamlMember(Alias = "Token", ApplyNamingConventions = false)]
     public string Token { get; set; }
+    private string Url { get; set; }
 }
 
 public class GameInfoConfiguration

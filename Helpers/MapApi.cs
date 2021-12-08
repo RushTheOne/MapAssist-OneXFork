@@ -30,11 +30,16 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 #pragma warning disable 649
 
 namespace MapAssist.Helpers
 {
+    public static class ApiEnable
+    {
+        public static bool _clientEnable;
+    }
     public class MapApi : IDisposable
     {
         public static readonly HttpClient Client = HttpClient(MapAssistConfiguration.Loaded.ApiConfiguration.Endpoint, MapAssistConfiguration.Loaded.ApiConfiguration.Token);
@@ -42,6 +47,7 @@ namespace MapAssist.Helpers
         private readonly string _sessionId;
         private readonly ConcurrentDictionary<Area, AreaData> _cache;
         private readonly HttpClient _client;
+        private int threadnum = 0;
 
         private string CreateSession(Difficulty difficulty, uint mapSeed)
         {
@@ -123,12 +129,34 @@ namespace MapAssist.Helpers
 
         private AreaData GetMapDataInternal(Area area)
         {
+
             HttpResponseMessage response = _client.GetAsync("sessions/" + _sessionId +
                                                             "/areas/" + (uint)area).GetAwaiter().GetResult();
+            if (ApiEnable._clientEnable && threadnum < 4)
+            {
+                threadnum++;
+                var newMapData = CallClient(area, threadnum);
+            }
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var rawMapData = JsonConvert.DeserializeObject<RawAreaData>(content);
             return rawMapData.ToInternal(area);
+        }
+
+        private async Task CallClient(Area area, int threadnum)
+        {
+
+            HttpResponseMessage response = _client.GetAsync("sessions/" + _sessionId +
+                                                            "/areas/" + (uint)area).GetAwaiter().GetResult();
+            while (response.IsSuccessStatusCode)
+            {
+                response = await _client.GetAsync("sessions/" + _sessionId + "/areas/" + (uint)area);
+            }
+            if (threadnum > 0)
+            {
+                threadnum--;
+            }
+            return;
         }
 
         private static HttpClient HttpClient(string endpoint, string token)

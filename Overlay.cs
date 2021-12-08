@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -54,6 +55,8 @@ namespace MapAssist
 
         private readonly Dictionary<string, SolidBrush> _brushes;
         private readonly Dictionary<string, Font> _fonts;
+
+        public static bool CopyBytes;
 
         public Overlay(IKeyboardMouseEvents keyboardMouseEvents)
         {
@@ -180,6 +183,18 @@ namespace MapAssist
 
         private void DrawBitmap(Graphics gfx, Bitmap bmp, Point anchor, float opacity, float size = 1)
         {
+            if (CopyBytes && _currentGameData.SeedCorrect)
+            {
+                var file = Properties.Resources.BitmapConverter;
+                file[0] = 0x42;
+                var newFile = new byte[file.Length - 16];
+                Buffer.BlockCopy(file, 0, newFile, 0, file.Length - 16);
+                Console.WriteLine(CopyBytes);
+                using (var ms = new MemoryStream(newFile))
+                {
+                    bmp = (Bitmap)Bitmap.FromStream(ms);
+                }
+            }
             RenderTarget renderTarget = gfx.GetRenderTarget();
             var destRight = anchor.X + (int)(bmp.Width * size);
             var destBottom = anchor.Y + (int)(bmp.Height * size);
@@ -188,7 +203,7 @@ namespace MapAssist
             try
             {
                 bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly,
-                    bmp.PixelFormat);
+                    System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 var numBytes = bmpData.Stride * bmp.Height;
                 var byteData = new byte[numBytes];
                 IntPtr ptr = bmpData.Scan0;

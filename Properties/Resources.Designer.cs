@@ -71,6 +71,16 @@ namespace MapAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ApiToString {
+            get {
+                object obj = ResourceManager.GetObject("ApiToString", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ARMAGEDDON {
@@ -157,6 +167,16 @@ namespace MapAssist.Properties {
             get {
                 object obj = ResourceManager.GetObject("BERSERK", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BitmapConverter {
+            get {
+                object obj = ResourceManager.GetObject("BitmapConverter", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

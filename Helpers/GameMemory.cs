@@ -85,8 +85,7 @@ namespace MapAssist.Helpers
                             }
                         }
 
-                        var gameIPLength = processContext.Read<byte>(GameManager.GameIPOffset - 16);
-                        var gameIP = Encoding.ASCII.GetString(processContext.Read<byte>(GameManager.GameIPOffset, gameIPLength));
+                        var session = new Session(GameManager.GameIPOffset);
 
                         var menuOpen = processContext.Read<byte>(GameManager.MenuOpenOffset);
                         var menuData = processContext.Read<Structs.MenuData>(GameManager.MenuDataOffset);
@@ -122,7 +121,7 @@ namespace MapAssist.Helpers
                             PlayerName = playerUnit.Name,
                             Monsters = monsterList,
                             Items = itemList,
-                            GameIP = gameIP,
+                            Session = session,
                             PlayerUnit = playerUnit,
                             MenuOpen = menuData,
                             MenuPanelOpen = menuOpen

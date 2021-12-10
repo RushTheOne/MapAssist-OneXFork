@@ -158,12 +158,12 @@ namespace MapAssist.Helpers
             // Game IP
             if (MapAssistConfiguration.Loaded.GameInfo.Enabled)
             {
-                var fontColor = gameData.GameIP == MapAssistConfiguration.Loaded.HuntingIP ? Color.Green : Color.Red;
+                var fontColor = gameData.Session.GameIP == MapAssistConfiguration.Loaded.HuntingIP ? Color.Green : Color.Red;
 
                 var font = CreateFont(gfx, "Consolas", 14);
                 var brush = CreateSolidBrush(gfx, fontColor);
 
-                var ipText = "Game IP: " + gameData.GameIP;
+                var ipText = "Game IP: " + gameData.Session.GameIP;
                 gfx.DrawText(font, brush, anchor.ToGameOverlayPoint(), ipText);
               
                 anchor.Y += fontHeight + 5;

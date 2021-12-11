@@ -427,9 +427,11 @@ namespace MapAssist.Helpers
 
                 foreach (var player in gameData.Roster.List)
                 {
+                    var myPlayer = player.UnitId == myPlayerEntry.UnitId;
+                    var inMyParty = player.PartyID == myPlayerEntry.PartyID;
                     var playerName = player.Name;
                     var stringSize = new GameOverlay.Drawing.Point(0, 0);
-                    if (player.PartyID == myPlayerEntry.PartyID)
+                    if (inMyParty)
                     {
                         if (canDrawLabel)
                         {
@@ -460,24 +462,21 @@ namespace MapAssist.Helpers
                     {
                         //use data from the unit table if available
                         var playerUnitPosition = PointPosition(playerUnit.Position).Add(anchor);
-                        if (player.PartyID == myPlayerEntry.PartyID && player.PartyID < ushort.MaxValue) //partyid is max if player is not in a party
+                        if (inMyParty && player.PartyID < ushort.MaxValue) //partyid is max if player is not in a party
                         {
                             if (canDrawIcon)
                             {
                                 DrawIcon(gfx, renderPartyIcon, playerUnitPosition);
                             }
-                            if (canDrawLabel)
+                            if (canDrawLabel && !myPlayer)
                             {
-                                if (myPlayerEntry.UnitId != player.UnitId)
-                                {
-                                    color = MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelColor;
-                                    var brush = CreateSolidBrush(gfx, color, 1);
-                                    gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
-                                }
+                                color = MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelColor;
+                                var brush = CreateSolidBrush(gfx, color, 1);
+                                gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
                             }
                         } else
                         {
-                            if (myPlayerEntry.UnitId != player.UnitId)
+                            if (!myPlayer)
                             {
                                 if (canDrawNonPartyIcon)
                                 {
@@ -490,14 +489,11 @@ namespace MapAssist.Helpers
                                     DrawIcon(gfx, renderPartyIcon, playerUnitPosition);
                                 }
                             }
-                            if (canDrawNonPartyLabel)
+                            if (canDrawNonPartyLabel && !myPlayer)
                             {
-                                if (myPlayerEntry.UnitId != player.UnitId)
-                                {
-                                    color = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelColor;
-                                    var brush = CreateSolidBrush(gfx, color, 1);
-                                    gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + nonPartyIconShape.Height)).ToGameOverlayPoint(), playerName);
-                                }
+                                color = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelColor;
+                                var brush = CreateSolidBrush(gfx, color, 1);
+                                gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + nonPartyIconShape.Height)).ToGameOverlayPoint(), playerName);
                             }
                         }
                     }
@@ -505,21 +501,18 @@ namespace MapAssist.Helpers
                     {
                         //otherwise use the data from the roster
                         //only draw if in the same party, otherwise position/area data will not be up to date
-                        if (player.PartyID == myPlayerEntry.PartyID && player.PartyID < ushort.MaxValue)
+                        if (inMyParty && player.PartyID < ushort.MaxValue)
                         {
                             var playerUnitPosition = PointPosition(player.Position).Add(anchor);
                             if (canDrawIcon)
                             {
                                 DrawIcon(gfx, renderPartyIcon, playerUnitPosition);
                             }
-                            if (canDrawLabel)
+                            if (canDrawLabel && !myPlayer)
                             {
-                                if (myPlayerEntry.UnitId != player.UnitId)
-                                {
-                                    color = MapAssistConfiguration.Loaded.MapConfiguration.Player.IconColor;
-                                    var brush = CreateSolidBrush(gfx, color, 1);
-                                    gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
-                                }
+                                color = MapAssistConfiguration.Loaded.MapConfiguration.Player.IconColor;
+                                var brush = CreateSolidBrush(gfx, color, 1);
+                                gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
                             }
                         }
                     }

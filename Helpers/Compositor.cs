@@ -286,7 +286,7 @@ namespace MapAssist.Helpers
             }
             foreach(var gameObject in gameData.Objects)
             {
-                if (gameObject.IsShrine())
+                if (MapAssistConfiguration.Loaded.MapConfiguration.Shrine.CanDrawLabel() && gameObject.IsShrine())
                 {
                     var font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelFontSize);
                     var brush = CreateSolidBrush(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelColor, 1);

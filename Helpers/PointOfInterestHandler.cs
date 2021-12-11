@@ -369,7 +369,8 @@ namespace MapAssist.Helpers
                         {
                             Label = obj.ToString(),
                             Position = point,
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Shrine
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Shrine,
+                            Type = PoiType.Shrine
                         });
                     }
                 }

@@ -177,6 +177,10 @@ namespace MapAssist.Helpers
             GameObject.DesertShrine4,
             GameObject.DesertShrine5,
             GameObject.SteleDesertMagicShrine,
+            GameObject.JungleShrine2,
+            GameObject.JungleShrine3,
+            GameObject.JungleShrine4,
+            GameObject.JungleShrine5,
         };
 
         public static List<PointOfInterest> Get(MapApi mapApi, AreaData areaData)
@@ -210,7 +214,8 @@ namespace MapAssist.Helpers
                         {
                             Label = realTomb.Name(),
                             Position = areaData.AdjacentLevels[realTomb].Exits[0],
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NextArea
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NextArea,
+                            Type = PoiType.NextArea
                         });
                     }
 
@@ -230,7 +235,8 @@ namespace MapAssist.Helpers
                                 {
                                     Label = nextArea.Name(),
                                     Position = nextLevel.Exits[0],
-                                    RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NextArea
+                                    RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NextArea,
+                                    Type = PoiType.NextArea
                                 });
                             }
                         }
@@ -246,7 +252,8 @@ namespace MapAssist.Helpers
                                     {
                                         Label = nextArea.Name(),
                                         Position = nextLevel.Exits[0],
-                                        RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NextArea
+                                        RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NextArea,
+                                        Type = PoiType.NextArea
                                     });
                                 }
                             }
@@ -264,7 +271,8 @@ namespace MapAssist.Helpers
                                 {
                                     Label = questArea.Name(),
                                     Position = questLevel.Exits[0],
-                                    RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest
+                                    RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest,
+                                    Type = PoiType.Quest
                                 });
                             }
                         }
@@ -284,7 +292,8 @@ namespace MapAssist.Helpers
                                 {
                                     Label = level.Area.Name(),
                                     Position = position,
-                                    RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.PreviousArea
+                                    RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.PreviousArea,
+                                    Type = PoiType.PreviousArea
                                 });
                             }
                         }
@@ -292,7 +301,6 @@ namespace MapAssist.Helpers
 
                     break;
             }
-
             foreach (KeyValuePair<GameObject, Point[]> objAndPoints in areaData.Objects)
             {
                 GameObject obj = objAndPoints.Key;
@@ -310,7 +318,8 @@ namespace MapAssist.Helpers
                     {
                         Label = obj.ToString(),
                         Position = points[0],
-                        RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Waypoint
+                        RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Waypoint,
+                        Type = PoiType.Waypoint
                     });
                 }
                 // Quest objects
@@ -332,7 +341,8 @@ namespace MapAssist.Helpers
                         {
                             Label = AreaSpecificQuestObjects[areaData.Area][obj],
                             Position = points[0],
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest,
+                            Type = PoiType.AreaSpecificQuest
                         });
                     }
                 }
@@ -345,7 +355,8 @@ namespace MapAssist.Helpers
                         {
                             Label = AreaSpecificLandmarks[areaData.Area][obj],
                             Position = points[0],
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.PreviousArea
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.PreviousArea,
+                            Type = PoiType.AreaSpecificLandmark
                         });
                     }
                 }
@@ -371,7 +382,8 @@ namespace MapAssist.Helpers
                         {
                             Label = obj.ToString(),
                             Position = point,
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.SuperChest
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.SuperChest,
+                            Type = PoiType.SuperChest
                         });
                     }
                 }
@@ -384,7 +396,8 @@ namespace MapAssist.Helpers
                         {
                             Label = obj.ToString(),
                             Position = point,
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NormalChest
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.NormalChest,
+                            Type = PoiType.NormalChest
                         });
                     }
                 }
@@ -397,7 +410,8 @@ namespace MapAssist.Helpers
                         {
                             Label = obj.ToString(),
                             Position = point,
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.ArmorWeapRack
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.ArmorWeapRack,
+                            Type = PoiType.ArmorWeapRack
                         });
                     }
                 }

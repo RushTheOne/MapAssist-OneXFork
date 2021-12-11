@@ -258,7 +258,7 @@ namespace MapAssist
         private static void LootFilter(object sender, EventArgs e)
         {
             var _path = AppDomain.CurrentDomain.BaseDirectory;
-            Process.Start(_path + "\\ItemFilter.yaml");
+            Process.Start(_path + "\\" + MapAssistConfiguration.Loaded.ItemLog.FilterFileName);
         }
 
         private static void Dispose()

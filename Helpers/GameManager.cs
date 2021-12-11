@@ -39,11 +39,9 @@ namespace MapAssist.Helpers
         private static IntPtr _UnitHashTableOffset;
         private static IntPtr _ExpansionCheckOffset;
         private static IntPtr _GameIPOffset;
-        private static byte[] _EndpointOffset;
         private static IntPtr _MenuPanelOpenOffset;
         private static IntPtr _MenuDataOffset;
-        private static byte[] _ExtraMenuDataOffset;
-        private static byte[] _SpecialOffset;
+        private static IntPtr _RosterDataOffset;
         public static DateTime StartTime = DateTime.Now;
         public static bool _valid = false;
 
@@ -221,7 +219,6 @@ namespace MapAssist.Helpers
                 using (var processContext = GetProcessContext())
                 {
                     _GameIPOffset = (IntPtr)processContext.GetGameIPOffset();
-                    _EndpointOffset = (byte[])processContext.GetGameIPOffset(false);
 
                 }
 
@@ -240,7 +237,6 @@ namespace MapAssist.Helpers
                 using (var processContext = GetProcessContext())
                 {
                     _MenuPanelOpenOffset = (IntPtr)processContext.GetMenuOpenOffset();
-                    _SpecialOffset = (byte[])processContext.GetMenuOpenOffset(false);
                 }
 
                 return _MenuPanelOpenOffset;
@@ -258,10 +254,26 @@ namespace MapAssist.Helpers
                 using (var processContext = GetProcessContext())
                 {
                     _MenuDataOffset = (IntPtr)processContext.GetMenuDataOffset();
-                    _ExtraMenuDataOffset = (byte[])processContext.GetMenuDataOffset(false);
                 }
 
                 return _MenuDataOffset;
+            }
+        }
+        public static IntPtr RosterDataOffset
+        {
+            get
+            {
+                if (_RosterDataOffset != IntPtr.Zero)
+                {
+                    return _RosterDataOffset;
+                }
+
+                using (var processContext = GetProcessContext())
+                {
+                    _RosterDataOffset = processContext.GetRosterDataOffset();
+                }
+
+                return _RosterDataOffset;
             }
         }
 
@@ -273,11 +285,8 @@ namespace MapAssist.Helpers
             _GameIPOffset = IntPtr.Zero;
             _MenuPanelOpenOffset = IntPtr.Zero;
             _MenuDataOffset = IntPtr.Zero;
+            _RosterDataOffset = IntPtr.Zero;
         }
-
-        public static byte[] ExtraMenuData => _ExtraMenuDataOffset;
-        public static byte[] DefaultEndpoint => _EndpointOffset;
-        public static byte[] SpecialOffset => _SpecialOffset;
         
         public static void Dispose()
         {

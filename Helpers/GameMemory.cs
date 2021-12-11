@@ -117,8 +117,11 @@ namespace MapAssist.Helpers
                         var monsterList = new List<UnitAny>();
                         var itemList = new List<UnitAny>();
                         var objectList = new List<UnitAny>();
-                        GetUnits(ref monsterList, ref itemList, ref objectList);
+                        var playerList = new Dictionary<uint, UnitAny>();
+                        GetUnits(ref monsterList, ref itemList, ref playerList, ref objectList);
                         Items.CurrentItemLog = Items.ItemLog[_currentProcessId];
+
+                        var roster = new Roster(GameManager.RosterDataOffset);
 
                         return new GameData
                         {
@@ -131,7 +134,9 @@ namespace MapAssist.Helpers
                             Monsters = monsterList,
                             Items = itemList,
                             Objects = objectList,
+                            Players = playerList,
                             Session = session,
+                            Roster = roster,
                             PlayerUnit = playerUnit,
                             MenuOpen = menuData,
                             MenuPanelOpen = menuOpen
@@ -155,7 +160,7 @@ namespace MapAssist.Helpers
             return null;
         }
 
-        private static void GetUnits(ref List<UnitAny> monsterList, ref List<UnitAny> itemList, ref List<UnitAny> objectList)
+        private static void GetUnits(ref List<UnitAny> monsterList, ref List<UnitAny> itemList, ref Dictionary<uint, UnitAny> playerList, ref List<UnitAny> objectList)
         {
             for (var i = 0; i <= 4; i++)
             {
@@ -192,6 +197,12 @@ namespace MapAssist.Helpers
                                 if (!objectList.Contains(unitAny))
                                 {
                                     objectList.Add(unitAny);
+                                }
+                                break;
+                            case UnitType.Player:
+                                if (!playerList.TryGetValue(unitAny.UnitId, out var _))
+                                {
+                                    playerList.Add(unitAny.UnitId, unitAny);
                                 }
                                 break;
                         }

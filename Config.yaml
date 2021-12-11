@@ -97,10 +97,21 @@ MapConfiguration:
     LabelFontSize: 16
     LabelFont: 'Helvetica'
   Player:
-    IconColor: '255, 255, 0'
+    IconColor: Chartreuse
     IconShape: Cross
     IconSize: 6
     IconThickness: 2
+    LabelColor: Chartreuse
+    LabelFontSize: 16
+    LabelFont: 'Helvetica'
+  NonPartyPlayer:
+    IconColor: Orange
+    IconShape: Cross
+    IconSize: 6
+    IconThickness: 2
+    LabelColor: Orange
+    LabelFontSize: 16
+    LabelFont: 'Helvetica'
   SuperChest:
     IconColor: '17, 255, 0'
     IconShape: Square

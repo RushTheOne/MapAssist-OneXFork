@@ -115,6 +115,9 @@ namespace MapAssist.Settings
         [YamlMember(Alias = "Player", ApplyNamingConventions = false)]
         public PointOfInterestRendering Player { get; set; }
 
+        [YamlMember(Alias = "NonPartyPlayer", ApplyNamingConventions = false)]
+        public PointOfInterestRendering NonPartyPlayer { get; set; }
+
         [YamlMember(Alias = "SuperChest", ApplyNamingConventions = false)]
         public PointOfInterestRendering SuperChest { get; set; }
 

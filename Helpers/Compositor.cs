@@ -286,15 +286,18 @@ namespace MapAssist.Helpers
             }
             foreach(var gameObject in gameData.Objects)
             {
-                if (MapAssistConfiguration.Loaded.MapConfiguration.Shrine.CanDrawLabel() && gameObject.IsShrine())
+                if (gameObject.IsShrine())
                 {
-                    var font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelFontSize);
-                    var brush = CreateSolidBrush(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelColor, 1);
-                    var shrineLabel = Enum.GetName(typeof(ShrineType), gameObject.ObjectData.InteractType);
-                    var stringSize = gfx.MeasureString(font, shrineLabel);
-                    var iconShape = GetIconShape(MapAssistConfiguration.Loaded.MapConfiguration.Shrine).ToSizeF();
                     var position = AdjustedPoint(gameObject.Position).Add(anchor);
-                    gfx.DrawText(font, brush, position.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + iconShape.Height)).ToGameOverlayPoint(), shrineLabel);
+                    if (MapAssistConfiguration.Loaded.MapConfiguration.Shrine.CanDrawLabel())
+                    {
+                        var font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelFontSize);
+                        var brush = CreateSolidBrush(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine.LabelColor, 1);
+                        var shrineLabel = Enum.GetName(typeof(ShrineType), gameObject.ObjectData.InteractType);
+                        var stringSize = gfx.MeasureString(font, shrineLabel);
+                        var iconShape = GetIconShape(MapAssistConfiguration.Loaded.MapConfiguration.Shrine).ToSizeF();
+                        gfx.DrawText(font, brush, position.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + iconShape.Height)).ToGameOverlayPoint(), shrineLabel);
+                    }
                     if (MapAssistConfiguration.Loaded.MapConfiguration.Shrine.CanDrawIcon())
                     {
                         DrawIcon(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine, position);

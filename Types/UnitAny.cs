@@ -166,7 +166,7 @@ namespace MapAssist.Types
         }
         public bool IsValidUnit()
         {
-            return _unitAny.pUnitData != IntPtr.Zero && _unitAny.pUnitData != IntPtr.Zero && _unitAny.UnitType <= UnitType.Tile;
+            return _unitAny.pUnitData != IntPtr.Zero && _unitAny.pUnitData != IntPtr.Zero && _unitAny.pPath != IntPtr.Zero && _unitAny.UnitType <= UnitType.Tile;
         }
 
         public bool IsPlayer()
@@ -200,7 +200,7 @@ namespace MapAssist.Types
         }
         public bool IsShrine()
         {
-            if(UnitType == UnitType.Object && _objectData.pShrineTxt != IntPtr.Zero)
+            if(UnitType == UnitType.Object && _objectData.pShrineTxt != IntPtr.Zero && _objectData.InteractType <= (byte)ShrineType.Poison)
             {
                 return true;
             }

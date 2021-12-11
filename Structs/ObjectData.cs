@@ -33,8 +33,8 @@ namespace MapAssist.Structs
     {
         None,
         Refill,
-        HPFill,
-        ManaFill,
+        Health,
+        Mana,
         HPXChange,
         ManaXChange,
         Armor,
@@ -50,9 +50,9 @@ namespace MapAssist.Structs
         Shrine,
         Portal,
         Gem,
-        Storm,
+        Fire,
         Monster,
-        Explosion,
+        Explosive,
         Poison
     };
 }

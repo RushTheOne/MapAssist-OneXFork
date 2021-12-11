@@ -410,19 +410,40 @@ namespace MapAssist.Helpers
             {
                 var renderPartyIcon = new PointOfInterestRendering();
                 var renderNonPartyIcon = new PointOfInterestRendering();
-                var color = new Color();
-                GameOverlay.Drawing.Font font = null;
+                var partyColor = new Color();
+                var nonPartyColor = new Color();
+                GameOverlay.Drawing.Font partyFont = null;
+                GameOverlay.Drawing.Font nonPartyFont = null;
+                GameOverlay.Drawing.SolidBrush partyBrush = null;
+                GameOverlay.Drawing.SolidBrush nonPartyBrush = null;
                 var canDrawIcon = MapAssistConfiguration.Loaded.MapConfiguration.Player.CanDrawIcon();
                 var canDrawLabel = MapAssistConfiguration.Loaded.MapConfiguration.Player.CanDrawLabel();
                 var canDrawNonPartyIcon = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.CanDrawIcon();
                 var canDrawNonPartyLabel = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.CanDrawLabel();
+                var partyIconShape = new SizeF();
+                var nonPartyIconShape = new SizeF();
+
                 if (canDrawIcon)
                 {
                     renderPartyIcon = MapAssistConfiguration.Loaded.MapConfiguration.Player;
+                    partyIconShape = GetIconShape(renderPartyIcon).ToSizeF();
                 }
                 if (canDrawNonPartyIcon)
                 {
                     renderNonPartyIcon = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer;
+                    nonPartyIconShape = GetIconShape(renderNonPartyIcon).ToSizeF();
+                }
+                if (canDrawLabel)
+                {
+                    partyColor = MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelColor;
+                    partyBrush = CreateSolidBrush(gfx, partyColor, 1);
+                    partyFont = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelFontSize);
+                }
+                if (canDrawNonPartyLabel)
+                {
+                    nonPartyColor = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelColor;
+                    nonPartyBrush = CreateSolidBrush(gfx, nonPartyColor, 1);
+                    nonPartyFont = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelFontSize);
                 }
 
                 foreach (var player in gameData.Roster.List)
@@ -431,31 +452,19 @@ namespace MapAssist.Helpers
                     var inMyParty = player.PartyID == myPlayerEntry.PartyID;
                     var playerName = player.Name;
                     var stringSize = new GameOverlay.Drawing.Point(0, 0);
+
                     if (inMyParty)
                     {
                         if (canDrawLabel)
                         {
-                            font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelFontSize);
-                            stringSize = gfx.MeasureString(font, playerName);
+                            stringSize = gfx.MeasureString(partyFont, playerName);
                         }
                     } else
                     {
                         if (canDrawNonPartyLabel)
                         {
-                            font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelFontSize);
-                            stringSize = gfx.MeasureString(font, playerName);
+                            stringSize = gfx.MeasureString(nonPartyFont, playerName);
                         }
-                    }
-
-                    var partyIconShape = new SizeF();
-                    var nonPartyIconShape = new SizeF();
-                    if (canDrawIcon)
-                    {
-                        partyIconShape = GetIconShape(renderPartyIcon).ToSizeF();
-                    }
-                    if (canDrawNonPartyIcon)
-                    {
-                        nonPartyIconShape = GetIconShape(renderNonPartyIcon).ToSizeF();
                     }
 
                     if (gameData.Players.TryGetValue(player.UnitId, out var playerUnit))
@@ -470,9 +479,7 @@ namespace MapAssist.Helpers
                             }
                             if (canDrawLabel && !myPlayer)
                             {
-                                color = MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelColor;
-                                var brush = CreateSolidBrush(gfx, color, 1);
-                                gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
+                                gfx.DrawText(partyFont, partyBrush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
                             }
                         } else
                         {
@@ -491,9 +498,7 @@ namespace MapAssist.Helpers
                             }
                             if (canDrawNonPartyLabel && !myPlayer)
                             {
-                                color = MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelColor;
-                                var brush = CreateSolidBrush(gfx, color, 1);
-                                gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + nonPartyIconShape.Height)).ToGameOverlayPoint(), playerName);
+                                gfx.DrawText(nonPartyFont, nonPartyBrush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + nonPartyIconShape.Height)).ToGameOverlayPoint(), playerName);
                             }
                         }
                     }
@@ -510,9 +515,7 @@ namespace MapAssist.Helpers
                             }
                             if (canDrawLabel && !myPlayer)
                             {
-                                color = MapAssistConfiguration.Loaded.MapConfiguration.Player.IconColor;
-                                var brush = CreateSolidBrush(gfx, color, 1);
-                                gfx.DrawText(font, brush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
+                                gfx.DrawText(partyFont, partyBrush, playerUnitPosition.Subtract(stringSize.Center()).Subtract(new PointF(0, stringSize.Y / 2 + partyIconShape.Height)).ToGameOverlayPoint(), playerName);
                             }
                         }
                     }

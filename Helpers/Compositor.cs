@@ -427,22 +427,24 @@ namespace MapAssist.Helpers
 
                 foreach (var player in gameData.Roster.List)
                 {
+                    var playerName = player.Name;
+                    var stringSize = new GameOverlay.Drawing.Point(0, 0);
                     if (player.PartyID == myPlayerEntry.PartyID)
                     {
                         if (canDrawLabel)
                         {
                             font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.Player.LabelFontSize);
+                            stringSize = gfx.MeasureString(font, playerName);
                         }
                     } else
                     {
                         if (canDrawNonPartyLabel)
                         {
                             font = CreateFont(gfx, MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelFont, MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer.LabelFontSize);
+                            stringSize = gfx.MeasureString(font, playerName);
                         }
                     }
 
-                    var playerName = player.Name;
-                    var stringSize = gfx.MeasureString(font, playerName);
                     var partyIconShape = new SizeF();
                     var nonPartyIconShape = new SizeF();
                     if (canDrawIcon)
@@ -458,7 +460,7 @@ namespace MapAssist.Helpers
                     {
                         //use data from the unit table if available
                         var playerUnitPosition = PointPosition(playerUnit.Position).Add(anchor);
-                        if (player.PartyID == myPlayerEntry.PartyID && player.PartyID < 65535) //partyid is max if player is not in a party
+                        if (player.PartyID == myPlayerEntry.PartyID && player.PartyID < ushort.MaxValue) //partyid is max if player is not in a party
                         {
                             if (canDrawIcon)
                             {
@@ -503,7 +505,7 @@ namespace MapAssist.Helpers
                     {
                         //otherwise use the data from the roster
                         //only draw if in the same party, otherwise position/area data will not be up to date
-                        if (player.PartyID == myPlayerEntry.PartyID && player.PartyID < 65535)
+                        if (player.PartyID == myPlayerEntry.PartyID && player.PartyID < ushort.MaxValue)
                         {
                             var playerUnitPosition = PointPosition(player.Position).Add(anchor);
                             if (canDrawIcon)

@@ -195,7 +195,6 @@ namespace MapAssist.Helpers
         {
             if (poi.Type == PoiType.AreaSpecificLandmark)
             {
-                var poiInMemory = false;
                 foreach (var gameObject in _gameData.Objects)
                 {
                     if (gameObject.IsPortal())
@@ -203,14 +202,9 @@ namespace MapAssist.Helpers
                         var destination = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
                         if (destination == poi.Label)
                         {
-                            poiInMemory = true;
-                            break;
+                            return true;
                         }
                     }
-                }
-                if (poiInMemory)
-                {
-                    return true;
                 }
             }
             return false;

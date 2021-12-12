@@ -191,29 +191,11 @@ namespace MapAssist.Helpers
             renderTarget.PopAxisAlignedClip();
             ClearTransforms(gfx);
         }
-        private bool PoiMatchesPortal(PointOfInterest poi)
-        {
-            if (poi.Type == PoiType.AreaSpecificLandmark)
-            {
-                foreach (var gameObject in _gameData.Objects)
-                {
-                    if (gameObject.IsPortal())
-                    {
-                        var destination = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
-                        if (destination == poi.Label)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
         private void DrawPointsOfInterest(Graphics gfx)
         {
             foreach (var poi in _pointsOfInterest)
             {
-                if (PoiMatchesPortal(poi))
+                if (poi.PoiMatchesPortal(_gameData.Objects))
                 {
                     continue;
                 }
@@ -232,7 +214,7 @@ namespace MapAssist.Helpers
             {
                 if (!string.IsNullOrWhiteSpace(poi.Label) && poi.Type != PoiType.Shrine)
                 {
-                    if (PoiMatchesPortal(poi))
+                    if (poi.PoiMatchesPortal(_gameData.Objects))
                     {
                         continue;
                     }

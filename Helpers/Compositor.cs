@@ -191,11 +191,38 @@ namespace MapAssist.Helpers
             renderTarget.PopAxisAlignedClip();
             ClearTransforms(gfx);
         }
-
+        private bool PoiMatchesPortal(PointOfInterest poi)
+        {
+            if (poi.Type == PoiType.AreaSpecificLandmark)
+            {
+                var poiInMemory = false;
+                foreach (var gameObject in _gameData.Objects)
+                {
+                    if (gameObject.IsPortal())
+                    {
+                        var destination = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
+                        if (destination == poi.Label)
+                        {
+                            poiInMemory = true;
+                            break;
+                        }
+                    }
+                }
+                if (poiInMemory)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void DrawPointsOfInterest(Graphics gfx)
         {
             foreach (var poi in _pointsOfInterest)
             {
+                if (PoiMatchesPortal(poi))
+                {
+                    continue;
+                }
                 if (poi.RenderingSettings.CanDrawIcon())
                 {
                     DrawIcon(gfx, poi.RenderingSettings, poi.Position);
@@ -211,6 +238,10 @@ namespace MapAssist.Helpers
             {
                 if (!string.IsNullOrWhiteSpace(poi.Label) && poi.Type != PoiType.Shrine)
                 {
+                    if (PoiMatchesPortal(poi))
+                    {
+                        continue;
+                    }
                     if (poi.RenderingSettings.CanDrawLine() && poi.RenderingSettings.CanDrawLabel())
                     {
                         DrawText(gfx, poi.RenderingSettings, MovePointInBounds(poi.Position, _gameData.PlayerPosition), poi.Label);
@@ -237,6 +268,24 @@ namespace MapAssist.Helpers
 
                         DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine, gameObject.Position, label);
                     }
+                    continue;
+                }
+                if (gameObject.IsPortal())
+                {
+                    if (MapAssistConfiguration.Loaded.MapConfiguration.Portal.CanDrawIcon())
+                    {
+                        DrawIcon(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Portal, gameObject.Position);
+                    }
+                    if (MapAssistConfiguration.Loaded.MapConfiguration.Portal.CanDrawLabel())
+                    {
+                        var label = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
+                        if (gameObject.ObjectOwner.Length > 0)
+                        {
+                            label += "(" + gameObject.ObjectOwner + ")";
+                        }
+                        DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Portal, gameObject.Position, label);
+                    }
+                    continue;
                 }
             }
         }

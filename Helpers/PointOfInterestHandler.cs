@@ -17,6 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,19 +75,19 @@ namespace MapAssist.Helpers
             },
         };
 
-        private static readonly Dictionary<Area, Dictionary<GameObject, string>> AreaSpecificLandmarks = new Dictionary<Area, Dictionary<GameObject, string>>()
+        private static readonly Dictionary<Area, Dictionary<GameObject, Area>> AreaSpecificLandmarks = new Dictionary<Area, Dictionary<GameObject, Area>>()
         {
-            [Area.FrigidHighlands] = new Dictionary<GameObject, string>()
+            [Area.FrigidHighlands] = new Dictionary<GameObject, Area>()
             {
-                [GameObject.PermanentTownPortal] = "Abaddon",
+                [GameObject.PermanentTownPortal] = Area.Abaddon,
             },
-            [Area.ArreatPlateau] = new Dictionary<GameObject, string>()
+            [Area.ArreatPlateau] = new Dictionary<GameObject, Area>()
             {
-                [GameObject.PermanentTownPortal] = "Pit of Acheron",
+                [GameObject.PermanentTownPortal] = Area.PitOfAcheron,
             },
-            [Area.FrozenTundra] = new Dictionary<GameObject, string>()
+            [Area.FrozenTundra] = new Dictionary<GameObject, Area>()
             {
-                [GameObject.PermanentTownPortal] = "Infernal Pit",
+                [GameObject.PermanentTownPortal] = Area.InfernalPit,
             },
         };
 
@@ -375,9 +376,9 @@ namespace MapAssist.Helpers
                     {
                         pointOfInterest.Add(new PointOfInterest
                         {
-                            Label = AreaSpecificLandmarks[areaData.Area][obj],
+                            Label = Enum.GetName(typeof(Area), AreaSpecificLandmarks[areaData.Area][obj]),
                             Position = points[0],
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.PreviousArea,
+                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Portal,
                             Type = PoiType.AreaSpecificLandmark
                         });
                     }

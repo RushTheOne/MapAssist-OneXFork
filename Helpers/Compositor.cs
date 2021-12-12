@@ -191,6 +191,7 @@ namespace MapAssist.Helpers
             renderTarget.PopAxisAlignedClip();
             ClearTransforms(gfx);
         }
+
         private void DrawPointsOfInterest(Graphics gfx)
         {
             foreach (var poi in _pointsOfInterest)

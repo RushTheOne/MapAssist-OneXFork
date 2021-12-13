@@ -235,9 +235,9 @@ namespace MapAssist.Helpers
                     {
                         var label = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
                         if (string.IsNullOrWhiteSpace(label) || label == "None") continue;
-                        if (gameObject.ObjectOwner.Length > 0)
+                        if (gameObject.ObjectData.Owner.Length > 0)
                         {
-                            label += "(" + gameObject.ObjectOwner + ")";
+                            label += "(" + gameObject.ObjectData.Owner + ")";
                         }
                         DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Portal, gameObject.Position, label);
                     }

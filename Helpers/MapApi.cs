@@ -190,7 +190,7 @@ namespace MapAssist.Helpers
                 var gamePath = Path.Combine(path, "game.exe");
                 var version = FileVersionInfo.GetVersionInfo(gamePath);
                 return version.FileMajorPart == 1 && version.FileMinorPart == 0 && version.FileBuildPart == 13 &&
-                        version.FilePrivatePart == 60;
+                       version.FilePrivatePart == 60;
             }
             catch (Exception noGame)
             {
@@ -201,7 +201,7 @@ namespace MapAssist.Helpers
                     var gamePath = Path.Combine(path, "storm.dll");
                     var version = FileVersionInfo.GetVersionInfo(gamePath);
                     return version.FileMajorPart == 1999 && version.FileMinorPart == 11 && version.FileBuildPart == 18 &&
-                            version.FilePrivatePart == 1;
+                           version.FilePrivatePart == 1;
                 }
                 catch (Exception noStorm)
                 {

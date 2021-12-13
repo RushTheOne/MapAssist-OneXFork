@@ -46,7 +46,6 @@ namespace MapAssist.Types
         private bool _isMonster;
         private bool _updated;
         private Skill _skill;
-        private string _objectOwner;
         private bool _isPlayerUnit;
 
         public UnitAny(IntPtr pUnit)
@@ -120,8 +119,6 @@ namespace MapAssist.Types
                                 break;
                             case UnitType.Object:
                                 _objectData = processContext.Read<ObjectData>(_unitAny.pUnitData);
-                                var ownerBytes = processContext.Read<byte>(IntPtr.Add(_unitAny.pUnitData, 0x34), 16);
-                                _objectOwner = Encoding.ASCII.GetString(ownerBytes).Trim((char)0);
                                 break;
                         }
                         _updated = true;
@@ -146,7 +143,6 @@ namespace MapAssist.Types
         public MonsterData MonsterData => _monsterData;
         public ItemData ItemData => _itemData;
         public ObjectData ObjectData => _objectData;
-        public string ObjectOwner => _objectOwner;
         public Act Act => _act;
         public Path Path => _path;
         public IntPtr StatsListExPtr => _unitAny.pStatsListEx;

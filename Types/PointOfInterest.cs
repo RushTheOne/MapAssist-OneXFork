@@ -31,7 +31,7 @@ namespace MapAssist.Types
         public PointOfInterestRendering RenderingSettings;
         public PoiType Type;
 
-        public bool PoiMatchesPortal(List<UnitAny> gameDataObjectList)
+        public bool PoiMatchesPortal(HashSet<UnitAny> gameDataObjectList)
         {
             if (Type == PoiType.AreaSpecificLandmark)
             {

@@ -137,8 +137,8 @@ namespace MapAssist
                     if (MapAssistConfiguration.Loaded.RenderingConfiguration.ZoomLevel > 0.25f)
                     {
                         MapAssistConfiguration.Loaded.RenderingConfiguration.ZoomLevel -= 0.25f;
-                        MapAssistConfiguration.Loaded.RenderingConfiguration.Size =
-                          (int)(MapAssistConfiguration.Loaded.RenderingConfiguration.Size * 1.15f);
+                        MapAssistConfiguration.Loaded.RenderingConfiguration.Size +=
+                          (int)(MapAssistConfiguration.Loaded.RenderingConfiguration.InitialSize * 0.05f);
                     }
                 }
 
@@ -147,8 +147,8 @@ namespace MapAssist
                     if (MapAssistConfiguration.Loaded.RenderingConfiguration.ZoomLevel < 4f)
                     {
                         MapAssistConfiguration.Loaded.RenderingConfiguration.ZoomLevel += 0.25f;
-                        MapAssistConfiguration.Loaded.RenderingConfiguration.Size =
-                          (int)(MapAssistConfiguration.Loaded.RenderingConfiguration.Size * .85f);
+                        MapAssistConfiguration.Loaded.RenderingConfiguration.Size -=
+                          (int)(MapAssistConfiguration.Loaded.RenderingConfiguration.InitialSize * 0.05f);
                     }
                 }
 

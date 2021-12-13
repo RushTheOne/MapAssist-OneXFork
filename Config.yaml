@@ -181,4 +181,4 @@ D2Path: ''
 UpdateTime: 30
 
 ## ClearPrefetchedOnAreaChange - Advanced setting for clearing prefetched cache
-ClearPrefetchedOnAreaChange: true
+ClearPrefetchedOnAreaChange: false

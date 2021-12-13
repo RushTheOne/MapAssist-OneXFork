@@ -427,10 +427,15 @@ namespace MapAssist.Helpers
 
         public void DrawBuffs(Graphics gfx)
         {
+            var buffImageScale = MapAssistConfiguration.Loaded.RenderingConfiguration.BuffSize;
+            if (buffImageScale <= 0)
+            {
+                return;
+            }
+
             ClearTransforms(gfx);
 
             var stateList = _gameData.PlayerUnit.StateList;
-            var buffImageScale = MapAssistConfiguration.Loaded.RenderingConfiguration.BuffSize;
             var imgDimensions = 48f * buffImageScale;
 
             var buffAlignment = MapAssistConfiguration.Loaded.RenderingConfiguration.BuffPosition;

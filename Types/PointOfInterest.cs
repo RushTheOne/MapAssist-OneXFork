@@ -31,16 +31,16 @@ namespace MapAssist.Types
         public PointOfInterestRendering RenderingSettings;
         public PoiType Type;
 
-        public bool PoiMatchesPortal(HashSet<UnitAny> gameDataObjectList)
+        public bool PoiMatchesPortal(HashSet<UnitAny> gameDataObjectList, Difficulty difficulty)
         {
-            if (Type == PoiType.AreaSpecificLandmark)
+            if (Type == PoiType.AreaPortal)
             {
                 foreach (var gameObject in gameDataObjectList)
                 {
                     if (gameObject.IsPortal())
                     {
-                        var destination = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
-                        if (destination == Label)
+                        var area = (Area) Enum.ToObject(typeof(Area), gameObject.ObjectData.InteractType);
+                        if (Utils.GetPortalName(area, difficulty) == Label)
                         {
                             return true;
                         }
@@ -57,7 +57,7 @@ namespace MapAssist.Types
         Waypoint,
         Quest,
         AreaSpecificQuest,
-        AreaSpecificLandmark,
+        AreaPortal,
         Shrine,
         SuperChest,
         NormalChest,

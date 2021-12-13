@@ -171,7 +171,7 @@ namespace MapAssist.Helpers
         {
             foreach (var poi in _pointsOfInterest)
             {
-                if (poi.PoiMatchesPortal(_gameData.Objects))
+                if (poi.PoiMatchesPortal(_gameData.Objects, _gameData.Difficulty))
                 {
                     continue;
                 }
@@ -192,7 +192,7 @@ namespace MapAssist.Helpers
             {
                 if (!string.IsNullOrWhiteSpace(poi.Label) && poi.Type != PoiType.Shrine)
                 {
-                    if (poi.PoiMatchesPortal(_gameData.Objects))
+                    if (poi.PoiMatchesPortal(_gameData.Objects, _gameData.Difficulty))
                     {
                         continue;
                     }
@@ -233,12 +233,11 @@ namespace MapAssist.Helpers
                     }
                     if (MapAssistConfiguration.Loaded.MapConfiguration.Portal.CanDrawLabel())
                     {
-                        var label = Enum.GetName(typeof(Area), gameObject.ObjectData.InteractType);
+                        var area = (Area)Enum.ToObject(typeof(Area), gameObject.ObjectData.InteractType);
+                        var playerName = gameObject.ObjectData.Owner.Length > 0 ? gameObject.ObjectData.Owner : null;
+                        var label = Utils.GetPortalName(area, _gameData.Difficulty, playerName);
+
                         if (string.IsNullOrWhiteSpace(label) || label == "None") continue;
-                        if (gameObject.ObjectData.Owner.Length > 0)
-                        {
-                            label += "(" + gameObject.ObjectData.Owner + ")";
-                        }
                         DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Portal, gameObject.Position, label);
                     }
                     continue;
@@ -557,6 +556,12 @@ namespace MapAssist.Helpers
 
                 var ipText = "Game IP: " + _gameData.Session.GameIP;
                 DrawText(gfx, anchor, ipText, "Consolas", 14, fontColor);
+
+                anchor.Y += fontHeight + 5;
+
+                // Area Label
+                var areaText = "Area: " + Utils.GetAreaLabel(_areaData.Area, _gameData.Difficulty, true);
+                DrawText(gfx, anchor, areaText, "Consolas", 14, Color.FromArgb(255, 218, 100));
 
                 anchor.Y += fontHeight + 5;
 

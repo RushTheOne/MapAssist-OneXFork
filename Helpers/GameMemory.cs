@@ -74,7 +74,7 @@ namespace MapAssist.Helpers
                         playerUnit = playerUnit.Update();
                         if (playerUnit.UnitId != oldUnitId)
                         {
-                            _log.Warn($"Player unit changed from {PlayerUnits[_currentProcessId].UnitId} to {playerUnit.UnitId}.");
+                            _log.Warn($"Player unit changed from {oldUnitId} to {playerUnit.UnitId}.");
                             GameManager.ResetPlayerUnit();
                             return null;
                         }

@@ -61,13 +61,24 @@ namespace MapAssist.Helpers
                         PlayerUnits[_currentProcessId] = playerUnit;
                     }
 
+                    uint oldUnitId = 0;
+
+                    if (!Equals(playerUnit, default(UnitAny)))
+                    {
+                        oldUnitId = playerUnit.UnitId;
+                        playerUnit = playerUnit.Update();
+                    }
+
                     if (!Equals(playerUnit, default(UnitAny)))
                     {
                         playerUnit = playerUnit.Update();
-                    }
-                        
-                    if (!Equals(playerUnit, default(UnitAny)))
-                    {
+                        if (playerUnit.UnitId != oldUnitId)
+                        {
+                            _log.Warn($"Player unit changed from {PlayerUnits[_currentProcessId].UnitId} to {playerUnit.UnitId}.");
+                            GameManager.ResetPlayerUnit();
+                            return null;
+                        }
+
                         var mapSeed = playerUnit.Act.MapSeed;
 
                         if (mapSeed <= 0 || mapSeed > 0xFFFFFFFF)

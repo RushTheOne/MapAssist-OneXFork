@@ -51,6 +51,7 @@ namespace MapAssist.Types
         public UnitAny(IntPtr pUnit)
         {
             _pUnit = pUnit;
+            _isPlayerUnit = false;
             Update();
         }
 

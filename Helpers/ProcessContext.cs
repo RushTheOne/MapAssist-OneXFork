@@ -154,10 +154,10 @@ namespace MapAssist.Helpers
         public object GetGameIPOffset()
         {
             var buffer = GetProcessMemory();
-            var pattern = "\x48\x8D\x0D\x00\x00\x00\x00\x44\x88\x2D";
+            var pattern = "\x44\x88\x2D\x00\x00\x00\x00\x66\x44\x89\x2D\x00\x00\x00\x00";
             IntPtr patternAddress = FindPatternEx(ref buffer, _baseAddr, _moduleSize,
-                pattern, 
-                "xxx????xxx");
+                pattern,
+                "xxx????xxxx????");
             var offsetBuffer = new byte[4];
             var resultRelativeAddress = IntPtr.Add(patternAddress, 3);
             if (!WindowsExternal.ReadProcessMemory(_handle, resultRelativeAddress, offsetBuffer, sizeof(int), out _))
@@ -168,7 +168,7 @@ namespace MapAssist.Helpers
 
             var offsetAddressToInt = BitConverter.ToInt32(offsetBuffer, 0);
             var delta = patternAddress.ToInt64() - _baseAddr.ToInt64();
-            return IntPtr.Add(_baseAddr, (int)(delta + 7 - 256 + offsetAddressToInt));
+            return IntPtr.Add(_baseAddr, (int)(delta + 7 - 256 + 32 + offsetAddressToInt));
         }
         public object GetMenuOpenOffset()
         {

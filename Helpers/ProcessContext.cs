@@ -65,6 +65,11 @@ namespace MapAssist.Helpers
 
                 return result;
             }
+            catch (Exception e)
+            {
+                _log.Error(e, "Read exception type: " + typeof(T).ToString());
+                return null;
+            }
             finally
             {
                 handle.Free();

@@ -168,7 +168,7 @@ namespace MapAssist.Helpers
 
             var offsetAddressToInt = BitConverter.ToInt32(offsetBuffer, 0);
             var delta = patternAddress.ToInt64() - _baseAddr.ToInt64();
-            return IntPtr.Add(_baseAddr, (int)(delta + 7 - 256 + 5 + offsetAddressToInt));
+            return IntPtr.Add(_baseAddr, (int)(delta - 0xF4 + offsetAddressToInt));
         }
         public object GetMenuOpenOffset()
         {

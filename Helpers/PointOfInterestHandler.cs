@@ -251,6 +251,20 @@ namespace MapAssist.Helpers
                     }
 
                     break;
+                case Area.PlainsOfDespair:
+                    foreach (var objAndPoints in areaData.NPCs)
+                    {
+                        if (objAndPoints.Key == Npc.Izual)
+                        {
+                            pointOfInterest.Add(new PointOfInterest
+                            {
+                                Label = "Izual",
+                                Position = objAndPoints.Value[0],
+                                RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest
+                            });
+                        }
+                    }
+                break;
                 default:
                     if (areaData.AdjacentLevels.Any())
                     {
@@ -360,8 +374,7 @@ namespace MapAssist.Helpers
                             }
                         }
                     }
-
-                    break;
+                break;
             }
             
             foreach (var objAndPoints in areaData.Objects)
@@ -487,21 +500,6 @@ namespace MapAssist.Helpers
                 }
             }
 
-            if (areaData.Area == Area.PlainsOfDespair)
-            {
-                foreach (var objAndPoints in areaData.NPCs)
-                {
-                    if (objAndPoints.Key == Npc.Izual)
-                    {
-                        pointOfInterest.Add(new PointOfInterest
-                        {
-                            Label = "Izual",
-                            Position = objAndPoints.Value[0],
-                            RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest
-                        });
-                    }
-                }
-            }
 
             return pointOfInterest;
         }

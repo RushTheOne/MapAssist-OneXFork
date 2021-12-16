@@ -35,7 +35,7 @@ namespace MapAssist.Settings
         public float IconSize { get; set; }
 
         [YamlMember(Alias = "IconThickness", ApplyNamingConventions = false)]
-        public float IconThickness;
+        public float IconThickness { get; set; }
 
         public bool CanDrawIcon()
         {
@@ -61,7 +61,7 @@ namespace MapAssist.Settings
         public string LabelFont { get; set; }
 
         [YamlMember(Alias = "LabelFontSize", ApplyNamingConventions = false)]
-        public int LabelFontSize { get; set; }
+        public float LabelFontSize { get; set; }
 
         public bool CanDrawLine()
         {

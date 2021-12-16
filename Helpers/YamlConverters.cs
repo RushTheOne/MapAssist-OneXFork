@@ -64,7 +64,7 @@ namespace MapAssist.Helpers
             if (node.IconColor != null)
             {
                 emitter.Emit(new Scalar(null, "IconColor"));
-                emitter.Emit(new Scalar(null, node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
+                emitter.Emit(new Scalar(null, node.IconColor.A + ", " + node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
                 emitter.Emit(new Scalar(null, "IconShape"));
                 emitter.Emit(new Scalar(null, node.IconShape.ToString()));
                 emitter.Emit(new Scalar(null, "IconSize"));
@@ -75,7 +75,7 @@ namespace MapAssist.Helpers
             if (node.LineColor != null)
             {
                 emitter.Emit(new Scalar(null, "LineColor"));
-                emitter.Emit(new Scalar(null, node.LineColor.R + ", " + node.LineColor.G + ", " + node.LineColor.B));
+                emitter.Emit(new Scalar(null, node.LineColor.A + ", " + node.LineColor.R + ", " + node.LineColor.G + ", " + node.LineColor.B));
                 emitter.Emit(new Scalar(null, "LineThickness"));
                 emitter.Emit(new Scalar(null, node.LineThickness.ToString()));
                 emitter.Emit(new Scalar(null, "ArrowHeadSize"));
@@ -84,7 +84,7 @@ namespace MapAssist.Helpers
             if (node.LabelColor != null)
             {
                 emitter.Emit(new Scalar(null, "LabelColor"));
-                emitter.Emit(new Scalar(null, node.LabelColor.R + ", " + node.LabelColor.G + ", " + node.LabelColor.B));
+                emitter.Emit(new Scalar(null, node.LabelColor.A + ", " + node.LabelColor.R + ", " + node.LabelColor.G + ", " + node.LabelColor.B));
             }
             if (node.LabelFont != null)
             {
@@ -117,7 +117,7 @@ namespace MapAssist.Helpers
             if (node.IconColor != null)
             {
                 emitter.Emit(new Scalar(null, "IconColor"));
-                emitter.Emit(new Scalar(null, node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
+                emitter.Emit(new Scalar(null, node.IconColor.A + ", " + node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
                 emitter.Emit(new Scalar(null, "IconShape"));
                 emitter.Emit(new Scalar(null, node.IconShape.ToString()));
                 emitter.Emit(new Scalar(null, "IconSize"));
@@ -128,7 +128,7 @@ namespace MapAssist.Helpers
             if (node.LineColor != null)
             {
                 emitter.Emit(new Scalar(null, "LineColor"));
-                emitter.Emit(new Scalar(null, node.LineColor.R + ", " + node.LineColor.G + ", " + node.LineColor.B));
+                emitter.Emit(new Scalar(null, node.LineColor.A + ", " + node.LineColor.R + ", " + node.LineColor.G + ", " + node.LineColor.B));
                 emitter.Emit(new Scalar(null, "LineThickness"));
                 emitter.Emit(new Scalar(null, node.LineThickness.ToString()));
                 emitter.Emit(new Scalar(null, "ArrowHeadSize"));
@@ -137,7 +137,7 @@ namespace MapAssist.Helpers
             if (node.LabelColor != null)
             {
                 emitter.Emit(new Scalar(null, "LabelColor"));
-                emitter.Emit(new Scalar(null, node.LabelColor.R + ", " + node.LabelColor.G + ", " + node.LabelColor.B));
+                emitter.Emit(new Scalar(null, node.LabelColor.A + ", " + node.LabelColor.R + ", " + node.LabelColor.G + ", " + node.LabelColor.B));
             }
             if (node.LabelFont != null)
             {
@@ -170,7 +170,7 @@ namespace MapAssist.Helpers
             if (node.IconColor != null)
             {
                 emitter.Emit(new Scalar(null, "IconColor"));
-                emitter.Emit(new Scalar(null, node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
+                emitter.Emit(new Scalar(null, node.IconColor.A + ", " + node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
                 emitter.Emit(new Scalar(null, "IconShape"));
                 emitter.Emit(new Scalar(null, node.IconShape.ToString()));
                 emitter.Emit(new Scalar(null, "IconSize"));

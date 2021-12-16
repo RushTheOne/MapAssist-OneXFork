@@ -28,8 +28,8 @@ namespace MapAssist.Helpers
             Japanese,
             Chinese
         }
-        /*public static Dictionary<int, string> LanguageCode = new Dictionary<int, string>()
-            {
+        public static Dictionary<int, string> LanguageCode = new Dictionary<int, string>()
+        {
             { 0, "enUS" },
             { 1, "esMX" },
             { 2, "ptBR" },
@@ -42,22 +42,7 @@ namespace MapAssist.Helpers
             { 9, "koKR" },
             { 10, "jaJP" },
             { 11, "zhCN" },
-            };*/
-        public static List<string> LanguageCode = new List<string>()
-            {
-            { "enUS" },
-            { "esMX" },
-            { "ptBR" },
-            { "frFR" },
-            { "deDE" },
-            { "esES" },
-            { "itIT" },
-            { "ruRU" },
-            { "plPL" },
-            { "koKR" },
-            { "jaJP" },
-            { "zhCN" },
-            };
+        };
 
         public static void LoadItemLocalization()
         {

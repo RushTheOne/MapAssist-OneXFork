@@ -62,21 +62,17 @@ namespace MapAssist.Helpers
 
         private static readonly Dictionary<Area, Dictionary<GameObject, string>> AreaSpecificQuestObjects = new Dictionary<Area, Dictionary<GameObject, string>>()
         {
-            [Area.StonyField] = new Dictionary<GameObject, string>()
-            {
-                [GameObject.CairnStoneAlpha] = "Tristram",
-            },
             [Area.MatronsDen] = new Dictionary<GameObject, string>()
             {
-                [GameObject.SparklyChest] = "Lilith",
+                [GameObject.SparklyChest] = AreaExtensions.NameFromKey("Lilith"),
             },
             [Area.FurnaceOfPain] = new Dictionary<GameObject, string>()
             {
-                [GameObject.SparklyChest] = "Uber Izual",
+                [GameObject.SparklyChest] = AreaExtensions.NameFromKey("Izual"),
             },
             [Area.PalaceCellarLevel3] = new Dictionary<GameObject, string>()
             {
-                [GameObject.ArcaneSanctuaryPortal] = "Arcane Sanctuary",
+                [GameObject.ArcaneSanctuaryPortal] = AreaExtensions.NameFromKey("Arcane Sanctuary"),
             },
         };
 
@@ -98,23 +94,23 @@ namespace MapAssist.Helpers
 
         private static readonly Dictionary<GameObject, string> QuestObjects = new Dictionary<GameObject, string>
         {
-            [GameObject.CairnStoneAlpha] = "Tristram",
-            [GameObject.WirtCorpse] = "Wirt's Leg",
-            [GameObject.InifussTree] = "Inifuss Tree",
-            [GameObject.Malus] = "Malus",
-            [GameObject.HoradricScrollChest] = "Horadric Scroll",
-            [GameObject.HoradricCubeChest] = "Horadric Cube",
-            [GameObject.StaffOfKingsChest] = "Staff of Kings",
-            [GameObject.YetAnotherTome] = "Summoner",
-            [GameObject.HoradricOrifice] = "Orifice",
-            [GameObject.KhalimChest1] = "Khalim's Heart",
-            [GameObject.KhalimChest2] = "Khalim's Brain",
-            [GameObject.KhalimChest3] = "Khalim's Eye",
-            [GameObject.GidbinnAltarDecoy] = "Gidbinn",
-            [GameObject.HellForge] = "Hell Forge",
-            [GameObject.DrehyaWildernessStartPosition] = "Anya",
-            [GameObject.NihlathakWildernessStartPosition] = "Nihlathak",
-            [GameObject.CagedWussie] = "Prisoners",
+            [GameObject.CairnStoneAlpha] = Area.Tristram.Name(),
+            [GameObject.WirtCorpse] = Items.ItemNameByKey("leg"),
+            [GameObject.InifussTree] = Items.ItemNameByKey("Inifuss"),
+            [GameObject.Malus] = Items.ItemNameByKey("Malus"),
+            [GameObject.HoradricScrollChest] = Items.ItemNameByKey("tr1"),
+            [GameObject.HoradricCubeChest] = Items.ItemNameByKey("box"),
+            [GameObject.StaffOfKingsChest] = Items.ItemNameByKey("Staff of Kings"),
+            [GameObject.YetAnotherTome] = AreaExtensions.NameFromKey("The Summoner"),
+            [GameObject.HoradricOrifice] = Items.ItemNameByKey("orifice"),
+            [GameObject.KhalimChest1] = Items.ItemNameByKey("qhr"),
+            [GameObject.KhalimChest2] = Items.ItemNameByKey("qbr"),
+            [GameObject.KhalimChest3] = Items.ItemNameByKey("qey"),
+            [GameObject.GidbinnAltarDecoy] = Items.ItemNameByKey("gidbinn"),
+            [GameObject.HellForge] = Items.ItemNameByKey("Hellforge"),
+            [GameObject.DrehyaWildernessStartPosition] = AreaExtensions.NameFromKey("Drehya"), //anya
+            [GameObject.NihlathakWildernessStartPosition] = AreaExtensions.NameFromKey("Nihlathak"),
+            [GameObject.CagedWussie] = AreaExtensions.NameFromKey("cagedwussie1"),
         };
 
         private static readonly HashSet<GameObject> SuperChests = new HashSet<GameObject>

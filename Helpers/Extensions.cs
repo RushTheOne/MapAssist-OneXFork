@@ -25,6 +25,7 @@ using MapAssist.Types;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
+using System.Text.RegularExpressions;
 using Geometry = GameOverlay.Drawing.Geometry;
 using Graphics = GameOverlay.Drawing.Graphics;
 using Point = GameOverlay.Drawing.Point;
@@ -77,6 +78,16 @@ namespace MapAssist.Helpers
         public static float Angle(this Point point)
         {
             return (float)Math.Atan2(point.Y, point.X);
+        }
+
+        public static string ToProperCase(this string text)
+        {
+            return Regex.Replace(text, "(\\B[A-Z])", " $1");
+        }
+
+        public static string ToPascalCase(this string text)
+        {
+            return text.Replace(" ", "");
         }
 
         // System type conversions

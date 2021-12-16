@@ -202,13 +202,16 @@ public class RenderingConfiguration
 public class HotkeyConfiguration
 {
     [YamlMember(Alias = "ToggleKey", ApplyNamingConventions = false)]
-    public char ToggleKey { get; set; }
+    public string ToggleKey { get; set; }
 
     [YamlMember(Alias = "ZoomInKey", ApplyNamingConventions = false)]
-    public char ZoomInKey { get; set; }
+    public string ZoomInKey { get; set; }
 
     [YamlMember(Alias = "ZoomOutKey", ApplyNamingConventions = false)]
-    public char ZoomOutKey { get; set; }
+    public string ZoomOutKey { get; set; }
+
+    [YamlMember(Alias = "GameInfoKey", ApplyNamingConventions = false)]
+    public string GameInfoKey { get; set; }
 }
 
 public class GameInfoConfiguration

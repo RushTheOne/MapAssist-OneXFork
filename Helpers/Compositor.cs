@@ -758,7 +758,8 @@ namespace MapAssist.Helpers
             position = Vector2.Transform(position.ToVector(), currentTransform.ToMatrix()).ToPoint();
 
             var fill = !rendering.IconShape.ToString().ToLower().EndsWith("outline");
-            var brush = CreateSolidBrush(gfx, rendering.IconColor);
+            var fillBrush = CreateSolidBrush(gfx, rendering.IconColor);
+            var outlineBrush = CreateSolidBrush(gfx, rendering.IconOutlineColor);
 
             var points = GetIconShape(rendering, equalScaling).Select(point => point.Add(position)).ToArray();
 
@@ -769,39 +770,40 @@ namespace MapAssist.Helpers
                 switch (rendering.IconShape)
                 {
                     case Shape.Ellipse:
-                    case Shape.EllipseOutline:
-                        if (rendering.IconShape == Shape.Ellipse)
+                        if (rendering.IconColor.A > 0)
                         {
-                            gfx.FillEllipse(brush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * _scaleHeight / 2); // Divide by 2 because the parameter requires a radius
+                            gfx.FillEllipse(fillBrush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * _scaleHeight / 2); // Divide by 2 because the parameter requires a radius
                         }
-                        else
+                        
+                        if (rendering.IconOutlineColor.A > 0)
                         {
-                            gfx.DrawEllipse(brush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * _scaleHeight / 2, rendering.IconThickness); // Divide by 2 because the parameter requires a radius
+                            gfx.DrawEllipse(outlineBrush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * _scaleHeight / 2, rendering.IconThickness); // Divide by 2 because the parameter requires a radius
                         }
 
                         break;
                     case Shape.Portal:
-                        gfx.DrawEllipse(brush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * 2 * scaleWidth / 2, rendering.IconThickness); // Use scaleWidth so it doesn't shrink the height in overlay mode, allows portal to look the same in both modes
+                        if (rendering.IconColor.A > 0)
+                        {
+                            gfx.FillEllipse(fillBrush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * 2 * scaleWidth / 2); // Use scaleWidth so it doesn't shrink the height in overlay mode, allows portal to look the same in both modes
+                        }
 
-                        break;
-                    case Shape.Polygon:
-                        gfx.FillGeometry(geo, brush);
-
-                        break;
-                    case Shape.Cross:
-                        gfx.DrawGeometry(geo, brush, rendering.IconThickness);
+                        if (rendering.IconOutlineColor.A > 0)
+                        {
+                            gfx.DrawEllipse(outlineBrush, position, rendering.IconSize * scaleWidth / 2, rendering.IconSize * 2 * scaleWidth / 2, rendering.IconThickness); // Use scaleWidth so it doesn't shrink the height in overlay mode, allows portal to look the same in both modes
+                        }
 
                         break;
                     default:
                         if (points == null) break;
 
-                        if (fill)
+                        if (rendering.IconColor.A > 0)
                         {
-                            gfx.FillGeometry(geo, brush);
+                            gfx.FillGeometry(geo, fillBrush);
                         }
-                        else
+
+                        if (rendering.IconOutlineColor.A > 0)
                         {
-                            gfx.DrawGeometry(geo, brush, rendering.IconThickness);
+                            gfx.DrawGeometry(geo, outlineBrush, rendering.IconThickness);
                         }
 
                         break;
@@ -908,7 +910,6 @@ namespace MapAssist.Helpers
             switch (render.IconShape)
             {
                 case Shape.Square:
-                case Shape.SquareOutline:
                     return new Point[]
                     {
                         new Point(0, 0),
@@ -916,8 +917,7 @@ namespace MapAssist.Helpers
                         new Point(render.IconSize, render.IconSize),
                         new Point(0, render.IconSize)
                     }.Select(point => point.Subtract(render.IconSize / 2f).Rotate(_rotateRadians).Multiply(scaleWidth, _scaleHeight)).ToArray();
-                case Shape.Ellipse:
-                case Shape.EllipseOutline: // Use a rectangle since that's effectively the same size and that's all this function is used for at the moment
+                case Shape.Ellipse: // Use a rectangle since that's effectively the same size and that's all this function is used for at the moment
                     return new Point[]
                     {
                         new Point(0, 0),

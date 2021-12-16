@@ -69,7 +69,7 @@ namespace MapAssist
                     return;
                 }
 
-                var configurationOk = LoadLoggingConfiguration() && LoadMainConfiguration() && LoadLootLogConfiguration();
+                var configurationOk = LoadMainConfiguration() && LoadLoggingConfiguration() && LoadLootLogConfiguration();
                 if (configurationOk)
                 {
                     if (githubSha.Length == 40)
@@ -126,14 +126,14 @@ namespace MapAssist
                         Visible = true
                     };
 
-                    globalHook.KeyPress += (sender, args) =>
+                    globalHook.KeyDown += (sender, args) =>
                     {
                         if (overlay != null)
                         {
-                            overlay.KeyPressHandler(sender, args);
+                            overlay.KeyDownHandler(sender, args);
                         }
                     };
-                    
+
                     backWorkOverlay.DoWork += new DoWorkEventHandler(RunOverlay);
                     backWorkOverlay.WorkerSupportsCancellation = true;
                     backWorkOverlay.RunWorkerAsync();

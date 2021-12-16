@@ -2,9 +2,10 @@
 
 ## HotkeyConfiguration - Keyboard shortcuts for the overlay
 HotkeyConfiguration:
-  ToggleKey: '\'
-  ZoomInKey: '+'
-  ZoomOutKey: '-'
+  ToggleKey: 'Oem5'
+  ZoomInKey: 'Add'
+  ZoomOutKey: 'Subtract'
+  GameInfoKey: 'OemOpenBrackets'
 
 ## PrefetchAreas - Areas to preload so that they're hot and ready as soon as you go to them
 PrefetchAreas:
@@ -47,28 +48,28 @@ RenderingConfiguration:
 ## MapConfiguration -- Visual settings for icons, lines and labels
 MapConfiguration:
   SuperUniqueMonster:
-    IconColor: Yellow
     IconShape: Cross
+    IconOutlineColor: Yellow
     IconSize: 6
     IconThickness: 2
   UniqueMonster:
-    IconColor: DarkOrange
     IconShape: Cross
+    IconOutlineColor: DarkOrange
     IconSize: 6
     IconThickness: 2
   EliteMonster:
-    IconColor: DarkRed
     IconShape: Cross
+    IconOutlineColor: DarkRed
     IconSize: 6
     IconThickness: 2
   NormalMonster:
-    IconColor: Gray
     IconShape: Cross
+    IconOutlineColor: Gray
     IconSize: 6
     IconThickness: 2
   NextArea:
-    IconColor: SpringGreen
     IconShape: Square
+    IconColor: SpringGreen
     IconSize: 5
     LineColor: SpringGreen
     LineThickness: 2
@@ -77,16 +78,16 @@ MapConfiguration:
     LabelFontSize: 16
     LabelFont: 'Exocet Blizzard Mixed Caps'
   PreviousArea:
-    IconColor: Violet
     IconShape: Square
+    IconColor: Violet
     IconSize: 5
     LineColor: ''
     LabelColor: Violet
     LabelFontSize: 16
     LabelFont: 'Exocet Blizzard Mixed Caps'
   Waypoint:
-    IconColor: SteelBlue
     IconShape: Square
+    IconColor: SteelBlue
     IconSize: 5
   Quest:
     LineColor: Tomato
@@ -96,16 +97,16 @@ MapConfiguration:
     LabelFontSize: 16
     LabelFont: 'Exocet Blizzard Mixed Caps'
   Player:
-    IconColor: Chartreuse
     IconShape: Cross
+    IconOutlineColor: Chartreuse
     IconSize: 6
     IconThickness: 2
     LabelColor: Chartreuse
     LabelFontSize: 16
     LabelFont: 'Exocet Blizzard Mixed Caps'
   NonPartyPlayer:
-    IconColor: Orange
     IconShape: Cross
+    IconOutlineColor: Orange
     IconSize: 6
     IconThickness: 2
     LabelColor: Orange
@@ -123,16 +124,16 @@ MapConfiguration:
     LineThickness: 2
     ArrowHeadSize: 15
   Portal:
-    IconColor: Yellow
     IconShape: Portal
+    IconOutlineColor: Yellow
     IconSize: 3
     IconThickness: 2
     LabelColor: Yellow
     LabelFontSize: 16
     LabelFont: 'Exocet Blizzard Mixed Caps'
   SuperChest:
-    IconColor: '17, 255, 0'
     IconShape: Square
+    IconColor: '17, 255, 0'
     IconSize: 4
   NormalChest:
     IconColor: '17, 128, 0'
@@ -140,7 +141,6 @@ MapConfiguration:
     IconSize: 3
   LockedChest:
     IconColor: '128, 0, 0'
-    IconShape: Square
     IconSize: 3
   TrappedChest:
     IconColor: '255, 0, 0'
@@ -148,19 +148,19 @@ MapConfiguration:
     IconSize: 4
     IconThickness: 1
   Shrine:
-    IconColor: '255, 218, 100'
     IconShape: Polygon
+    IconColor: '255, 218, 100'
     IconSize: 5
     LabelColor: '255, 218, 100'
     LabelFontSize: 16
     LabelFont: 'Exocet Blizzard Mixed Caps'
   ArmorWeapRack:
-    IconColor: '132, 132, 132'
     IconShape: Square
+    IconColor: '132, 132, 132'
     IconSize: 4
   Item: 
-    IconColor: DarkOrange
     IconShape: Ellipse
+    IconColor: DarkOrange
     IconSize: 4
     LabelFont: 'Exocet Blizzard Mixed Caps'
     LabelFontSize: 16

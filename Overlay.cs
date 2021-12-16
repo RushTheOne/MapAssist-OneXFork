@@ -25,6 +25,7 @@ using MapAssist.Settings;
 using MapAssist.Types;
 using System;
 using System.Windows.Forms;
+using WK.Libraries.HotkeyListenerNS;
 using Graphics = GameOverlay.Drawing.Graphics;
 
 namespace MapAssist
@@ -130,16 +131,23 @@ namespace MapAssist
             return _gameData != null && _gameData.MainWindowHandle != IntPtr.Zero;
         }
 
-        public void KeyPressHandler(object sender, KeyPressEventArgs args)
+        public void KeyDownHandler(object sender, KeyEventArgs args)
         {
             if (InGame())
             {
-                if (args.KeyChar == MapAssistConfiguration.Loaded.HotkeyConfiguration.ToggleKey)
+                var keys = new Hotkey(args.Modifiers, args.KeyCode);
+
+                if (keys == new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ToggleKey))
                 {
                     _show = !_show;
                 }
 
-                if (args.KeyChar == MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomInKey)
+                if (keys == new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.GameInfoKey))
+                {
+                    MapAssistConfiguration.Loaded.GameInfo.Enabled = !MapAssistConfiguration.Loaded.GameInfo.Enabled;
+                }
+
+                if (keys == new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomInKey))
                 {
                     if (MapAssistConfiguration.Loaded.RenderingConfiguration.ZoomLevel > 0.25f)
                     {
@@ -149,7 +157,7 @@ namespace MapAssist
                     }
                 }
 
-                if (args.KeyChar == MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey)
+                if (keys == new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey))
                 {
                     if (MapAssistConfiguration.Loaded.RenderingConfiguration.ZoomLevel < 4f)
                     {

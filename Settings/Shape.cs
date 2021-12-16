@@ -21,13 +21,10 @@ namespace MapAssist.Settings
 {
     public enum Shape
     {
-        None,
         Square,
         Ellipse,
         Polygon,
         Cross,
-        SquareOutline,
-        EllipseOutline,
         Portal,
     }
 }

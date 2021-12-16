@@ -232,7 +232,7 @@ namespace MapAssist.Helpers
                             label = "ShrineLabelNotFound";
                         }
                         var lang = MapAssistConfiguration.Loaded.Language;
-                        var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+                        var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
 
                         label = prop.ToString();
                         DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine, gameObject.Position, label);

@@ -733,7 +733,7 @@ namespace MapAssist.Types
                 return "AreaNameNotFound";
             }
             var lang = MapAssistConfiguration.Loaded.Language;
-            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
             return prop.ToString();
         }
         public static string Name(this Area area)
@@ -743,11 +743,10 @@ namespace MapAssist.Types
             LocalizedObj localItem;
             if (!LocalizedAreas.TryGetValue(areaLabel, out localItem))
             {
-                Console.WriteLine("area not found " + areaLabel);
                 return area.ToString();
             }
             var lang = MapAssistConfiguration.Loaded.Language;
-            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
             return prop.ToString();
         }
 

@@ -13,13 +13,13 @@ PrefetchAreas:
 
 ## HiddenAreas - Areas where the overlay is not needed and will be hidden
 HiddenAreas:
-# - 'Rogue Encampment'
-# - 'Lut Gholein'
-# - 'Kurast Docks'
-# - 'Pandemonium Fortress'
-# - 'Harrogath'
-# - 'Forgotten Tower'
-# - "Nihlathak's Temple"
+ - 'Rogue Encampment'
+ - 'Lut Gholein'
+ - 'Kurast Docks'
+ - 'Pandemonium Fortress'
+ - 'Harrogath'
+ - 'Forgotten Tower'
+ - "Nihlathak's Temple"
 
 ## RenderingConfiguration - Visual settings for the overlay
 RenderingConfiguration:
@@ -206,4 +206,4 @@ UpdateTime: 30
 ## ClearPrefetchedOnAreaChange - Advanced setting for clearing prefetched cache
 ClearPrefetchedOnAreaChange: false
 
-Language: zhCN
+Language: 0

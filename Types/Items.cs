@@ -115,7 +115,7 @@ namespace MapAssist.Types
         public static Dictionary<string, LocalizedObj> LocalizedItems = new Dictionary<string, LocalizedObj>();
         public static Dictionary<int, List<Timer>> ItemLogTimers = new Dictionary<int, List<Timer>>();
 
-        public static string ItemNameByKey(string key)
+        public static string ItemNameFromKey(string key)
         {
             LocalizedObj localItem;
             if (!LocalizedItems.TryGetValue(key, out localItem))
@@ -124,7 +124,7 @@ namespace MapAssist.Types
             }
 
             var lang = MapAssistConfiguration.Loaded.Language;
-            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
 
             return prop.ToString();
         }
@@ -144,7 +144,7 @@ namespace MapAssist.Types
             }
 
             var lang = MapAssistConfiguration.Loaded.Language;
-            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
 
             return prop.ToString();
         }
@@ -186,7 +186,7 @@ namespace MapAssist.Types
             }
 
             var lang = MapAssistConfiguration.Loaded.Language;
-            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
 
             return prop.ToString();
         }
@@ -211,7 +211,7 @@ namespace MapAssist.Types
             }
 
             var lang = MapAssistConfiguration.Loaded.Language;
-            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
 
             return prop.ToString();
         }

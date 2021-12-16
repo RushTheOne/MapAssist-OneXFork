@@ -75,7 +75,7 @@ namespace MapAssist.Settings
         public ItemLogConfiguration ItemLog { get; set; }
 
         [YamlMember(Alias = "Language", ApplyNamingConventions = false)]
-        public string Language { get; set; }
+        public int Language { get; set; }
     }
 
     public class MapColorConfiguration
@@ -92,45 +92,58 @@ namespace MapAssist.Settings
     {
         [YamlMember(Alias = "SuperUniqueMonster", ApplyNamingConventions = false)]
         public IconRendering SuperUniqueMonster { get; set; }
+        public static IconRendering SuperUniqueMonsterREF => MapAssistConfiguration.Loaded.MapConfiguration.SuperUniqueMonster;
 
         [YamlMember(Alias = "UniqueMonster", ApplyNamingConventions = false)]
         public IconRendering UniqueMonster { get; set; }
+        public static IconRendering UniqueMonsterREF => MapAssistConfiguration.Loaded.MapConfiguration.UniqueMonster;
 
         [YamlMember(Alias = "EliteMonster", ApplyNamingConventions = false)]
         public IconRendering EliteMonster { get; set; }
+        public static IconRendering EliteMonsterREF => MapAssistConfiguration.Loaded.MapConfiguration.EliteMonster;
 
         [YamlMember(Alias = "NormalMonster", ApplyNamingConventions = false)]
         public IconRendering NormalMonster { get; set; }
+        public static IconRendering NormalMonsterREF => MapAssistConfiguration.Loaded.MapConfiguration.NormalMonster;
 
         [YamlMember(Alias = "NextArea", ApplyNamingConventions = false)]
         public PointOfInterestRendering NextArea { get; set; }
+        public static PointOfInterestRendering NextAreaREF => MapAssistConfiguration.Loaded.MapConfiguration.NextArea;
 
         [YamlMember(Alias = "PreviousArea", ApplyNamingConventions = false)]
         public PointOfInterestRendering PreviousArea { get; set; }
+        public static PointOfInterestRendering PreviousAreaREF => MapAssistConfiguration.Loaded.MapConfiguration.PreviousArea;
 
         [YamlMember(Alias = "Waypoint", ApplyNamingConventions = false)]
         public PointOfInterestRendering Waypoint { get; set; }
+        public static PointOfInterestRendering WaypointREF => MapAssistConfiguration.Loaded.MapConfiguration.Waypoint;
 
         [YamlMember(Alias = "Quest", ApplyNamingConventions = false)]
         public PointOfInterestRendering Quest { get; set; }
+        public static PointOfInterestRendering QuestREF => MapAssistConfiguration.Loaded.MapConfiguration.Quest;
 
         [YamlMember(Alias = "Player", ApplyNamingConventions = false)]
         public PointOfInterestRendering Player { get; set; }
+        public static PointOfInterestRendering PlayerREF => MapAssistConfiguration.Loaded.MapConfiguration.Player;
 
         [YamlMember(Alias = "NonPartyPlayer", ApplyNamingConventions = false)]
         public PointOfInterestRendering NonPartyPlayer { get; set; }
+        public static PointOfInterestRendering NonPartyPlayerREF => MapAssistConfiguration.Loaded.MapConfiguration.NonPartyPlayer;
 
         [YamlMember(Alias = "HostilePlayer", ApplyNamingConventions = false)]
         public PointOfInterestRendering HostilePlayer { get; set; }
 
         [YamlMember(Alias = "Portal", ApplyNamingConventions = false)]
         public PortalRendering Portal { get; set; }
+        public static PortalRendering PortalREF => MapAssistConfiguration.Loaded.MapConfiguration.Portal;
 
         [YamlMember(Alias = "SuperChest", ApplyNamingConventions = false)]
         public PointOfInterestRendering SuperChest { get; set; }
+        public static PointOfInterestRendering SuperChestREF => MapAssistConfiguration.Loaded.MapConfiguration.SuperChest;
 
         [YamlMember(Alias = "NormalChest", ApplyNamingConventions = false)]
         public PointOfInterestRendering NormalChest { get; set; }
+        public static PointOfInterestRendering NormalChestREF => MapAssistConfiguration.Loaded.MapConfiguration.NormalChest;
 
         [YamlMember(Alias = "LockedChest", ApplyNamingConventions = false)]
         public PointOfInterestRendering LockedChest { get; set; }
@@ -140,12 +153,15 @@ namespace MapAssist.Settings
 
         [YamlMember(Alias = "Shrine", ApplyNamingConventions = false)]
         public PointOfInterestRendering Shrine { get; set; }
+        public static PointOfInterestRendering ShrineREF => MapAssistConfiguration.Loaded.MapConfiguration.Shrine;
 
         [YamlMember(Alias = "ArmorWeapRack", ApplyNamingConventions = false)]
         public PointOfInterestRendering ArmorWeapRack { get; set; }
+        public static PointOfInterestRendering ArmorWeapRackREF => MapAssistConfiguration.Loaded.MapConfiguration.ArmorWeapRack;
 
         [YamlMember(Alias = "Item", ApplyNamingConventions = false)]
         public PointOfInterestRendering Item { get; set; }
+        public static PointOfInterestRendering ItemREF => MapAssistConfiguration.Loaded.MapConfiguration.Item;
     }
 }
 
@@ -236,5 +252,5 @@ public class ItemLogConfiguration
     public string LabelFont { get; set; }
 
     [YamlMember(Alias = "LabelFontSize", ApplyNamingConventions = false)]
-    public int LabelFontSize { get; set; }
+    public float LabelFontSize { get; set; }
 }

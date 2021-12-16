@@ -265,8 +265,6 @@ namespace MapAssist
 
         private static void Config(object sender, EventArgs e)
         {
-            //var _path = AppDomain.CurrentDomain.BaseDirectory;
-            //Process.Start(_path + "\\Config.yaml");
             var frmConfig = new ConfigEditor();
             frmConfig.ShowDialog();
         }

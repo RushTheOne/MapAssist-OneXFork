@@ -98,7 +98,6 @@ namespace MapAssist
         {
             MapAssistConfiguration.Loaded.Save();
             base.OnFormClosing(e);
-            // Code
         }
 
         private void updateTime_Scroll(object sender, EventArgs e)

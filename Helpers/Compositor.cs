@@ -223,8 +223,18 @@ namespace MapAssist.Helpers
                     
                     if (MapAssistConfiguration.Loaded.MapConfiguration.Shrine.CanDrawLabel())
                     {
-                        var label = Enum.GetName(typeof(ShrineType), gameObject.ObjectData.InteractType);
+                        var shrineId = gameObject.ObjectData.InteractType;
+                        var label = "Shrine";
 
+                        LocalizedObj localItem;
+                        if (!ShrineLabels.LocalizedShrines.TryGetValue("ShrId" + shrineId, out localItem))
+                        {
+                            label = "ShrineLabelNotFound";
+                        }
+                        var lang = MapAssistConfiguration.Loaded.Language;
+                        var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+
+                        label = prop.ToString();
                         DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Shrine, gameObject.Position, label);
                     }
                     continue;
@@ -392,7 +402,7 @@ namespace MapAssist.Helpers
 
                         if (Items.ItemColors.TryGetValue(item.ItemData.ItemQuality, out var color))
                         {
-                            var itemBaseName = Items.ItemName(item.TxtFileNo);
+                            var itemBaseName = Items.ItemNameDisplay(item.TxtFileNo);
 
                             DrawText(gfx, MapAssistConfiguration.Loaded.MapConfiguration.Item, item.Position, itemBaseName,
                                 color: color);
@@ -681,7 +691,7 @@ namespace MapAssist.Helpers
                 var font = CreateFont(gfx, MapAssistConfiguration.Loaded.ItemLog.LabelFont, MapAssistConfiguration.Loaded.ItemLog.LabelFontSize);
 
                 var isEth = (item.ItemData.ItemFlags & ItemFlags.IFLAG_ETHEREAL) == ItemFlags.IFLAG_ETHEREAL;
-                var itemBaseName = Items.ItemName(item.TxtFileNo);
+                var itemBaseName = Items.ItemNameDisplay(item.TxtFileNo);
                 var itemSpecialName = "";
                 var itemLabelExtra = "";
 
@@ -703,17 +713,19 @@ namespace MapAssist.Helpers
                     }
                 }
 
-                var brush = CreateSolidBrush(gfx, fontColor, 1);
-
                 switch (ItemLog[i].ItemData.ItemQuality)
                 {
                     case ItemQuality.UNIQUE:
                         itemSpecialName = Items.UniqueName(item.TxtFileNo) + " ";
+                        fontColor = Items.ItemColors[ItemQuality.UNIQUE];
                         break;
                     case ItemQuality.SET:
                         itemSpecialName = Items.SetName(item.TxtFileNo) + " ";
+                        fontColor = Items.ItemColors[ItemQuality.SET];
                         break;
                 }
+
+                var brush = CreateSolidBrush(gfx, fontColor, 1);
 
                 gfx.DrawText(font, brush, anchor.Add(0, i * fontHeight), itemLabelExtra + itemSpecialName + itemBaseName);
             }

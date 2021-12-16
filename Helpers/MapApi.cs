@@ -32,6 +32,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Path = System.IO.Path;
 
 #pragma warning disable 649
@@ -63,6 +64,11 @@ namespace MapAssist.Helpers
             }
 
             var path = FindD2();
+            if (path == null)
+            {
+                return false;
+            }
+            
             _pipeClient = new Process();
             _pipeClient.StartInfo.FileName = procFile;
             _pipeClient.StartInfo.Arguments = "\"" + path + "\"";
@@ -80,12 +86,15 @@ namespace MapAssist.Helpers
         
         private static string FindD2()
         {
+            var config = new ConfigEditor();
             var providedPath = MapAssistConfiguration.Loaded.D2Path;
             if (!string.IsNullOrEmpty(providedPath))
             {
                 if (Path.HasExtension(providedPath))
                 {
-                    throw new Exception("Provided D2 path is not set to a directory");
+                    MessageBox.Show("Provided D2 path is not set to a directory." + Environment.NewLine + "Please provide a path to a D2 LoD 1.13c installation and restart MapAssist.");
+                    config.ShowDialog();
+                    return null;
                 }
 
                 if (IsValidD2Path(providedPath))
@@ -95,14 +104,18 @@ namespace MapAssist.Helpers
                 }
 
                 _log.Info("User provided D2 path is invalid");
-                throw new Exception("Provided D2 path is not the correct version");
+                MessageBox.Show("Provided D2 path is not the correct version." + Environment.NewLine + "Please provide a path to a D2 LoD 1.13c installation and restart MapAssist.");
+                config.ShowDialog();
+                return null;
             }
             
             var installPath = Registry.GetValue("HKEY_CURRENT_USER\\SOFTWARE\\Blizzard Entertainment\\Diablo II", "InstallPath", "INVALID") as string;
             if (installPath == "INVALID" || !IsValidD2Path(installPath))
             {
                 _log.Info("Registry-provided D2 path not found or invalid");
-                throw new Exception("Unable to automatically locate D2 installation. Please provide path manually in the config at `D2Path`.");
+                MessageBox.Show("Unable to automatically locate D2 installation." + Environment.NewLine + "Please provide a path to a D2 LoD 1.13c installation and restart MapAssist.");
+                config.ShowDialog();
+                return null;
             }
             
             _log.Info("Registry-provided D2 path is valid");

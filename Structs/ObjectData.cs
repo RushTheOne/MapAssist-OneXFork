@@ -17,7 +17,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
+using MapAssist.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MapAssist.Structs
@@ -72,4 +74,9 @@ namespace MapAssist.Structs
         Explosive,
         Poison
     };
+    public static class ShrineLabels
+    {
+        public static LocalizedShrineList _localizedShrineList;
+        public static Dictionary<string, LocalizedObj> LocalizedShrines = new Dictionary<string, LocalizedObj>();
+    }
 }

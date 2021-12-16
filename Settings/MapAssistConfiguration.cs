@@ -19,6 +19,7 @@
 
 using System.Drawing;
 using MapAssist.Files;
+using MapAssist.Helpers;
 using MapAssist.Settings;
 using MapAssist.Types;
 using YamlDotNet.Serialization;
@@ -31,6 +32,8 @@ namespace MapAssist.Settings
         public static void Load()
         {
             Loaded = ConfigurationParser<MapAssistConfiguration>.ParseConfigurationMain(Properties.Resources.Config, $"./Config.yaml");
+            Languages.LoadAreaLocalization();
+            Languages.LoadShrineLocalization();
         }
 
         public void Save()
@@ -70,6 +73,9 @@ namespace MapAssist.Settings
 
         [YamlMember(Alias = "ItemLog", ApplyNamingConventions = false)]
         public ItemLogConfiguration ItemLog { get; set; }
+
+        [YamlMember(Alias = "Language", ApplyNamingConventions = false)]
+        public string Language { get; set; }
     }
 
     public class MapColorConfiguration

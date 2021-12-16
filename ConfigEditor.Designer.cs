@@ -31,8 +31,26 @@ namespace MapAssist
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.lblUpdateTime = new System.Windows.Forms.Label();
+            this.updateTime = new System.Windows.Forms.TrackBar();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtHuntIP = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtD2Path = new System.Windows.Forms.TextBox();
+            this.chkGameInfo = new System.Windows.Forms.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboBuffPosition = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblBuffSize = new System.Windows.Forms.Label();
+            this.buffSize = new System.Windows.Forms.TrackBar();
+            this.lblZoom = new System.Windows.Forms.Label();
+            this.mapZoom = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblMapSize = new System.Windows.Forms.Label();
+            this.mapSize = new System.Windows.Forms.TrackBar();
             this.chkToggleViaPanels = new System.Windows.Forms.CheckBox();
             this.chkToggleViaMap = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,28 +64,29 @@ namespace MapAssist
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lblMapSize = new System.Windows.Forms.Label();
-            this.mapSize = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblZoom = new System.Windows.Forms.Label();
-            this.mapZoom = new System.Windows.Forms.TrackBar();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblBuffSize = new System.Windows.Forms.Label();
-            this.buffSize = new System.Windows.Forms.TrackBar();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cboBuffPosition = new System.Windows.Forms.ComboBox();
+            this.chkClearPrefetch = new System.Windows.Forms.CheckBox();
+            this.chkShowOverlayFPS = new System.Windows.Forms.CheckBox();
+            this.cboRenderOption = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnIconColor = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.updateTime)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buffSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.opacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.buffSize)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -78,6 +97,90 @@ namespace MapAssist
             this.tabControl1.Size = new System.Drawing.Size(332, 351);
             this.tabControl1.TabIndex = 0;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.lblUpdateTime);
+            this.tabPage5.Controls.Add(this.updateTime);
+            this.tabPage5.Controls.Add(this.label7);
+            this.tabPage5.Controls.Add(this.txtHuntIP);
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.txtD2Path);
+            this.tabPage5.Controls.Add(this.chkGameInfo);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(324, 325);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Main";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // lblUpdateTime
+            // 
+            this.lblUpdateTime.AutoSize = true;
+            this.lblUpdateTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblUpdateTime.Location = new System.Drawing.Point(17, 70);
+            this.lblUpdateTime.Name = "lblUpdateTime";
+            this.lblUpdateTime.Size = new System.Drawing.Size(74, 13);
+            this.lblUpdateTime.TabIndex = 12;
+            this.lblUpdateTime.Text = "Update Time: ";
+            // 
+            // updateTime
+            // 
+            this.updateTime.LargeChange = 10;
+            this.updateTime.Location = new System.Drawing.Point(11, 38);
+            this.updateTime.Maximum = 200;
+            this.updateTime.Minimum = 1;
+            this.updateTime.Name = "updateTime";
+            this.updateTime.Size = new System.Drawing.Size(302, 45);
+            this.updateTime.TabIndex = 11;
+            this.updateTime.Value = 1;
+            this.updateTime.Scroll += new System.EventHandler(this.updateTime_Scroll);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(17, 270);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Hunt for Game IP:";
+            // 
+            // txtHuntIP
+            // 
+            this.txtHuntIP.Location = new System.Drawing.Point(20, 286);
+            this.txtHuntIP.Name = "txtHuntIP";
+            this.txtHuntIP.Size = new System.Drawing.Size(267, 20);
+            this.txtHuntIP.TabIndex = 9;
+            this.txtHuntIP.Text = "x.x.x.x";
+            this.txtHuntIP.TextChanged += new System.EventHandler(this.txtHuntIP_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 224);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(219, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "D2LoD 1.13c Path: (leave blank to auto-find)";
+            // 
+            // txtD2Path
+            // 
+            this.txtD2Path.Location = new System.Drawing.Point(20, 240);
+            this.txtD2Path.Name = "txtD2Path";
+            this.txtD2Path.Size = new System.Drawing.Size(267, 20);
+            this.txtD2Path.TabIndex = 7;
+            this.txtD2Path.TextChanged += new System.EventHandler(this.txtD2Path_TextChanged);
+            // 
+            // chkGameInfo
+            // 
+            this.chkGameInfo.AutoSize = true;
+            this.chkGameInfo.Location = new System.Drawing.Point(22, 15);
+            this.chkGameInfo.Name = "chkGameInfo";
+            this.chkGameInfo.Size = new System.Drawing.Size(112, 17);
+            this.chkGameInfo.TabIndex = 6;
+            this.chkGameInfo.Text = "Display Game Info";
+            this.chkGameInfo.UseVisualStyleBackColor = true;
+            this.chkGameInfo.CheckedChanged += new System.EventHandler(this.chkGameInfo_CheckedChanged);
+            // 
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
@@ -87,7 +190,7 @@ namespace MapAssist
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(324, 325);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Main";
+            this.tabPage1.Text = "Display";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -117,6 +220,113 @@ namespace MapAssist
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(302, 547);
             this.panel1.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(128, 485);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Position:";
+            // 
+            // cboBuffPosition
+            // 
+            this.cboBuffPosition.AllowDrop = true;
+            this.cboBuffPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBuffPosition.FormattingEnabled = true;
+            this.cboBuffPosition.Items.AddRange(new object[] {
+            "Top",
+            "Player",
+            "Bottom"});
+            this.cboBuffPosition.Location = new System.Drawing.Point(181, 482);
+            this.cboBuffPosition.Name = "cboBuffPosition";
+            this.cboBuffPosition.Size = new System.Drawing.Size(107, 21);
+            this.cboBuffPosition.TabIndex = 18;
+            this.cboBuffPosition.SelectedIndexChanged += new System.EventHandler(this.cboBuffPosition_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(109, 406);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 20);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Buff Display:";
+            // 
+            // lblBuffSize
+            // 
+            this.lblBuffSize.AutoSize = true;
+            this.lblBuffSize.BackColor = System.Drawing.Color.Transparent;
+            this.lblBuffSize.Location = new System.Drawing.Point(2, 461);
+            this.lblBuffSize.Name = "lblBuffSize";
+            this.lblBuffSize.Size = new System.Drawing.Size(76, 13);
+            this.lblBuffSize.TabIndex = 16;
+            this.lblBuffSize.Text = "Buff Icon Size:";
+            // 
+            // buffSize
+            // 
+            this.buffSize.LargeChange = 25;
+            this.buffSize.Location = new System.Drawing.Point(-1, 429);
+            this.buffSize.Maximum = 200;
+            this.buffSize.Name = "buffSize";
+            this.buffSize.Size = new System.Drawing.Size(302, 45);
+            this.buffSize.TabIndex = 15;
+            this.buffSize.Scroll += new System.EventHandler(this.buffSize_Scroll);
+            // 
+            // lblZoom
+            // 
+            this.lblZoom.AutoSize = true;
+            this.lblZoom.BackColor = System.Drawing.Color.Transparent;
+            this.lblZoom.Location = new System.Drawing.Point(2, 363);
+            this.lblZoom.Name = "lblZoom";
+            this.lblZoom.Size = new System.Drawing.Size(138, 13);
+            this.lblZoom.TabIndex = 14;
+            this.lblZoom.Text = "Zoom Level (overlay mode):";
+            // 
+            // mapZoom
+            // 
+            this.mapZoom.LargeChange = 10;
+            this.mapZoom.Location = new System.Drawing.Point(-1, 331);
+            this.mapZoom.Maximum = 400;
+            this.mapZoom.Minimum = 1;
+            this.mapZoom.Name = "mapZoom";
+            this.mapZoom.Size = new System.Drawing.Size(302, 45);
+            this.mapZoom.TabIndex = 13;
+            this.mapZoom.Value = 1;
+            this.mapZoom.Scroll += new System.EventHandler(this.mapZoom_Scroll);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(109, 257);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 20);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Map Sizing:";
+            // 
+            // lblMapSize
+            // 
+            this.lblMapSize.AutoSize = true;
+            this.lblMapSize.BackColor = System.Drawing.Color.Transparent;
+            this.lblMapSize.Location = new System.Drawing.Point(2, 312);
+            this.lblMapSize.Name = "lblMapSize";
+            this.lblMapSize.Size = new System.Drawing.Size(147, 13);
+            this.lblMapSize.TabIndex = 11;
+            this.lblMapSize.Text = "Map Size (non overlay mode):";
+            // 
+            // mapSize
+            // 
+            this.mapSize.LargeChange = 100;
+            this.mapSize.Location = new System.Drawing.Point(-1, 280);
+            this.mapSize.Maximum = 1600;
+            this.mapSize.Name = "mapSize";
+            this.mapSize.Size = new System.Drawing.Size(302, 45);
+            this.mapSize.SmallChange = 25;
+            this.mapSize.TabIndex = 10;
+            this.mapSize.Scroll += new System.EventHandler(this.mapSize_Scroll);
             // 
             // chkToggleViaPanels
             // 
@@ -229,6 +439,9 @@ namespace MapAssist
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnIconColor);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.cboRenderOption);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -249,6 +462,8 @@ namespace MapAssist
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chkShowOverlayFPS);
+            this.tabPage4.Controls.Add(this.chkClearPrefetch);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(324, 325);
@@ -256,112 +471,60 @@ namespace MapAssist
             this.tabPage4.Text = "Advanced";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // lblMapSize
+            // chkClearPrefetch
             // 
-            this.lblMapSize.AutoSize = true;
-            this.lblMapSize.BackColor = System.Drawing.Color.Transparent;
-            this.lblMapSize.Location = new System.Drawing.Point(2, 312);
-            this.lblMapSize.Name = "lblMapSize";
-            this.lblMapSize.Size = new System.Drawing.Size(147, 13);
-            this.lblMapSize.TabIndex = 11;
-            this.lblMapSize.Text = "Map Size (non overlay mode):";
+            this.chkClearPrefetch.AutoSize = true;
+            this.chkClearPrefetch.Location = new System.Drawing.Point(19, 14);
+            this.chkClearPrefetch.Name = "chkClearPrefetch";
+            this.chkClearPrefetch.Size = new System.Drawing.Size(209, 17);
+            this.chkClearPrefetch.TabIndex = 0;
+            this.chkClearPrefetch.Text = "Clear Prefetch Cache On Area Change";
+            this.chkClearPrefetch.UseVisualStyleBackColor = true;
+            this.chkClearPrefetch.CheckedChanged += new System.EventHandler(this.chkClearPrefetch_CheckedChanged);
             // 
-            // mapSize
+            // chkShowOverlayFPS
             // 
-            this.mapSize.LargeChange = 100;
-            this.mapSize.Location = new System.Drawing.Point(-1, 280);
-            this.mapSize.Maximum = 1600;
-            this.mapSize.Name = "mapSize";
-            this.mapSize.Size = new System.Drawing.Size(302, 45);
-            this.mapSize.SmallChange = 25;
-            this.mapSize.TabIndex = 10;
-            this.mapSize.Scroll += new System.EventHandler(this.mapSize_Scroll);
+            this.chkShowOverlayFPS.AutoSize = true;
+            this.chkShowOverlayFPS.Location = new System.Drawing.Point(19, 37);
+            this.chkShowOverlayFPS.Name = "chkShowOverlayFPS";
+            this.chkShowOverlayFPS.Size = new System.Drawing.Size(115, 17);
+            this.chkShowOverlayFPS.TabIndex = 1;
+            this.chkShowOverlayFPS.Text = "Show Overlay FPS";
+            this.chkShowOverlayFPS.UseVisualStyleBackColor = true;
+            this.chkShowOverlayFPS.CheckedChanged += new System.EventHandler(this.chkShowOverlayFPS_CheckedChanged);
             // 
-            // label3
+            // cboRenderOption
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(109, 257);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 20);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Map Sizing:";
+            this.cboRenderOption.FormattingEnabled = true;
+            this.cboRenderOption.Location = new System.Drawing.Point(128, 6);
+            this.cboRenderOption.Name = "cboRenderOption";
+            this.cboRenderOption.Size = new System.Drawing.Size(190, 21);
+            this.cboRenderOption.TabIndex = 0;
+            this.cboRenderOption.SelectedIndexChanged += new System.EventHandler(this.cboRenderOption_SelectedIndexChanged);
             // 
-            // lblZoom
+            // label8
             // 
-            this.lblZoom.AutoSize = true;
-            this.lblZoom.BackColor = System.Drawing.Color.Transparent;
-            this.lblZoom.Location = new System.Drawing.Point(2, 363);
-            this.lblZoom.Name = "lblZoom";
-            this.lblZoom.Size = new System.Drawing.Size(138, 13);
-            this.lblZoom.TabIndex = 14;
-            this.lblZoom.Text = "Zoom Level (overlay mode):";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(109, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Configure Setting For:";
             // 
-            // mapZoom
+            // colorDialog1
             // 
-            this.mapZoom.LargeChange = 10;
-            this.mapZoom.Location = new System.Drawing.Point(-1, 331);
-            this.mapZoom.Maximum = 400;
-            this.mapZoom.Minimum = 1;
-            this.mapZoom.Name = "mapZoom";
-            this.mapZoom.Size = new System.Drawing.Size(302, 45);
-            this.mapZoom.TabIndex = 13;
-            this.mapZoom.Value = 1;
-            this.mapZoom.Scroll += new System.EventHandler(this.mapZoom_Scroll);
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.FullOpen = true;
             // 
-            // label4
+            // btnIconColor
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(109, 406);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 20);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Buff Display:";
-            // 
-            // lblBuffSize
-            // 
-            this.lblBuffSize.AutoSize = true;
-            this.lblBuffSize.BackColor = System.Drawing.Color.Transparent;
-            this.lblBuffSize.Location = new System.Drawing.Point(2, 461);
-            this.lblBuffSize.Name = "lblBuffSize";
-            this.lblBuffSize.Size = new System.Drawing.Size(76, 13);
-            this.lblBuffSize.TabIndex = 16;
-            this.lblBuffSize.Text = "Buff Icon Size:";
-            // 
-            // buffSize
-            // 
-            this.buffSize.LargeChange = 25;
-            this.buffSize.Location = new System.Drawing.Point(-1, 429);
-            this.buffSize.Maximum = 200;
-            this.buffSize.Name = "buffSize";
-            this.buffSize.Size = new System.Drawing.Size(302, 45);
-            this.buffSize.TabIndex = 15;
-            this.buffSize.Scroll += new System.EventHandler(this.buffSize_Scroll);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(128, 485);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Position:";
-            // 
-            // cboBuffPosition
-            // 
-            this.cboBuffPosition.AllowDrop = true;
-            this.cboBuffPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboBuffPosition.FormattingEnabled = true;
-            this.cboBuffPosition.Items.AddRange(new object[] {
-            "Top",
-            "Player",
-            "Bottom"});
-            this.cboBuffPosition.Location = new System.Drawing.Point(181, 482);
-            this.cboBuffPosition.Name = "cboBuffPosition";
-            this.cboBuffPosition.Size = new System.Drawing.Size(107, 21);
-            this.cboBuffPosition.TabIndex = 18;
-            this.cboBuffPosition.SelectedIndexChanged += new System.EventHandler(this.cboBuffPosition_SelectedIndexChanged);
+            this.btnIconColor.Location = new System.Drawing.Point(211, 69);
+            this.btnIconColor.Name = "btnIconColor";
+            this.btnIconColor.Size = new System.Drawing.Size(75, 23);
+            this.btnIconColor.TabIndex = 2;
+            this.btnIconColor.Text = "Icon Color";
+            this.btnIconColor.UseVisualStyleBackColor = true;
+            this.btnIconColor.Click += new System.EventHandler(this.btnIconColor_Click);
             // 
             // ConfigEditor
             // 
@@ -375,14 +538,21 @@ namespace MapAssist
             this.Text = "ConfigEditor";
             this.Load += new System.EventHandler(this.ConfigEditor_Load);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.updateTime)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buffSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconOpacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.opacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapZoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.buffSize)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -415,5 +585,19 @@ namespace MapAssist
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblBuffSize;
         private System.Windows.Forms.TrackBar buffSize;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.CheckBox chkGameInfo;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtD2Path;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtHuntIP;
+        private System.Windows.Forms.Label lblUpdateTime;
+        private System.Windows.Forms.TrackBar updateTime;
+        private System.Windows.Forms.CheckBox chkClearPrefetch;
+        private System.Windows.Forms.CheckBox chkShowOverlayFPS;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cboRenderOption;
+        private System.Windows.Forms.Button btnIconColor;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

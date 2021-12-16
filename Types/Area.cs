@@ -17,6 +17,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
+using MapAssist.Helpers;
+using MapAssist.Settings;
+using System;
 using System.Collections.Generic;
 
 namespace MapAssist.Types
@@ -169,6 +172,8 @@ namespace MapAssist.Types
 
     public static class AreaExtensions
     {
+        public static LocalizedAreaList _localizedAreaList;
+        public static Dictionary<string, LocalizedObj> LocalizedAreas = new Dictionary<string, LocalizedObj>();
         private static readonly Dictionary<Area, AreaLabel> _areaLabels = new Dictionary<Area, AreaLabel>()
         {
             [Area.None] = new AreaLabel() {
@@ -720,10 +725,30 @@ namespace MapAssist.Types
                 Level = new int[] { 0, 0, 83 }
             },
         };
-
+        public static string NameFromKey(string key)
+        {
+            LocalizedObj localItem;
+            if (!LocalizedAreas.TryGetValue(key, out localItem))
+            {
+                return "AreaNameNotFound";
+            }
+            var lang = MapAssistConfiguration.Loaded.Language;
+            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            return prop.ToString();
+        }
         public static string Name(this Area area)
         {
-            return _areaLabels.TryGetValue(area, out var label) ? label.Text : area.ToString();
+            var areaLabel = _areaLabels.TryGetValue(area, out var label) ? label.Text : area.ToString();
+
+            LocalizedObj localItem;
+            if (!LocalizedAreas.TryGetValue(areaLabel, out localItem))
+            {
+                Console.WriteLine("area not found " + areaLabel);
+                return area.ToString();
+            }
+            var lang = MapAssistConfiguration.Loaded.Language;
+            var prop = localItem.GetType().GetProperty(lang).GetValue(localItem, null);
+            return prop.ToString();
         }
 
         public static int Level(this Area area, Difficulty difficulty)

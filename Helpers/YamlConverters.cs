@@ -217,7 +217,7 @@ namespace MapAssist.Helpers
 
             foreach (var child in node)
             {
-                emitter.Emit(new Scalar(null, child.Name()));
+                emitter.Emit(new Scalar(null, child.NameInternal()));
             }
 
             emitter.Emit(new SequenceEnd());

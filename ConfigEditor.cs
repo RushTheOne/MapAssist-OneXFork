@@ -99,6 +99,10 @@ namespace MapAssist
             MapAssistConfiguration.Loaded.Save();
             base.OnFormClosing(e);
         }
+        private void IgnoreMouseWheel(object sender, EventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
+        }
 
         private void updateTime_Scroll(object sender, EventArgs e)
         {

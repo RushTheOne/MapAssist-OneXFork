@@ -750,6 +750,11 @@ namespace MapAssist.Types
             return prop.ToString();
         }
 
+        public static string NameInternal(this Area area)
+        {
+            return _areaLabels.TryGetValue(area, out var label) ? label.Text : area.ToString();
+        }
+
         public static int Level(this Area area, Difficulty difficulty)
         {
             return _areaLabels.TryGetValue(area, out var label) ? label.Level[(int)difficulty] : 0;

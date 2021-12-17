@@ -233,7 +233,7 @@ namespace MapAssist.Helpers
 
         private Area LookupAreaByName(string name)
         {
-            return Enum.GetValues(typeof(Area)).Cast<Area>().FirstOrDefault(area => area.Name().ToLower() == name.ToLower());
+            return Enum.GetValues(typeof(Area)).Cast<Area>().FirstOrDefault(area => area.NameInternal().ToLower() == name.ToLower());
         }
     }
 

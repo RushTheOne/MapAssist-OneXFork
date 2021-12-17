@@ -169,10 +169,12 @@ namespace MapAssist.Helpers
             var node = (IconRendering)value;
             if (node.IconColor != null)
             {
-                emitter.Emit(new Scalar(null, "IconColor"));
-                emitter.Emit(new Scalar(null, node.IconColor.A + ", " + node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
                 emitter.Emit(new Scalar(null, "IconShape"));
                 emitter.Emit(new Scalar(null, node.IconShape.ToString()));
+                emitter.Emit(new Scalar(null, "IconColor"));
+                emitter.Emit(new Scalar(null, node.IconColor.A + ", " + node.IconColor.R + ", " + node.IconColor.G + ", " + node.IconColor.B));
+                emitter.Emit(new Scalar(null, "IconOutlineColor"));
+                emitter.Emit(new Scalar(null, node.IconOutlineColor.A + ", " + node.IconOutlineColor.R + ", " + node.IconOutlineColor.G + ", " + node.IconOutlineColor.B));
                 emitter.Emit(new Scalar(null, "IconSize"));
                 emitter.Emit(new Scalar(null, node.IconSize.ToString()));
                 emitter.Emit(new Scalar(null, "IconThickness"));

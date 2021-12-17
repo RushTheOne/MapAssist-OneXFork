@@ -35,7 +35,7 @@ namespace MapAssist.Helpers
 {
     public class Compositor : IDisposable
     {
-
+        private static readonly NLog.Logger _log = NLog.LogManager.GetCurrentClassLogger();
         public GameData _gameData;
         public readonly AreaData _areaData;
         private readonly IReadOnlyList<PointOfInterest> _pointsOfInterest;
@@ -615,6 +615,7 @@ namespace MapAssist.Helpers
                 Color fontColor;
                 if (!Items.ItemColors.TryGetValue(item.ItemData.ItemQuality, out fontColor))
                 {
+                    _log.Warn("Invalid item quality in ItemLog - Quality " + item.ItemData.ItemQuality + " - UnitId " + item.UnitId);
                     continue;
                 }
 

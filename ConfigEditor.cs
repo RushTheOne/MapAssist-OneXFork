@@ -406,6 +406,7 @@ namespace MapAssist
         private void cboLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             MapAssistConfiguration.Loaded.Language = cboLanguage.SelectedIndex;
+            PointOfInterestHandler.ReloadNamedPOIs();
         }
 
         private void txtToggleMapKey_TextChanged(object sender, EventArgs e)

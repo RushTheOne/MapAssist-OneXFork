@@ -51,6 +51,8 @@ namespace MapAssist.Helpers
         private readonly ConcurrentDictionary<Area, AreaData> _cache;
         private Difficulty _difficulty;
         private uint _mapSeed;
+
+        private static bool _pipeNotResponding;
         
         public static bool StartPipedChild()
         {
@@ -97,54 +99,66 @@ namespace MapAssist.Helpers
 
                 _log.Info($"{_procName} has started");
 
-                while (!disposed && !_pipeClient.HasExited)
+                while (!disposed)
                 {
-                    var readLength = await ReadBytes(4);
-                    if (readLength == null) break; // null is only returned when pipe has exited
-                    var length = BitConverter.ToUInt32(readLength, 0);
-
-                    if (length == 0)
-                    {
-                        collection.Add((0, null));
-                        continue;
-                    }
-
-                    string json = null;
-                    JObject jsonObj = null;
                     try
                     {
-                        _log.Info($"Reading {length} bytes from {_procName}");
-                        var readJson = await ReadBytes((int)length);
-                        if (readJson == null) break; // null is only returned when pipe has exited
-                        json = Encoding.UTF8.GetString(readJson);
-                        if (string.IsNullOrWhiteSpace(json))
+                        if (_pipeClient.HasExited)
                         {
+                            break;
+                        }
+                        var readLength = await ReadBytes(4);
+                        if (readLength == null) break; // null is only returned when pipe has exited
+                        var length = BitConverter.ToUInt32(readLength, 0);
+
+                        if (length == 0)
+                        {
+                            collection.Add((0, null));
+                            continue;
+                        }
+
+                        string json = null;
+                        JObject jsonObj = null;
+                        try
+                        {
+                            _log.Info($"Reading {length} bytes from {_procName}");
+                            var readJson = await ReadBytes((int)length);
+                            if (readJson == null) break; // null is only returned when pipe has exited
+                            json = Encoding.UTF8.GetString(readJson);
+                            if (string.IsNullOrWhiteSpace(json))
+                            {
+                                collection.Add((length, null));
+                                continue;
+                            }
+                            jsonObj = JObject.Parse(json);
+                        }
+                        catch (Exception e)
+                        {
+                            _log.Error(e);
+                            _log.Error(e, "Unable to parse JSON data from pipe server.");
+                            if (!string.IsNullOrWhiteSpace(json))
+                            {
+                                _log.Error(json);
+                            }
+
                             collection.Add((length, null));
                             continue;
                         }
-                        jsonObj = JObject.Parse(json);
-                    }
-                    catch (Exception e)
-                    {
-                        _log.Error(e);
-                        _log.Error(e, "Unable to parse JSON data from pipe server.");
-                        if (!string.IsNullOrWhiteSpace(json))
+
+                        if (jsonObj.ContainsKey("error"))
                         {
-                            _log.Error(json);
+                            _log.Error(jsonObj["error"].ToString());
+                            collection.Add((length, null)); // Error occurred, do null check in the outer function
+                            continue;
                         }
 
-                        collection.Add((length, null));
-                        continue;
+                        collection.Add((length, json));
                     }
-
-                    if (jsonObj.ContainsKey("error"))
+                    catch
                     {
-                        _log.Error(jsonObj["error"].ToString());
-                        collection.Add((length, null)); // Error occurred, do null check in the outer function
-                        continue;
+                        break; //pipe may have been killed unexpectedly
                     }
-
-                    collection.Add((length, json));
+                    _pipeNotResponding = false;
                 }
 
                 if (disposed)
@@ -164,12 +178,13 @@ namespace MapAssist.Helpers
             var (startupLength, _) = collection.Take();
 
             // Cancel requests on the previous pipe only after the current pipe has successfully started
-            if (cancelToken != null)
-            {
-                cancelToken.Cancel();
-                cancelToken.Dispose();
-            }
+            var prevCancelToken = cancelToken;
             cancelToken = new CancellationTokenSource();
+            if (prevCancelToken != null)
+            {
+                prevCancelToken.Cancel();
+                prevCancelToken.Dispose();
+            }
 
             return startupLength == 0;
         }
@@ -240,7 +255,10 @@ namespace MapAssist.Helpers
                 // Not in the cache, block.
                 _log.Info($"Cache miss on {area}");
                 areaData = GetMapDataInternal(area);
-                _cache[area] = areaData;
+                if (areaData != null)
+                {
+                    _cache[area] = areaData;
+                }
             } else
             {
                 _log.Info($"Cache found on {area}");
@@ -261,6 +279,11 @@ namespace MapAssist.Helpers
             } else
             {
                 _log.Info($"areaData was null on {area}");
+                if (_pipeNotResponding)
+                {
+                    _log.Info($"Pipe was not responding, trying to get area data again. (GetMapData)");
+                    return GetMapData(area);
+                }
             }
 
             return areaData;
@@ -302,6 +325,18 @@ namespace MapAssist.Helpers
             req.difficulty = (uint)_difficulty;
             req.levelId = (uint)area;
 
+            try
+            {
+                if (_pipeClient.HasExited)
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
             var writer = _pipeClient.StandardInput;
 
             var data = ToBytes(req);
@@ -320,7 +355,20 @@ namespace MapAssist.Helpers
 
                     try
                     {
-                        (length, json) = collection.Take(cancelToken.Token);
+                        if (!_pipeClient.HasExited)
+                        {
+                            if (collection.TryTake(out var result, 1000, cancelToken.Token))
+                            {
+                                (length, json) = result;
+                            }
+                            else
+                            {
+                                _pipeNotResponding = true;
+                                try { _pipeClient.Kill(); } catch (Exception) { }
+                                try { _pipeClient.Close(); } catch (Exception) { }
+                                try { _pipeClient.Dispose(); } catch (Exception) { }
+                            }
+                        }
                     }
                     catch (OperationCanceledException ex)
                     {
@@ -332,7 +380,15 @@ namespace MapAssist.Helpers
                 if (json == null)
                 {
                     _log.Error("Unable to load data for " + area + " from " + _procName);
-                    return null;
+
+                    if (_pipeNotResponding)
+                    {
+                        _log.Info($"Pipe was not responding, trying to get area data again. (GetMapDataInternal)");
+                        return GetMapDataInternal(area);
+                    } else
+                    {
+                        return null;
+                    }
                 }
 
                 var rawAreaData = JsonConvert.DeserializeObject<RawAreaData>(json);

@@ -529,7 +529,7 @@ namespace MapAssist.Helpers
                     {
                         pointOfInterest.Add(new PointOfInterest
                         {
-                            Label = "Izual",
+                            Label = AreaExtensions.NameFromKey("Izual"),
                             Position = objAndPoints.Value[0],
                             RenderingSettings = MapAssistConfiguration.Loaded.MapConfiguration.Quest
                         });

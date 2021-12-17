@@ -60,7 +60,7 @@ namespace MapAssist.Helpers
             [Area.CrystallinePassage] = Area.FrozenRiver,
         };
 
-        private static readonly Dictionary<Area, Dictionary<GameObject, string>> AreaSpecificQuestObjects = new Dictionary<Area, Dictionary<GameObject, string>>()
+        private static Dictionary<Area, Dictionary<GameObject, string>> AreaSpecificQuestObjects = new Dictionary<Area, Dictionary<GameObject, string>>()
         {
             [Area.MatronsDen] = new Dictionary<GameObject, string>()
             {
@@ -91,8 +91,7 @@ namespace MapAssist.Helpers
                 [GameObject.PermanentTownPortal] = Area.InfernalPit,
             },
         };
-
-        private static readonly Dictionary<GameObject, string> QuestObjects = new Dictionary<GameObject, string>
+        private static Dictionary<GameObject, string> QuestObjects = new Dictionary<GameObject, string>
         {
             [GameObject.CairnStoneAlpha] = Area.Tristram.Name(),
             [GameObject.WirtCorpse] = Items.ItemNameFromKey("leg"),
@@ -153,6 +152,44 @@ namespace MapAssist.Helpers
             GameObject.JungleShrine5,
         };
 
+        public static void ReloadNamedPOIs()
+        {
+            QuestObjects = new Dictionary<GameObject, string>
+            {
+                [GameObject.CairnStoneAlpha] = Area.Tristram.Name(),
+                [GameObject.WirtCorpse] = Items.ItemNameFromKey("leg"),
+                [GameObject.InifussTree] = Items.ItemNameFromKey("Inifuss"),
+                [GameObject.Malus] = Items.ItemNameFromKey("Malus"),
+                [GameObject.HoradricScrollChest] = Items.ItemNameFromKey("tr1"),
+                [GameObject.HoradricCubeChest] = Items.ItemNameFromKey("box"),
+                [GameObject.StaffOfKingsChest] = Items.ItemNameFromKey("Staff of Kings"),
+                [GameObject.YetAnotherTome] = AreaExtensions.NameFromKey("The Summoner"),
+                [GameObject.HoradricOrifice] = Items.ItemNameFromKey("orifice"),
+                [GameObject.KhalimChest1] = Items.ItemNameFromKey("qhr"),
+                [GameObject.KhalimChest2] = Items.ItemNameFromKey("qbr"),
+                [GameObject.KhalimChest3] = Items.ItemNameFromKey("qey"),
+                [GameObject.GidbinnAltarDecoy] = Items.ItemNameFromKey("gidbinn"),
+                [GameObject.HellForge] = Items.ItemNameFromKey("Hellforge"),
+                [GameObject.DrehyaWildernessStartPosition] = AreaExtensions.NameFromKey("Drehya"), //anya
+                [GameObject.NihlathakWildernessStartPosition] = AreaExtensions.NameFromKey("Nihlathak"),
+                [GameObject.CagedWussie] = AreaExtensions.NameFromKey("cagedwussie1"),
+            };
+            AreaSpecificQuestObjects = new Dictionary<Area, Dictionary<GameObject, string>>()
+            {
+                [Area.MatronsDen] = new Dictionary<GameObject, string>()
+                {
+                    [GameObject.SparklyChest] = AreaExtensions.NameFromKey("Lilith"),
+                },
+                [Area.FurnaceOfPain] = new Dictionary<GameObject, string>()
+                {
+                    [GameObject.SparklyChest] = AreaExtensions.NameFromKey("Izual"),
+                },
+                [Area.PalaceCellarLevel3] = new Dictionary<GameObject, string>()
+                {
+                    [GameObject.ArcaneSanctuaryPortal] = AreaExtensions.NameFromKey("Arcane Sanctuary"),
+                },
+            };
+        }
         public static List<PointOfInterest> Get(MapApi mapApi, AreaData areaData, GameData gameData)
         {
             var pointOfInterest = new List<PointOfInterest>();

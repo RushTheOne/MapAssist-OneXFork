@@ -276,6 +276,7 @@
             this.updateTime.TabIndex = 11;
             this.updateTime.Value = 1;
             this.updateTime.Scroll += new System.EventHandler(this.updateTime_Scroll);
+            this.updateTime.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // txtD2Path
             // 
@@ -380,6 +381,7 @@
             this.buffSize.Size = new System.Drawing.Size(170, 45);
             this.buffSize.TabIndex = 15;
             this.buffSize.Scroll += new System.EventHandler(this.buffSize_Scroll);
+            this.buffSize.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // groupBox1
             // 
@@ -450,6 +452,7 @@
             this.mapZoom.TabIndex = 13;
             this.mapZoom.Value = 1;
             this.mapZoom.Scroll += new System.EventHandler(this.mapZoom_Scroll);
+            this.mapZoom.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // mapSize
             // 
@@ -462,6 +465,7 @@
             this.mapSize.SmallChange = 25;
             this.mapSize.TabIndex = 10;
             this.mapSize.Scroll += new System.EventHandler(this.mapSize_Scroll);
+            this.mapSize.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // lblMapZoomValue
             // 
@@ -505,6 +509,7 @@
             this.iconOpacity.Size = new System.Drawing.Size(170, 45);
             this.iconOpacity.TabIndex = 3;
             this.iconOpacity.Scroll += new System.EventHandler(this.iconOpacity_Scroll);
+            this.iconOpacity.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // lblMapSize
             // 
@@ -548,6 +553,7 @@
             this.opacity.Size = new System.Drawing.Size(170, 45);
             this.opacity.TabIndex = 1;
             this.opacity.Scroll += new System.EventHandler(this.opacity_Scroll);
+            this.opacity.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // lblOpacity
             // 
@@ -694,6 +700,7 @@
             this.iconThickness.TabIndex = 16;
             this.iconThickness.Value = 1;
             this.iconThickness.Scroll += new System.EventHandler(this.iconThickness_Scroll);
+            this.iconThickness.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // lblIconSize
             // 
@@ -717,6 +724,7 @@
             this.iconSize.TabIndex = 14;
             this.iconSize.Value = 1;
             this.iconSize.Scroll += new System.EventHandler(this.iconSize_Scroll);
+            this.iconSize.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // label9
             // 
@@ -878,6 +886,7 @@
             this.lineThicknessSize.TabIndex = 22;
             this.lineThicknessSize.Value = 1;
             this.lineThicknessSize.Scroll += new System.EventHandler(this.lineThicknessSize_Scroll);
+            this.lineThicknessSize.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // lblLineArrow
             // 
@@ -901,6 +910,7 @@
             this.lineArrowSize.TabIndex = 20;
             this.lineArrowSize.Value = 1;
             this.lineArrowSize.Scroll += new System.EventHandler(this.lineArrowSize_Scroll);
+            this.lineArrowSize.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // chkLine
             // 
@@ -999,6 +1009,7 @@
             this.itemDisplayForSeconds.TabIndex = 11;
             this.itemDisplayForSeconds.Value = 1;
             this.itemDisplayForSeconds.Scroll += new System.EventHandler(this.itemDisplayForSeconds_Scroll);
+            this.itemDisplayForSeconds.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 
             // btnLogFont
             // 

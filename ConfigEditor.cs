@@ -16,11 +16,32 @@ namespace MapAssist
         {
             InitializeComponent();
 
-            foreach (var element in MapAssistConfiguration.Loaded.MapConfiguration.GetType().GetProperties())
+            var propertyList = MapAssistConfiguration.Loaded.MapConfiguration.GetType().GetProperties();
+            for (var i = 0; i < propertyList.Length; i++)
             {
-                if (!(element.Name.Substring(element.Name.Length - 3, 3) == "REF"))
+                var element = propertyList[i];
+                if (element.Name.Length > 3)
                 {
-                    cboRenderOption.Items.Add(element.Name.ToProperCase());
+                    var lastThree = element.Name.Substring(element.Name.Length - 3, 3);
+                    if (!(lastThree == "REF"))
+                    {
+                        cboRenderOption.Items.Add(element.Name.ToProperCase());
+                        if (i + 1 > propertyList.Length)
+                        {
+                            Console.WriteLine("CONFIG ERROR - (MapConfiguration." + element.Name + ") missing a static REF member after it.");
+                        } else
+                        {
+                            var nextElement = propertyList[i+1];
+                            lastThree = nextElement.Name.Substring(nextElement.Name.Length - 3, 3);
+                            if (!(lastThree == "REF"))
+                            {
+                                Console.WriteLine("CONFIG ERROR - (MapConfiguration." + element.Name + ") missing a static REF member after it.");
+                            }
+                        }
+                    }
+                } else
+                {
+                    Console.WriteLine("CONFIG ERROR - (MapConfiguration." + element.Name +  ") variable names in the MapConfiguration class should be at least 4 characters long");
                 }
             }
 

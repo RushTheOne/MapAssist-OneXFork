@@ -216,6 +216,7 @@
             this.lblUpdateTimeValue.TabIndex = 13;
             this.lblUpdateTimeValue.Text = "1000 ms";
             this.lblUpdateTimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblUpdateTimeValue.Visible = false;
             // 
             // label11
             // 
@@ -263,6 +264,7 @@
             this.lblUpdateTime.Size = new System.Drawing.Size(68, 13);
             this.lblUpdateTime.TabIndex = 12;
             this.lblUpdateTime.Text = "Update Time";
+            this.lblUpdateTime.Visible = false;
             // 
             // updateTime
             // 
@@ -275,6 +277,7 @@
             this.updateTime.Size = new System.Drawing.Size(172, 45);
             this.updateTime.TabIndex = 11;
             this.updateTime.Value = 1;
+            this.updateTime.Visible = false;
             this.updateTime.Scroll += new System.EventHandler(this.updateTime_Scroll);
             this.updateTime.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
             // 

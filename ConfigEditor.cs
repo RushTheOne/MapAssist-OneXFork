@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using MapAssist.Settings;
 using MapAssist.Helpers;
-using WK.Libraries.HotkeyListenerNS;
 
 namespace MapAssist
 {
@@ -99,10 +98,10 @@ namespace MapAssist
             chkClearPrefetch.Checked = MapAssistConfiguration.Loaded.ClearPrefetchedOnAreaChange;
             chkShowOverlayFPS.Checked = MapAssistConfiguration.Loaded.GameInfo.ShowOverlayFPS;
 
-            new HotkeySelector().Enable(txtToggleMapKey, new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ToggleKey.ToString()));
-            new HotkeySelector().Enable(txtGameInfoKey, new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.GameInfoKey.ToString()));
-            new HotkeySelector().Enable(txtZoomInKey, new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomInKey.ToString()));
-            new HotkeySelector().Enable(txtZoomOutKey, new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey.ToString()));
+            new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ToggleKey.ToString()).Monitor(txtToggleMapKey);
+            new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.GameInfoKey.ToString()).Monitor(txtGameInfoKey);
+            new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomInKey.ToString()).Monitor(txtZoomInKey);
+            new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey.ToString()).Monitor(txtZoomOutKey);
 
             chkItemLogEnabled.Checked = MapAssistConfiguration.Loaded.ItemLog.Enabled;
             chkPlaySound.Checked = MapAssistConfiguration.Loaded.ItemLog.PlaySoundOnDrop;
@@ -110,7 +109,6 @@ namespace MapAssist
             txtSoundFile.Text = MapAssistConfiguration.Loaded.ItemLog.SoundFile;
             itemDisplayForSeconds.Value = (int)Math.Round(MapAssistConfiguration.Loaded.ItemLog.DisplayForSeconds / 5f);
             lblItemDisplayForSecondsValue.Text = $"{itemDisplayForSeconds.Value * 5} s";
-
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -509,6 +507,26 @@ namespace MapAssist
                 MapAssistConfiguration.Loaded.ItemLog.LabelFont = fontDlg.Font.Name;
                 MapAssistConfiguration.Loaded.ItemLog.LabelFontSize = fontDlg.Font.Size;
             }
+        }
+
+        private void txtToggleMapKey_TextChanged(object sender, EventArgs e)
+        {
+            MapAssistConfiguration.Loaded.HotkeyConfiguration.ToggleKey = txtToggleMapKey.Text;
+        }
+
+        private void txtGameInfoKey_TextChanged(object sender, EventArgs e)
+        {
+            MapAssistConfiguration.Loaded.HotkeyConfiguration.GameInfoKey = txtGameInfoKey.Text;
+        }
+
+        private void txtZoomInKey_TextChanged(object sender, EventArgs e)
+        {
+            MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomInKey = txtZoomInKey.Text;
+        }
+
+        private void txtZoomOutKey_TextChanged(object sender, EventArgs e)
+        {
+            MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey = txtZoomOutKey.Text;
         }
     }
 }

@@ -1138,7 +1138,7 @@
             this.txtZoomOutKey.Name = "txtZoomOutKey";
             this.txtZoomOutKey.Size = new System.Drawing.Size(119, 20);
             this.txtZoomOutKey.TabIndex = 7;
-            this.txtZoomOutKey.Text = "None";
+            this.txtZoomOutKey.TextChanged += new System.EventHandler(this.txtZoomOutKey_TextChanged);
             // 
             // txtZoomInKey
             // 
@@ -1147,6 +1147,7 @@
             this.txtZoomInKey.Name = "txtZoomInKey";
             this.txtZoomInKey.Size = new System.Drawing.Size(119, 20);
             this.txtZoomInKey.TabIndex = 6;
+            this.txtZoomInKey.TextChanged += new System.EventHandler(this.txtZoomInKey_TextChanged);
             // 
             // txtGameInfoKey
             // 
@@ -1155,6 +1156,7 @@
             this.txtGameInfoKey.Name = "txtGameInfoKey";
             this.txtGameInfoKey.Size = new System.Drawing.Size(119, 20);
             this.txtGameInfoKey.TabIndex = 5;
+            this.txtGameInfoKey.TextChanged += new System.EventHandler(this.txtGameInfoKey_TextChanged);
             // 
             // txtToggleMapKey
             // 
@@ -1163,6 +1165,7 @@
             this.txtToggleMapKey.Name = "txtToggleMapKey";
             this.txtToggleMapKey.Size = new System.Drawing.Size(119, 20);
             this.txtToggleMapKey.TabIndex = 4;
+            this.txtToggleMapKey.TextChanged += new System.EventHandler(this.txtToggleMapKey_TextChanged);
             // 
             // label15
             // 

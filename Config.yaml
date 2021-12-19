@@ -2,10 +2,10 @@
 
 ## HotkeyConfiguration - Keyboard shortcuts for the overlay
 HotkeyConfiguration:
-  ToggleKey: 'Oem5'
-  ZoomInKey: 'Add'
-  ZoomOutKey: 'Subtract'
-  GameInfoKey: 'OemOpenBrackets'
+  ToggleKey: '\'
+  ZoomInKey: 'Num +'
+  ZoomOutKey: 'Num -'
+  GameInfoKey: '['
 
 ## PrefetchAreas - Areas to preload so that they're hot and ready as soon as you go to them
 PrefetchAreas:

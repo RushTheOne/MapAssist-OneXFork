@@ -91,15 +91,17 @@ namespace MapAssist
             lblBuffSizeValue.Text = MapAssistConfiguration.Loaded.RenderingConfiguration.BuffSize.ToString();
             cboBuffPosition.SelectedIndex = cboBuffPosition.FindStringExact(MapAssistConfiguration.Loaded.RenderingConfiguration.BuffPosition.ToString().ToProperCase());
 
-            chkGameInfo.Checked = MapAssistConfiguration.Loaded.GameInfo.Enabled;
-            txtHuntIP.Text = MapAssistConfiguration.Loaded.HuntingIP;
+            chkShowIP.Checked = MapAssistConfiguration.Loaded.GameInfo.ShowGameIP;
+            chkShowAreaLevel.Checked = MapAssistConfiguration.Loaded.GameInfo.ShowAreaLevel;
+            txtHuntIP.Text = MapAssistConfiguration.Loaded.GameInfo.HuntingIP;
+
             txtD2Path.Text = MapAssistConfiguration.Loaded.D2Path;
 
             chkClearPrefetch.Checked = MapAssistConfiguration.Loaded.ClearPrefetchedOnAreaChange;
             chkShowOverlayFPS.Checked = MapAssistConfiguration.Loaded.GameInfo.ShowOverlayFPS;
 
             new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ToggleKey.ToString()).Monitor(txtToggleMapKey);
-            new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.GameInfoKey.ToString()).Monitor(txtGameInfoKey);
+            new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.AreaLevelKey.ToString()).Monitor(txtAreaLevelKey);
             new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomInKey.ToString()).Monitor(txtZoomInKey);
             new Hotkey(MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey.ToString()).Monitor(txtZoomOutKey);
 
@@ -229,12 +231,12 @@ namespace MapAssist
 
         private void chkGameInfo_CheckedChanged(object sender, EventArgs e)
         {
-            MapAssistConfiguration.Loaded.GameInfo.Enabled = chkGameInfo.Checked;
+            MapAssistConfiguration.Loaded.GameInfo.ShowGameIP = chkShowIP.Checked;
         }
 
         private void txtHuntIP_TextChanged(object sender, EventArgs e)
         {
-            MapAssistConfiguration.Loaded.HuntingIP = txtHuntIP.Text;
+            MapAssistConfiguration.Loaded.GameInfo.HuntingIP = txtHuntIP.Text;
         }
 
         private void txtD2Path_TextChanged(object sender, EventArgs e)
@@ -516,7 +518,7 @@ namespace MapAssist
 
         private void txtGameInfoKey_TextChanged(object sender, EventArgs e)
         {
-            MapAssistConfiguration.Loaded.HotkeyConfiguration.GameInfoKey = txtGameInfoKey.Text;
+            MapAssistConfiguration.Loaded.HotkeyConfiguration.AreaLevelKey = txtAreaLevelKey.Text;
         }
 
         private void txtZoomInKey_TextChanged(object sender, EventArgs e)
@@ -527,6 +529,11 @@ namespace MapAssist
         private void txtZoomOutKey_TextChanged(object sender, EventArgs e)
         {
             MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey = txtZoomOutKey.Text;
+        }
+
+        private void chkShowAreaLevel_CheckedChanged(object sender, EventArgs e)
+        {
+            MapAssistConfiguration.Loaded.GameInfo.ShowAreaLevel = chkShowAreaLevel.Checked;
         }
     }
 }

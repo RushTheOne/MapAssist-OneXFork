@@ -5,7 +5,7 @@ HotkeyConfiguration:
   ToggleKey: '\'
   ZoomInKey: 'Num +'
   ZoomOutKey: 'Num -'
-  GameInfoKey: '['
+  AreaLevelKey: '['
 
 ## PrefetchAreas - Areas to preload so that they're hot and ready as soon as you go to them
 PrefetchAreas:

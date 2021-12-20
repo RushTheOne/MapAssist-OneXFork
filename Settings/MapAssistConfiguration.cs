@@ -210,8 +210,8 @@ public class HotkeyConfiguration
     [YamlMember(Alias = "ZoomOutKey", ApplyNamingConventions = false)]
     public string ZoomOutKey { get; set; }
 
-    [YamlMember(Alias = "GameInfoKey", ApplyNamingConventions = false)]
-    public string GameInfoKey { get; set; }
+    [YamlMember(Alias = "AreaLevelKey", ApplyNamingConventions = false)]
+    public string AreaLevelKey { get; set; }
 }
 
 public class GameInfoConfiguration

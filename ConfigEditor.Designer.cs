@@ -31,11 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.chkShowAreaLevel = new System.Windows.Forms.CheckBox();
             this.cboLanguage = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblUpdateTimeValue = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.chkGameInfo = new System.Windows.Forms.CheckBox();
+            this.chkShowIP = new System.Windows.Forms.CheckBox();
             this.txtHuntIP = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblUpdateTime = new System.Windows.Forms.Label();
@@ -115,7 +116,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtZoomOutKey = new System.Windows.Forms.TextBox();
             this.txtZoomInKey = new System.Windows.Forms.TextBox();
-            this.txtGameInfoKey = new System.Windows.Forms.TextBox();
+            this.txtAreaLevelKey = new System.Windows.Forms.TextBox();
             this.txtToggleMapKey = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -167,11 +168,12 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.chkShowAreaLevel);
             this.tabPage5.Controls.Add(this.cboLanguage);
             this.tabPage5.Controls.Add(this.label1);
             this.tabPage5.Controls.Add(this.lblUpdateTimeValue);
             this.tabPage5.Controls.Add(this.label11);
-            this.tabPage5.Controls.Add(this.chkGameInfo);
+            this.tabPage5.Controls.Add(this.chkShowIP);
             this.tabPage5.Controls.Add(this.txtHuntIP);
             this.tabPage5.Controls.Add(this.label7);
             this.tabPage5.Controls.Add(this.lblUpdateTime);
@@ -184,6 +186,17 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Main";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // chkShowAreaLevel
+            // 
+            this.chkShowAreaLevel.AutoSize = true;
+            this.chkShowAreaLevel.Location = new System.Drawing.Point(15, 38);
+            this.chkShowAreaLevel.Name = "chkShowAreaLevel";
+            this.chkShowAreaLevel.Size = new System.Drawing.Size(107, 17);
+            this.chkShowAreaLevel.TabIndex = 16;
+            this.chkShowAreaLevel.Text = "Show Area Level";
+            this.chkShowAreaLevel.UseVisualStyleBackColor = true;
+            this.chkShowAreaLevel.CheckedChanged += new System.EventHandler(this.chkShowAreaLevel_CheckedChanged);
             // 
             // cboLanguage
             // 
@@ -210,7 +223,7 @@
             // 
             this.lblUpdateTimeValue.AutoSize = true;
             this.lblUpdateTimeValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblUpdateTimeValue.Location = new System.Drawing.Point(264, 46);
+            this.lblUpdateTimeValue.Location = new System.Drawing.Point(264, 81);
             this.lblUpdateTimeValue.Name = "lblUpdateTimeValue";
             this.lblUpdateTimeValue.Size = new System.Drawing.Size(47, 13);
             this.lblUpdateTimeValue.TabIndex = 13;
@@ -227,16 +240,16 @@
             this.label11.TabIndex = 13;
             this.label11.Text = "Language:";
             // 
-            // chkGameInfo
+            // chkShowIP
             // 
-            this.chkGameInfo.AutoSize = true;
-            this.chkGameInfo.Location = new System.Drawing.Point(15, 15);
-            this.chkGameInfo.Name = "chkGameInfo";
-            this.chkGameInfo.Size = new System.Drawing.Size(112, 17);
-            this.chkGameInfo.TabIndex = 6;
-            this.chkGameInfo.Text = "Display Game Info";
-            this.chkGameInfo.UseVisualStyleBackColor = true;
-            this.chkGameInfo.CheckedChanged += new System.EventHandler(this.chkGameInfo_CheckedChanged);
+            this.chkShowIP.AutoSize = true;
+            this.chkShowIP.Location = new System.Drawing.Point(15, 15);
+            this.chkShowIP.Name = "chkShowIP";
+            this.chkShowIP.Size = new System.Drawing.Size(97, 17);
+            this.chkShowIP.TabIndex = 6;
+            this.chkShowIP.Text = "Show Game IP";
+            this.chkShowIP.UseVisualStyleBackColor = true;
+            this.chkShowIP.CheckedChanged += new System.EventHandler(this.chkGameInfo_CheckedChanged);
             // 
             // txtHuntIP
             // 
@@ -259,7 +272,7 @@
             // 
             this.lblUpdateTime.AutoSize = true;
             this.lblUpdateTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblUpdateTime.Location = new System.Drawing.Point(12, 46);
+            this.lblUpdateTime.Location = new System.Drawing.Point(12, 81);
             this.lblUpdateTime.Name = "lblUpdateTime";
             this.lblUpdateTime.Size = new System.Drawing.Size(68, 13);
             this.lblUpdateTime.TabIndex = 12;
@@ -270,7 +283,7 @@
             // 
             this.updateTime.BackColor = System.Drawing.Color.White;
             this.updateTime.LargeChange = 1;
-            this.updateTime.Location = new System.Drawing.Point(86, 41);
+            this.updateTime.Location = new System.Drawing.Point(86, 76);
             this.updateTime.Maximum = 20;
             this.updateTime.Minimum = 1;
             this.updateTime.Name = "updateTime";
@@ -1117,7 +1130,7 @@
             // 
             this.tabPage3.Controls.Add(this.txtZoomOutKey);
             this.tabPage3.Controls.Add(this.txtZoomInKey);
-            this.tabPage3.Controls.Add(this.txtGameInfoKey);
+            this.tabPage3.Controls.Add(this.txtAreaLevelKey);
             this.tabPage3.Controls.Add(this.txtToggleMapKey);
             this.tabPage3.Controls.Add(this.label15);
             this.tabPage3.Controls.Add(this.label14);
@@ -1149,14 +1162,14 @@
             this.txtZoomInKey.TabIndex = 6;
             this.txtZoomInKey.TextChanged += new System.EventHandler(this.txtZoomInKey_TextChanged);
             // 
-            // txtGameInfoKey
+            // txtAreaLevelKey
             // 
-            this.txtGameInfoKey.Location = new System.Drawing.Point(160, 80);
-            this.txtGameInfoKey.MaxLength = 1;
-            this.txtGameInfoKey.Name = "txtGameInfoKey";
-            this.txtGameInfoKey.Size = new System.Drawing.Size(119, 20);
-            this.txtGameInfoKey.TabIndex = 5;
-            this.txtGameInfoKey.TextChanged += new System.EventHandler(this.txtGameInfoKey_TextChanged);
+            this.txtAreaLevelKey.Location = new System.Drawing.Point(160, 80);
+            this.txtAreaLevelKey.MaxLength = 1;
+            this.txtAreaLevelKey.Name = "txtAreaLevelKey";
+            this.txtAreaLevelKey.Size = new System.Drawing.Size(119, 20);
+            this.txtAreaLevelKey.TabIndex = 5;
+            this.txtAreaLevelKey.TextChanged += new System.EventHandler(this.txtGameInfoKey_TextChanged);
             // 
             // txtToggleMapKey
             // 
@@ -1191,7 +1204,7 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(148, 29);
             this.label13.TabIndex = 1;
-            this.label13.Text = "Toggle Game Info Key";
+            this.label13.Text = "Show Area Level Key";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label12
@@ -1314,7 +1327,7 @@
         private System.Windows.Forms.Label lblBuffSize;
         private System.Windows.Forms.TrackBar buffSize;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.CheckBox chkGameInfo;
+        private System.Windows.Forms.CheckBox chkShowIP;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtD2Path;
         private System.Windows.Forms.Label label7;
@@ -1352,7 +1365,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtZoomOutKey;
         private System.Windows.Forms.TextBox txtZoomInKey;
-        private System.Windows.Forms.TextBox txtGameInfoKey;
+        private System.Windows.Forms.TextBox txtAreaLevelKey;
         private System.Windows.Forms.TextBox txtToggleMapKey;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
@@ -1385,5 +1398,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblLineThicknessSizeValue;
         private System.Windows.Forms.Label lblLineArrowSizeValue;
+        private System.Windows.Forms.CheckBox chkShowAreaLevel;
     }
 }

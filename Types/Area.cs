@@ -725,6 +725,50 @@ namespace MapAssist.Types
                 Level = new int[] { 0, 0, 83 }
             },
         };
+      
+        private static readonly HashSet<Area> StitchedAreas = new HashSet<Area>()
+        {
+            Area.RogueEncampment,
+            Area.BloodMoor,
+            Area.ColdPlains,
+            Area.StonyField,
+            Area.DarkWood,
+            Area.BlackMarsh,
+            Area.TamoeHighland,
+            Area.BurialGrounds,
+            Area.MonasteryGate,
+            Area.OuterCloister,
+            Area.Barracks,
+            Area.InnerCloister,
+            Area.Cathedral, 
+            Area.LutGholein,
+            Area.RockyWaste,
+            Area.DryHills,
+            Area.FarOasis,
+            Area.LostCity,
+            Area.ValleyOfSnakes,
+            Area.CanyonOfTheMagi,
+            Area.KurastDocks,
+            Area.SpiderForest,
+            Area.GreatMarsh,
+            Area.FlayerJungle,
+            Area.LowerKurast,
+            Area.KurastBazaar,
+            Area.UpperKurast,
+            Area.KurastCauseway,
+            Area.Travincal,
+            Area.ThePandemoniumFortress,
+            Area.OuterSteppes,
+            Area.PlainsOfDespair,
+            Area.CityOfTheDamned,
+            Area.RiverOfFlame,
+            Area.ChaosSanctuary,
+            Area.Harrogath,
+            Area.BloodyFoothills,
+            Area.FrigidHighlands,
+            Area.ArreatPlateau,
+        };
+      
         public static string NameFromKey(string key)
         {
             LocalizedObj localItem;
@@ -736,6 +780,7 @@ namespace MapAssist.Types
             var prop = localItem.GetType().GetProperty(Languages.LanguageCode[lang]).GetValue(localItem, null);
             return prop.ToString();
         }
+      
         public static string Name(this Area area)
         {
             var areaLabel = _areaLabels.TryGetValue(area, out var label) ? label.Text : area.ToString();
@@ -763,6 +808,11 @@ namespace MapAssist.Types
         public static bool IsValid(this Area area)
         {
             return (uint)area >= 1 && (uint)area <= 136;
+        }
+
+        public static bool RequiresStitching(this Area area)
+        {
+            return StitchedAreas.Contains(area);
         }
     }
 }

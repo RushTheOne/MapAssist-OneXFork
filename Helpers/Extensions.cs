@@ -89,6 +89,10 @@ namespace MapAssist.Helpers
         {
             return text.Replace(" ", "");
         }
+        public static float Length(this Point point)
+        {
+            return point.ToVector().Length();
+        }
 
         // System type conversions
         public static Vector2 ToVector(this Point point)

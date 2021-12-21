@@ -281,7 +281,7 @@
             // 
             // btnBrowseD2Location
             // 
-            this.btnBrowseD2Location.Location = new System.Drawing.Point(236, 231);
+            this.btnBrowseD2Location.Location = new System.Drawing.Point(236, 225);
             this.btnBrowseD2Location.Name = "btnBrowseD2Location";
             this.btnBrowseD2Location.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseD2Location.TabIndex = 17;
@@ -304,7 +304,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(111, 256);
+            this.label1.Location = new System.Drawing.Point(111, 250);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(133, 13);
             this.label1.TabIndex = 15;
@@ -314,7 +314,7 @@
             // 
             this.lblUpdateTimeValue.AutoSize = true;
             this.lblUpdateTimeValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblUpdateTimeValue.Location = new System.Drawing.Point(263, 185);
+            this.lblUpdateTimeValue.Location = new System.Drawing.Point(263, 178);
             this.lblUpdateTimeValue.Name = "lblUpdateTimeValue";
             this.lblUpdateTimeValue.Size = new System.Drawing.Size(47, 13);
             this.lblUpdateTimeValue.TabIndex = 13;
@@ -335,7 +335,7 @@
             // 
             this.lblUpdateTime.AutoSize = true;
             this.lblUpdateTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblUpdateTime.Location = new System.Drawing.Point(11, 185);
+            this.lblUpdateTime.Location = new System.Drawing.Point(11, 178);
             this.lblUpdateTime.Name = "lblUpdateTime";
             this.lblUpdateTime.Size = new System.Drawing.Size(68, 13);
             this.lblUpdateTime.TabIndex = 12;
@@ -346,7 +346,7 @@
             // 
             this.updateTime.BackColor = System.Drawing.Color.White;
             this.updateTime.LargeChange = 1;
-            this.updateTime.Location = new System.Drawing.Point(85, 180);
+            this.updateTime.Location = new System.Drawing.Point(85, 173);
             this.updateTime.Maximum = 20;
             this.updateTime.Minimum = 1;
             this.updateTime.Name = "updateTime";
@@ -360,7 +360,7 @@
             // txtD2Path
             // 
             this.txtD2Path.Enabled = false;
-            this.txtD2Path.Location = new System.Drawing.Point(114, 233);
+            this.txtD2Path.Location = new System.Drawing.Point(114, 227);
             this.txtD2Path.Name = "txtD2Path";
             this.txtD2Path.Size = new System.Drawing.Size(116, 20);
             this.txtD2Path.TabIndex = 7;
@@ -369,7 +369,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 236);
+            this.label6.Location = new System.Drawing.Point(12, 230);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 13);
             this.label6.TabIndex = 8;

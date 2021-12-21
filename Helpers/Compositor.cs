@@ -41,6 +41,7 @@ namespace MapAssist.Helpers
         public readonly AreaData _areaData;
         private readonly IReadOnlyList<PointOfInterest> _pointsOfInterest;
         ExocetFont _exocetFont;
+        FormalFont _formalFont;
 
         private Matrix3x2 mapTransformMatrix;
         private Matrix3x2 areaTransformMatrix;
@@ -64,6 +65,7 @@ namespace MapAssist.Helpers
 
             _pointsOfInterest = pointsOfInterest;
             _exocetFont = new ExocetFont();
+            _formalFont = new FormalFont();
         }
 
         public void Init(Graphics gfx, GameData gameData, Rectangle drawBounds)
@@ -1167,6 +1169,10 @@ namespace MapAssist.Helpers
                 if (fontFamilyName.Equals("Exocet Blizzard Mixed Caps"))
                 {
                     cacheFonts[key] = _exocetFont.CreateFont(size);
+                }
+                else if(fontFamilyName.Equals("Formal436 BT"))
+                {
+                    cacheFonts[key] = _formalFont.CreateFont(size);
                 }
                 else
                 {

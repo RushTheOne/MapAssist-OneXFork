@@ -3,7 +3,7 @@ using SharpDX.DirectWrite;
 
 namespace MapAssist.Files.Font
 {
-    class ExocetFont
+    class FormalFont
     {
         SharpDX.Direct2D1.Factory _factory2D;
         SharpDX.DirectWrite.Factory _factoryDWrite;
@@ -12,17 +12,17 @@ namespace MapAssist.Files.Font
 
         public string FontFamilyName { get; set; }
 
-        public ExocetFont()
+        public FormalFont()
         {
             try
             {
                 InitDirect2DAndDirectWrite();
                 InitCustomFont();
-                FontFamilyName = "Exocet Blizzard Mixed Caps";
+                FontFamilyName = "Formal436 BT";
             }
             catch (Exception)
             {
-                Console.WriteLine("Failed to load Exocet Font");
+                Console.WriteLine("Failed to load Formal Font");
             }
         }
 
@@ -47,7 +47,7 @@ namespace MapAssist.Files.Font
         public GameOverlay.Drawing.Font CreateFont(float size)
         {
             return new GameOverlay.Drawing.Font(new TextFormat(_factoryDWrite, FontFamilyName, _fontCollection,
-                FontWeight.Medium, FontStyle.Normal, FontStretch.Normal, size));
+                FontWeight.Normal, FontStyle.Normal, FontStretch.Normal, size));
         }
     }
 }

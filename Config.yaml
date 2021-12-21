@@ -171,7 +171,7 @@ GameInfo:
   ## ShowGameIP - Display game server IP address
   ShowGameIP: true
   ## HuntingIP - Set an IP address to display in green instead of red
-  HuntingIP: 'x.x.x.x'
+  HuntingIP: '0.0.0.0'
   ## ShowAreaLevel - Display current area and alvl
   ShowAreaLevel: true
   ## ShowOverlayFPS - Developer setting, probably not useful

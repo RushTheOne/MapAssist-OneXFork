@@ -31,18 +31,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtD2Path = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpGameInfo = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnGameInfoFont = new System.Windows.Forms.Button();
             this.chkGameInfo = new System.Windows.Forms.CheckBox();
             this.chkShowArea = new System.Windows.Forms.CheckBox();
             this.txtHuntIP = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnBrowseD2Location = new System.Windows.Forms.Button();
             this.cboLanguage = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblUpdateTimeValue = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.lblUpdateTime = new System.Windows.Forms.Label();
+            this.updateTime = new System.Windows.Forms.TrackBar();
+            this.txtD2Path = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -52,6 +56,9 @@
             this.cboBuffPosition = new System.Windows.Forms.ComboBox();
             this.buffSize = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkWalkableColor = new System.Windows.Forms.CheckBox();
+            this.btnBorderColor = new System.Windows.Forms.Button();
+            this.btnWalkableColor = new System.Windows.Forms.Button();
             this.chkOverlayMode = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboPosition = new System.Windows.Forms.ComboBox();
@@ -70,7 +77,6 @@
             this.lblIconOpacity = new System.Windows.Forms.Label();
             this.chkToggleViaPanels = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabDrawing = new System.Windows.Forms.TabControl();
             this.tabIcon = new System.Windows.Forms.TabPage();
             this.lblIconThicknessValue = new System.Windows.Forms.Label();
@@ -85,6 +91,8 @@
             this.chkIcon = new System.Windows.Forms.CheckBox();
             this.btnIconColor = new System.Windows.Forms.Button();
             this.tabLabel = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnFont = new System.Windows.Forms.Button();
             this.chkLabel = new System.Windows.Forms.CheckBox();
             this.btnLabelColor = new System.Windows.Forms.Button();
             this.tabLine = new System.Windows.Forms.TabPage();
@@ -96,7 +104,6 @@
             this.lineArrowSize = new System.Windows.Forms.TrackBar();
             this.chkLine = new System.Windows.Forms.CheckBox();
             this.btnLineColor = new System.Windows.Forms.Button();
-            this.btnFont = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.cboRenderOption = new System.Windows.Forms.ComboBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -123,15 +130,21 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lblUpdateTimeValue = new System.Windows.Forms.Label();
-            this.lblUpdateTime = new System.Windows.Forms.Label();
-            this.updateTime = new System.Windows.Forms.TrackBar();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnRemovePrefetch = new System.Windows.Forms.Button();
+            this.btnAddPrefetch = new System.Windows.Forms.Button();
+            this.lstPrefetch = new System.Windows.Forms.ListBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnRemoveHidden = new System.Windows.Forms.Button();
+            this.btnAddHidden = new System.Windows.Forms.Button();
+            this.lstHidden = new System.Windows.Forms.ListBox();
             this.chkShowOverlayFPS = new System.Windows.Forms.CheckBox();
             this.chkClearPrefetch = new System.Windows.Forms.CheckBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpGameInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.updateTime)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -154,7 +167,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.itemDisplayForSeconds)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.updateTime)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -173,10 +187,16 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.groupBox4);
-            this.tabPage5.Controls.Add(this.groupBox2);
+            this.tabPage5.Controls.Add(this.grpGameInfo);
+            this.tabPage5.Controls.Add(this.btnBrowseD2Location);
             this.tabPage5.Controls.Add(this.cboLanguage);
+            this.tabPage5.Controls.Add(this.label1);
+            this.tabPage5.Controls.Add(this.lblUpdateTimeValue);
             this.tabPage5.Controls.Add(this.label11);
+            this.tabPage5.Controls.Add(this.lblUpdateTime);
+            this.tabPage5.Controls.Add(this.updateTime);
+            this.tabPage5.Controls.Add(this.txtD2Path);
+            this.tabPage5.Controls.Add(this.label6);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(324, 325);
@@ -184,64 +204,35 @@
             this.tabPage5.Text = "Main";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
+            // grpGameInfo
             // 
-            this.groupBox4.Controls.Add(this.txtD2Path);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Location = new System.Drawing.Point(11, 97);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(306, 70);
-            this.groupBox4.TabIndex = 18;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Map API";
+            this.grpGameInfo.Controls.Add(this.label4);
+            this.grpGameInfo.Controls.Add(this.btnGameInfoFont);
+            this.grpGameInfo.Controls.Add(this.chkGameInfo);
+            this.grpGameInfo.Controls.Add(this.chkShowArea);
+            this.grpGameInfo.Controls.Add(this.txtHuntIP);
+            this.grpGameInfo.Controls.Add(this.label7);
+            this.grpGameInfo.Location = new System.Drawing.Point(11, 11);
+            this.grpGameInfo.Name = "grpGameInfo";
+            this.grpGameInfo.Size = new System.Drawing.Size(302, 124);
+            this.grpGameInfo.TabIndex = 18;
+            this.grpGameInfo.TabStop = false;
+            this.grpGameInfo.Text = "Game Info";
             // 
-            // txtD2Path
+            // label4
             // 
-            this.txtD2Path.Location = new System.Drawing.Point(99, 21);
-            this.txtD2Path.Name = "txtD2Path";
-            this.txtD2Path.Size = new System.Drawing.Size(198, 20);
-            this.txtD2Path.TabIndex = 7;
-            this.txtD2Path.TextChanged += new System.EventHandler(this.txtD2Path_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 24);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Legacy D2 Path";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(96, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Leave blank to auto-detect";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnGameInfoFont);
-            this.groupBox2.Controls.Add(this.chkGameInfo);
-            this.groupBox2.Controls.Add(this.chkShowArea);
-            this.groupBox2.Controls.Add(this.txtHuntIP);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(11, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 78);
-            this.groupBox2.TabIndex = 17;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Game Info";
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label4.Location = new System.Drawing.Point(7, 100);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(180, 19);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "(font styles - bold, italic, etc... not yet implemented)";
             // 
             // btnGameInfoFont
             // 
             this.btnGameInfoFont.BackColor = System.Drawing.Color.Transparent;
-            this.btnGameInfoFont.Location = new System.Drawing.Point(222, 45);
+            this.btnGameInfoFont.Location = new System.Drawing.Point(10, 74);
             this.btnGameInfoFont.Name = "btnGameInfoFont";
             this.btnGameInfoFont.Size = new System.Drawing.Size(75, 23);
             this.btnGameInfoFont.TabIndex = 24;
@@ -252,7 +243,7 @@
             // chkGameInfo
             // 
             this.chkGameInfo.AutoSize = true;
-            this.chkGameInfo.Location = new System.Drawing.Point(12, 21);
+            this.chkGameInfo.Location = new System.Drawing.Point(10, 22);
             this.chkGameInfo.Name = "chkGameInfo";
             this.chkGameInfo.Size = new System.Drawing.Size(104, 17);
             this.chkGameInfo.TabIndex = 6;
@@ -263,7 +254,7 @@
             // chkShowArea
             // 
             this.chkShowArea.AutoSize = true;
-            this.chkShowArea.Location = new System.Drawing.Point(12, 42);
+            this.chkShowArea.Location = new System.Drawing.Point(10, 45);
             this.chkShowArea.Name = "chkShowArea";
             this.chkShowArea.Size = new System.Drawing.Size(114, 17);
             this.chkShowArea.TabIndex = 16;
@@ -273,7 +264,7 @@
             // 
             // txtHuntIP
             // 
-            this.txtHuntIP.Location = new System.Drawing.Point(205, 19);
+            this.txtHuntIP.Location = new System.Drawing.Point(199, 20);
             this.txtHuntIP.Name = "txtHuntIP";
             this.txtHuntIP.Size = new System.Drawing.Size(92, 20);
             this.txtHuntIP.TabIndex = 9;
@@ -282,11 +273,21 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(154, 22);
+            this.label7.Location = new System.Drawing.Point(150, 23);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 10;
-            this.label7.Text = "Hunt IP:";
+            this.label7.Text = "Hunt IP";
+            // 
+            // btnBrowseD2Location
+            // 
+            this.btnBrowseD2Location.Location = new System.Drawing.Point(236, 231);
+            this.btnBrowseD2Location.Name = "btnBrowseD2Location";
+            this.btnBrowseD2Location.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowseD2Location.TabIndex = 17;
+            this.btnBrowseD2Location.Text = "Browse";
+            this.btnBrowseD2Location.UseVisualStyleBackColor = true;
+            this.btnBrowseD2Location.Click += new System.EventHandler(this.btnBrowseD2Location_Click);
             // 
             // cboLanguage
             // 
@@ -298,6 +299,29 @@
             this.cboLanguage.TabIndex = 14;
             this.cboLanguage.SelectedIndexChanged += new System.EventHandler(this.cboLanguage_SelectedIndexChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(111, 256);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(133, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Leave blank to auto-detect";
+            // 
+            // lblUpdateTimeValue
+            // 
+            this.lblUpdateTimeValue.AutoSize = true;
+            this.lblUpdateTimeValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblUpdateTimeValue.Location = new System.Drawing.Point(263, 185);
+            this.lblUpdateTimeValue.Name = "lblUpdateTimeValue";
+            this.lblUpdateTimeValue.Size = new System.Drawing.Size(47, 13);
+            this.lblUpdateTimeValue.TabIndex = 13;
+            this.lblUpdateTimeValue.Text = "1000 ms";
+            this.lblUpdateTimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblUpdateTimeValue.Visible = false;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -306,6 +330,50 @@
             this.label11.Size = new System.Drawing.Size(58, 13);
             this.label11.TabIndex = 13;
             this.label11.Text = "Language:";
+            // 
+            // lblUpdateTime
+            // 
+            this.lblUpdateTime.AutoSize = true;
+            this.lblUpdateTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblUpdateTime.Location = new System.Drawing.Point(11, 185);
+            this.lblUpdateTime.Name = "lblUpdateTime";
+            this.lblUpdateTime.Size = new System.Drawing.Size(68, 13);
+            this.lblUpdateTime.TabIndex = 12;
+            this.lblUpdateTime.Text = "Update Time";
+            this.lblUpdateTime.Visible = false;
+            // 
+            // updateTime
+            // 
+            this.updateTime.BackColor = System.Drawing.Color.White;
+            this.updateTime.LargeChange = 1;
+            this.updateTime.Location = new System.Drawing.Point(85, 180);
+            this.updateTime.Maximum = 20;
+            this.updateTime.Minimum = 1;
+            this.updateTime.Name = "updateTime";
+            this.updateTime.Size = new System.Drawing.Size(172, 45);
+            this.updateTime.TabIndex = 11;
+            this.updateTime.Value = 1;
+            this.updateTime.Visible = false;
+            this.updateTime.Scroll += new System.EventHandler(this.updateTime_Scroll);
+            this.updateTime.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IgnoreMouseWheel);
+            // 
+            // txtD2Path
+            // 
+            this.txtD2Path.Enabled = false;
+            this.txtD2Path.Location = new System.Drawing.Point(114, 233);
+            this.txtD2Path.Name = "txtD2Path";
+            this.txtD2Path.Size = new System.Drawing.Size(116, 20);
+            this.txtD2Path.TabIndex = 7;
+            this.txtD2Path.TextChanged += new System.EventHandler(this.txtD2Path_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 236);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(96, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "D2LoD 1.13c Path";
             // 
             // tabPage1
             // 
@@ -325,7 +393,7 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(301, 353);
+            this.panel1.Size = new System.Drawing.Size(301, 387);
             this.panel1.TabIndex = 0;
             // 
             // groupBox3
@@ -335,7 +403,7 @@
             this.groupBox3.Controls.Add(this.lblBuffSize);
             this.groupBox3.Controls.Add(this.cboBuffPosition);
             this.groupBox3.Controls.Add(this.buffSize);
-            this.groupBox3.Location = new System.Drawing.Point(5, 253);
+            this.groupBox3.Location = new System.Drawing.Point(5, 290);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(290, 91);
             this.groupBox3.TabIndex = 22;
@@ -397,6 +465,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkWalkableColor);
+            this.groupBox1.Controls.Add(this.btnBorderColor);
+            this.groupBox1.Controls.Add(this.btnWalkableColor);
             this.groupBox1.Controls.Add(this.chkOverlayMode);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cboPosition);
@@ -416,10 +487,40 @@
             this.groupBox1.Controls.Add(this.chkToggleViaPanels);
             this.groupBox1.Location = new System.Drawing.Point(5, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(290, 242);
+            this.groupBox1.Size = new System.Drawing.Size(290, 279);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Map Rendering";
+            // 
+            // chkWalkableColor
+            // 
+            this.chkWalkableColor.AutoSize = true;
+            this.chkWalkableColor.Location = new System.Drawing.Point(26, 248);
+            this.chkWalkableColor.Name = "chkWalkableColor";
+            this.chkWalkableColor.Size = new System.Drawing.Size(15, 14);
+            this.chkWalkableColor.TabIndex = 24;
+            this.chkWalkableColor.UseVisualStyleBackColor = true;
+            this.chkWalkableColor.Click += new System.EventHandler(this.chkWalkableColor_Clicked);
+            // 
+            // btnBorderColor
+            // 
+            this.btnBorderColor.Location = new System.Drawing.Point(144, 241);
+            this.btnBorderColor.Name = "btnBorderColor";
+            this.btnBorderColor.Size = new System.Drawing.Size(91, 26);
+            this.btnBorderColor.TabIndex = 23;
+            this.btnBorderColor.Text = "Border Color";
+            this.btnBorderColor.UseVisualStyleBackColor = true;
+            this.btnBorderColor.Click += new System.EventHandler(this.btnBorderColor_Click);
+            // 
+            // btnWalkableColor
+            // 
+            this.btnWalkableColor.Location = new System.Drawing.Point(47, 241);
+            this.btnWalkableColor.Name = "btnWalkableColor";
+            this.btnWalkableColor.Size = new System.Drawing.Size(91, 26);
+            this.btnWalkableColor.TabIndex = 22;
+            this.btnWalkableColor.Text = "Walkable Color";
+            this.btnWalkableColor.UseVisualStyleBackColor = true;
+            this.btnWalkableColor.Click += new System.EventHandler(this.btnWalkableColor_Click);
             // 
             // chkOverlayMode
             // 
@@ -612,9 +713,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.tabDrawing);
-            this.tabPage2.Controls.Add(this.btnFont);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.cboRenderOption);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -625,16 +724,6 @@
             this.tabPage2.Text = "Drawing";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(11, 296);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(250, 19);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "(font styles - bold, italic, etc... not yet implemented)";
-            // 
             // tabDrawing
             // 
             this.tabDrawing.Controls.Add(this.tabIcon);
@@ -643,7 +732,7 @@
             this.tabDrawing.Location = new System.Drawing.Point(3, 33);
             this.tabDrawing.Name = "tabDrawing";
             this.tabDrawing.SelectedIndex = 0;
-            this.tabDrawing.Size = new System.Drawing.Size(315, 222);
+            this.tabDrawing.Size = new System.Drawing.Size(315, 286);
             this.tabDrawing.TabIndex = 10;
             this.tabDrawing.Visible = false;
             this.tabDrawing.SelectedIndexChanged += new System.EventHandler(this.tabDrawing_SelectedIndexChanged);
@@ -664,7 +753,7 @@
             this.tabIcon.Location = new System.Drawing.Point(4, 22);
             this.tabIcon.Name = "tabIcon";
             this.tabIcon.Padding = new System.Windows.Forms.Padding(3);
-            this.tabIcon.Size = new System.Drawing.Size(307, 196);
+            this.tabIcon.Size = new System.Drawing.Size(307, 260);
             this.tabIcon.TabIndex = 0;
             this.tabIcon.Text = "Icon";
             this.tabIcon.UseVisualStyleBackColor = true;
@@ -673,7 +762,7 @@
             // 
             this.lblIconThicknessValue.AutoSize = true;
             this.lblIconThicknessValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblIconThicknessValue.Location = new System.Drawing.Point(270, 157);
+            this.lblIconThicknessValue.Location = new System.Drawing.Point(270, 161);
             this.lblIconThicknessValue.Name = "lblIconThicknessValue";
             this.lblIconThicknessValue.Size = new System.Drawing.Size(31, 13);
             this.lblIconThicknessValue.TabIndex = 24;
@@ -706,7 +795,7 @@
             // 
             this.lblIconThickness.AutoSize = true;
             this.lblIconThickness.BackColor = System.Drawing.Color.Transparent;
-            this.lblIconThickness.Location = new System.Drawing.Point(8, 157);
+            this.lblIconThickness.Location = new System.Drawing.Point(8, 161);
             this.lblIconThickness.Name = "lblIconThickness";
             this.lblIconThickness.Size = new System.Drawing.Size(40, 13);
             this.lblIconThickness.TabIndex = 17;
@@ -717,7 +806,7 @@
             this.iconThickness.AutoSize = false;
             this.iconThickness.BackColor = System.Drawing.Color.White;
             this.iconThickness.LargeChange = 1;
-            this.iconThickness.Location = new System.Drawing.Point(75, 155);
+            this.iconThickness.Location = new System.Drawing.Point(75, 159);
             this.iconThickness.Maximum = 20;
             this.iconThickness.Name = "iconThickness";
             this.iconThickness.Size = new System.Drawing.Size(189, 27);
@@ -793,15 +882,38 @@
             // 
             // tabLabel
             // 
+            this.tabLabel.Controls.Add(this.label3);
+            this.tabLabel.Controls.Add(this.btnFont);
             this.tabLabel.Controls.Add(this.chkLabel);
             this.tabLabel.Controls.Add(this.btnLabelColor);
             this.tabLabel.Location = new System.Drawing.Point(4, 22);
             this.tabLabel.Name = "tabLabel";
             this.tabLabel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLabel.Size = new System.Drawing.Size(307, 203);
+            this.tabLabel.Size = new System.Drawing.Size(307, 260);
             this.tabLabel.TabIndex = 1;
             this.tabLabel.Text = "Label";
             this.tabLabel.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label3.Location = new System.Drawing.Point(8, 87);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(250, 19);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "(font styles - bold, italic, etc... not yet implemented)";
+            // 
+            // btnFont
+            // 
+            this.btnFont.BackColor = System.Drawing.Color.Transparent;
+            this.btnFont.Location = new System.Drawing.Point(11, 61);
+            this.btnFont.Name = "btnFont";
+            this.btnFont.Size = new System.Drawing.Size(75, 23);
+            this.btnFont.TabIndex = 20;
+            this.btnFont.Text = "Font";
+            this.btnFont.UseVisualStyleBackColor = false;
+            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
             // 
             // chkLabel
             // 
@@ -838,7 +950,7 @@
             this.tabLine.Controls.Add(this.btnLineColor);
             this.tabLine.Location = new System.Drawing.Point(4, 22);
             this.tabLine.Name = "tabLine";
-            this.tabLine.Size = new System.Drawing.Size(307, 203);
+            this.tabLine.Size = new System.Drawing.Size(307, 260);
             this.tabLine.TabIndex = 2;
             this.tabLine.Text = "Line";
             this.tabLine.UseVisualStyleBackColor = true;
@@ -934,17 +1046,6 @@
             this.btnLineColor.Text = "Color";
             this.btnLineColor.UseVisualStyleBackColor = false;
             this.btnLineColor.Click += new System.EventHandler(this.btnLineColor_Click);
-            // 
-            // btnFont
-            // 
-            this.btnFont.BackColor = System.Drawing.Color.Transparent;
-            this.btnFont.Location = new System.Drawing.Point(14, 270);
-            this.btnFont.Name = "btnFont";
-            this.btnFont.Size = new System.Drawing.Size(75, 23);
-            this.btnFont.TabIndex = 20;
-            this.btnFont.Text = "Font";
-            this.btnFont.UseVisualStyleBackColor = false;
-            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
             // 
             // label8
             // 
@@ -1214,9 +1315,8 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.lblUpdateTimeValue);
-            this.tabPage4.Controls.Add(this.lblUpdateTime);
-            this.tabPage4.Controls.Add(this.updateTime);
+            this.tabPage4.Controls.Add(this.groupBox4);
+            this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Controls.Add(this.chkShowOverlayFPS);
             this.tabPage4.Controls.Add(this.chkClearPrefetch);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -1226,46 +1326,90 @@
             this.tabPage4.Text = "Advanced";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // lblUpdateTimeValue
+            // groupBox4
             // 
-            this.lblUpdateTimeValue.AutoSize = true;
-            this.lblUpdateTimeValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblUpdateTimeValue.Location = new System.Drawing.Point(264, 23);
-            this.lblUpdateTimeValue.Name = "lblUpdateTimeValue";
-            this.lblUpdateTimeValue.Size = new System.Drawing.Size(47, 13);
-            this.lblUpdateTimeValue.TabIndex = 16;
-            this.lblUpdateTimeValue.Text = "1000 ms";
-            this.lblUpdateTimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblUpdateTimeValue.Visible = false;
+            this.groupBox4.Controls.Add(this.btnRemovePrefetch);
+            this.groupBox4.Controls.Add(this.btnAddPrefetch);
+            this.groupBox4.Controls.Add(this.lstPrefetch);
+            this.groupBox4.Location = new System.Drawing.Point(168, 58);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(148, 245);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Prefetch Areas";
             // 
-            // lblUpdateTime
+            // btnRemovePrefetch
             // 
-            this.lblUpdateTime.AutoSize = true;
-            this.lblUpdateTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblUpdateTime.Location = new System.Drawing.Point(12, 23);
-            this.lblUpdateTime.Name = "lblUpdateTime";
-            this.lblUpdateTime.Size = new System.Drawing.Size(68, 13);
-            this.lblUpdateTime.TabIndex = 15;
-            this.lblUpdateTime.Text = "Update Time";
-            this.lblUpdateTime.Visible = false;
+            this.btnRemovePrefetch.Location = new System.Drawing.Point(122, 45);
+            this.btnRemovePrefetch.Name = "btnRemovePrefetch";
+            this.btnRemovePrefetch.Size = new System.Drawing.Size(20, 23);
+            this.btnRemovePrefetch.TabIndex = 5;
+            this.btnRemovePrefetch.Text = "-";
+            this.btnRemovePrefetch.UseVisualStyleBackColor = true;
+            this.btnRemovePrefetch.Click += new System.EventHandler(this.btnRemovePrefetch_Click);
             // 
-            // updateTime
+            // btnAddPrefetch
             // 
-            this.updateTime.BackColor = System.Drawing.Color.White;
-            this.updateTime.LargeChange = 1;
-            this.updateTime.Location = new System.Drawing.Point(86, 18);
-            this.updateTime.Maximum = 20;
-            this.updateTime.Minimum = 1;
-            this.updateTime.Name = "updateTime";
-            this.updateTime.Size = new System.Drawing.Size(172, 45);
-            this.updateTime.TabIndex = 14;
-            this.updateTime.Value = 1;
-            this.updateTime.Visible = false;
+            this.btnAddPrefetch.Location = new System.Drawing.Point(122, 16);
+            this.btnAddPrefetch.Name = "btnAddPrefetch";
+            this.btnAddPrefetch.Size = new System.Drawing.Size(20, 23);
+            this.btnAddPrefetch.TabIndex = 4;
+            this.btnAddPrefetch.Text = "+";
+            this.btnAddPrefetch.UseVisualStyleBackColor = true;
+            this.btnAddPrefetch.Click += new System.EventHandler(this.btnAddPrefetch_Click);
+            // 
+            // lstPrefetch
+            // 
+            this.lstPrefetch.FormattingEnabled = true;
+            this.lstPrefetch.Location = new System.Drawing.Point(7, 16);
+            this.lstPrefetch.Name = "lstPrefetch";
+            this.lstPrefetch.Size = new System.Drawing.Size(109, 212);
+            this.lstPrefetch.TabIndex = 3;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnRemoveHidden);
+            this.groupBox2.Controls.Add(this.btnAddHidden);
+            this.groupBox2.Controls.Add(this.lstHidden);
+            this.groupBox2.Location = new System.Drawing.Point(14, 58);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(148, 245);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Hidden Areas";
+            // 
+            // btnRemoveHidden
+            // 
+            this.btnRemoveHidden.Location = new System.Drawing.Point(121, 48);
+            this.btnRemoveHidden.Name = "btnRemoveHidden";
+            this.btnRemoveHidden.Size = new System.Drawing.Size(20, 23);
+            this.btnRemoveHidden.TabIndex = 2;
+            this.btnRemoveHidden.Text = "-";
+            this.btnRemoveHidden.UseVisualStyleBackColor = true;
+            this.btnRemoveHidden.Click += new System.EventHandler(this.btnRemoveHidden_Click);
+            // 
+            // btnAddHidden
+            // 
+            this.btnAddHidden.Location = new System.Drawing.Point(121, 19);
+            this.btnAddHidden.Name = "btnAddHidden";
+            this.btnAddHidden.Size = new System.Drawing.Size(20, 23);
+            this.btnAddHidden.TabIndex = 1;
+            this.btnAddHidden.Text = "+";
+            this.btnAddHidden.UseVisualStyleBackColor = true;
+            this.btnAddHidden.Click += new System.EventHandler(this.btnAddHidden_Click);
+            // 
+            // lstHidden
+            // 
+            this.lstHidden.FormattingEnabled = true;
+            this.lstHidden.Location = new System.Drawing.Point(6, 19);
+            this.lstHidden.Name = "lstHidden";
+            this.lstHidden.Size = new System.Drawing.Size(109, 212);
+            this.lstHidden.TabIndex = 0;
             // 
             // chkShowOverlayFPS
             // 
             this.chkShowOverlayFPS.AutoSize = true;
-            this.chkShowOverlayFPS.Location = new System.Drawing.Point(15, 291);
+            this.chkShowOverlayFPS.Location = new System.Drawing.Point(14, 35);
             this.chkShowOverlayFPS.Name = "chkShowOverlayFPS";
             this.chkShowOverlayFPS.Size = new System.Drawing.Size(115, 17);
             this.chkShowOverlayFPS.TabIndex = 1;
@@ -1276,7 +1420,7 @@
             // chkClearPrefetch
             // 
             this.chkClearPrefetch.AutoSize = true;
-            this.chkClearPrefetch.Location = new System.Drawing.Point(15, 268);
+            this.chkClearPrefetch.Location = new System.Drawing.Point(14, 12);
             this.chkClearPrefetch.Name = "chkClearPrefetch";
             this.chkClearPrefetch.Size = new System.Drawing.Size(209, 17);
             this.chkClearPrefetch.TabIndex = 0;
@@ -1300,10 +1444,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpGameInfo.ResumeLayout(false);
+            this.grpGameInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.updateTime)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -1335,7 +1478,8 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.updateTime)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1361,16 +1505,14 @@
         private System.Windows.Forms.TrackBar mapSize;
         private System.Windows.Forms.Label lblZoom;
         private System.Windows.Forms.TrackBar mapZoom;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cboBuffPosition;
-        private System.Windows.Forms.Label lblBuffSize;
-        private System.Windows.Forms.TrackBar buffSize;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.CheckBox chkGameInfo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtD2Path;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtHuntIP;
+        private System.Windows.Forms.Label lblUpdateTime;
+        private System.Windows.Forms.TrackBar updateTime;
         private System.Windows.Forms.CheckBox chkClearPrefetch;
         private System.Windows.Forms.CheckBox chkShowOverlayFPS;
         private System.Windows.Forms.Label label8;
@@ -1423,9 +1565,8 @@
         private System.Windows.Forms.Label lblIconOpacityValue;
         private System.Windows.Forms.Label lblMapSizeValue;
         private System.Windows.Forms.Label lblMapZoomValue;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label lblBuffSizeValue;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUpdateTimeValue;
         private System.Windows.Forms.Label lblItemDisplayForSecondsValue;
         private System.Windows.Forms.TrackBar itemDisplayForSeconds;
         private System.Windows.Forms.Button btnIconOutlineColor;
@@ -1435,11 +1576,27 @@
         private System.Windows.Forms.Label lblLineThicknessSizeValue;
         private System.Windows.Forms.Label lblLineArrowSizeValue;
         private System.Windows.Forms.CheckBox chkShowArea;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lblUpdateTimeValue;
-        private System.Windows.Forms.Label lblUpdateTime;
-        private System.Windows.Forms.TrackBar updateTime;
+        private System.Windows.Forms.Button btnWalkableColor;
+        private System.Windows.Forms.Button btnBorderColor;
+        private System.Windows.Forms.CheckBox chkWalkableColor;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label lblBuffSizeValue;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblBuffSize;
+        private System.Windows.Forms.ComboBox cboBuffPosition;
+        private System.Windows.Forms.TrackBar buffSize;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnRemovePrefetch;
+        private System.Windows.Forms.Button btnAddPrefetch;
+        private System.Windows.Forms.ListBox lstPrefetch;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnRemoveHidden;
+        private System.Windows.Forms.Button btnAddHidden;
+        private System.Windows.Forms.ListBox lstHidden;
+        private System.Windows.Forms.Button btnBrowseD2Location;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.GroupBox grpGameInfo;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnGameInfoFont;
     }
 }

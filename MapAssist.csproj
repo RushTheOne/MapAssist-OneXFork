@@ -106,6 +106,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAreaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddAreaForm.Designer.cs">
+      <DependentUpon>AddAreaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,9 @@
     <Compile Include="Settings\Utils.cs" />
     <Compile Include="Types\UnitAny.cs" />
     <Compile Include="Types\UnitType.cs" />
+    <EmbeddedResource Include="AddAreaForm.resx">
+      <DependentUpon>AddAreaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Fonts\exocetblizzardot-medium.otf" />
     <EmbeddedResource Include="Fonts\formal436bt.ttf" />
     <None Include="Resources\Icon1.ico" />

@@ -4,7 +4,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using MapAssist.Settings;
 using MapAssist.Helpers;
-//using WK.Libraries.HotkeyListenerNS;
+using MapAssist.Types;
+using System.Collections.Generic;
 
 namespace MapAssist
 {
@@ -122,6 +123,27 @@ namespace MapAssist
             txtSoundFile.Text = MapAssistConfiguration.Loaded.ItemLog.SoundFile;
             itemDisplayForSeconds.Value = (int)Math.Round(MapAssistConfiguration.Loaded.ItemLog.DisplayForSeconds / 5f);
             lblItemDisplayForSecondsValue.Text = $"{itemDisplayForSeconds.Value * 5} s";
+
+            if (MapAssistConfiguration.Loaded.MapColorConfiguration.Walkable != null)
+            {
+                var walkableColor = (Color)MapAssistConfiguration.Loaded.MapColorConfiguration.Walkable;
+                btnWalkableColor.BackColor = walkableColor;
+                chkWalkableColor.Checked = (walkableColor.A > 0);
+            }
+            if (MapAssistConfiguration.Loaded.MapColorConfiguration.Border != null)
+            {
+                var borderColor = (Color)MapAssistConfiguration.Loaded.MapColorConfiguration.Border;
+                btnBorderColor.BackColor = borderColor;
+            }
+
+            foreach(var area in MapAssistConfiguration.Loaded.HiddenAreas)
+            {
+                lstHidden.Items.Add(AreaExtensions.NameInternal(area));
+            }
+            foreach (var area in MapAssistConfiguration.Loaded.PrefetchAreas)
+            {
+                lstPrefetch.Items.Add(AreaExtensions.NameInternal(area));
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -405,6 +427,25 @@ namespace MapAssist
             }
         }
 
+        private void btnFont_Click(object sender, EventArgs e)
+        {
+            var labelFont = MapAssistConfiguration.Loaded.MapConfiguration.LabelFont;
+            var labelSize = MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize;
+            if (labelFont == null)
+            {
+                labelFont = "Helvetica";
+                labelSize = 16;
+            }
+            var fontDlg = new FontDialog();
+            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
+            fontDlg.ShowEffects = false;
+            if (fontDlg.ShowDialog() == DialogResult.OK)
+            {
+                MapAssistConfiguration.Loaded.MapConfiguration.LabelFont = fontDlg.Font.Name;
+                MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize = fontDlg.Font.Size;
+            }
+        }
+
         private void chkLabel_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -486,26 +527,6 @@ namespace MapAssist
             lblItemDisplayForSecondsValue.Text = $"{itemDisplayForSeconds.Value * 5} s";
         }
 
-        private void btnFont_Click(object sender, EventArgs e)
-        {
-            var labelFont = MapAssistConfiguration.Loaded.MapConfiguration.LabelFont;
-            var labelSize = MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize;
-            if (labelFont == null)
-            {
-                labelFont = "Helvetica";
-                labelSize = 16;
-            }
-            var fontDlg = new FontDialog();
-            fontDlg.ShowEffects = false;
-            fontDlg.ShowColor = false;
-            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
-            if (fontDlg.ShowDialog() == DialogResult.OK)
-            {
-                MapAssistConfiguration.Loaded.MapConfiguration.LabelFont = fontDlg.Font.Name;
-                MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize = fontDlg.Font.Size;
-            }
-        }
-
         private void btnLogFont_Click(object sender, EventArgs e)
         {
             var labelFont = MapAssistConfiguration.Loaded.ItemLog.LabelFont;
@@ -516,33 +537,12 @@ namespace MapAssist
                 labelSize = 16;
             }
             var fontDlg = new FontDialog();
-            fontDlg.ShowEffects = false;
-            fontDlg.ShowColor = false;
             fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
+            fontDlg.ShowEffects = false;
             if (fontDlg.ShowDialog() == DialogResult.OK)
             {
                 MapAssistConfiguration.Loaded.ItemLog.LabelFont = fontDlg.Font.Name;
                 MapAssistConfiguration.Loaded.ItemLog.LabelFontSize = fontDlg.Font.Size;
-            }
-        }
-
-        private void btnGameInfoFont_Click(object sender, EventArgs e)
-        {
-            var labelFont = MapAssistConfiguration.Loaded.GameInfo.LabelFont;
-            var labelSize = MapAssistConfiguration.Loaded.GameInfo.LabelFontSize;
-            if (labelFont == null)
-            {
-                labelFont = "Helvetica";
-                labelSize = 16;
-            }
-            var fontDlg = new FontDialog();
-            fontDlg.ShowEffects = false;
-            fontDlg.ShowColor = false;
-            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
-            if (fontDlg.ShowDialog() == DialogResult.OK)
-            {
-                MapAssistConfiguration.Loaded.GameInfo.LabelFont = fontDlg.Font.Name;
-                MapAssistConfiguration.Loaded.GameInfo.LabelFontSize = fontDlg.Font.Size;
             }
         }
 
@@ -566,9 +566,110 @@ namespace MapAssist
             MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey = txtZoomOutKey.Text;
         }
 
-        private void IgnoreMouseWheel(object sender, MouseEventArgs e)
+        private void btnWalkableColor_Click(object sender, EventArgs e)
         {
+            var colorDlg = new ColorDialog();
+            if (colorDlg.ShowDialog() == DialogResult.OK)
+            {
+                MapAssistConfiguration.Loaded.MapColorConfiguration.Walkable = colorDlg.Color;
+                btnWalkableColor.BackColor = colorDlg.Color;
+                chkWalkableColor.Checked = (colorDlg.Color.A > 0);
+            }
+        }
 
+        private void chkWalkableColor_Clicked(object sender, EventArgs e)
+        {
+            if (chkWalkableColor.Checked)
+            {
+                MapAssistConfiguration.Loaded.MapColorConfiguration.Walkable = btnWalkableColor.BackColor;
+            }
+            else
+            {
+                MapAssistConfiguration.Loaded.MapColorConfiguration.Walkable = Color.Empty;
+            }
+        }
+
+        private void btnBorderColor_Click(object sender, EventArgs e)
+        {
+            var colorDlg = new ColorDialog();
+            if (colorDlg.ShowDialog() == DialogResult.OK)
+            {
+                MapAssistConfiguration.Loaded.MapColorConfiguration.Border = colorDlg.Color;
+                btnBorderColor.BackColor = colorDlg.Color;
+            }
+        }
+
+        private void btnAddHidden_Click(object sender, EventArgs e)
+        {
+            var addForm = new AddAreaForm();
+            addForm.listToAddTo = "lstHidden";
+            addForm.ShowDialog(this);
+        }
+
+        private void btnAddPrefetch_Click(object sender, EventArgs e)
+        {
+            var addForm = new AddAreaForm();
+            addForm.listToAddTo = "lstPrefetch";
+            addForm.ShowDialog(this);
+        }
+
+        private void btnRemoveHidden_Click(object sender, EventArgs e)
+        {
+            var indexToRemove = lstHidden.SelectedIndex;
+            if (indexToRemove >= 0)
+            {
+                lstHidden.Items.RemoveAt(indexToRemove);
+                var hiddenList = new List<Area>(MapAssistConfiguration.Loaded.HiddenAreas);
+                hiddenList.RemoveAt(indexToRemove);
+                MapAssistConfiguration.Loaded.HiddenAreas = hiddenList.ToArray();
+            }
+        }
+
+        private void btnRemovePrefetch_Click(object sender, EventArgs e)
+        {
+            var indexToRemove = lstPrefetch.SelectedIndex;
+            if (indexToRemove >= 0)
+            {
+                lstPrefetch.Items.RemoveAt(indexToRemove);
+                var prefetchList = new List<Area>(MapAssistConfiguration.Loaded.PrefetchAreas);
+                prefetchList.RemoveAt(indexToRemove);
+                MapAssistConfiguration.Loaded.PrefetchAreas = prefetchList.ToArray();
+            }
+        }
+
+        private void btnBrowseD2Location_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    txtD2Path.Text = fbd.SelectedPath;
+                } else
+                {
+                    txtD2Path.Text = "";
+                }
+            }
+        }
+
+        private void btnGameInfoFont_Click(object sender, EventArgs e)
+        {
+            var labelFont = MapAssistConfiguration.Loaded.GameInfo.LabelFont;
+            var labelSize = MapAssistConfiguration.Loaded.GameInfo.LabelFontSize;
+            if (labelFont == null)
+            {
+                labelFont = "Helvetica";
+                labelSize = 16;
+            }
+            var fontDlg = new FontDialog();
+            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
+            fontDlg.ShowEffects = false;
+            if (fontDlg.ShowDialog() == DialogResult.OK)
+            {
+                MapAssistConfiguration.Loaded.GameInfo.LabelFont = fontDlg.Font.Name;
+                MapAssistConfiguration.Loaded.GameInfo.LabelFontSize = fontDlg.Font.Size;
+            }
         }
     }
 }

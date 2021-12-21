@@ -86,13 +86,6 @@ namespace MapAssist.Helpers
                 emitter.Emit(new Scalar(null, "LabelColor"));
                 emitter.Emit(new Scalar(null, node.LabelColor.A + ", " + node.LabelColor.R + ", " + node.LabelColor.G + ", " + node.LabelColor.B));
             }
-            if (node.LabelFont != null)
-            {
-                emitter.Emit(new Scalar(null, "LabelFont"));
-                emitter.Emit(new Scalar(null, node.LabelFont.ToString()));
-                emitter.Emit(new Scalar(null, "LabelFontSize"));
-                emitter.Emit(new Scalar(null, node.LabelFontSize.ToString()));
-            }
 
             emitter.Emit(new MappingEnd());
         }
@@ -138,13 +131,6 @@ namespace MapAssist.Helpers
             {
                 emitter.Emit(new Scalar(null, "LabelColor"));
                 emitter.Emit(new Scalar(null, node.LabelColor.A + ", " + node.LabelColor.R + ", " + node.LabelColor.G + ", " + node.LabelColor.B));
-            }
-            if (node.LabelFont != null)
-            {
-                emitter.Emit(new Scalar(null, "LabelFont"));
-                emitter.Emit(new Scalar(null, node.LabelFont.ToString()));
-                emitter.Emit(new Scalar(null, "LabelFontSize"));
-                emitter.Emit(new Scalar(null, node.LabelFontSize.ToString()));
             }
 
             emitter.Emit(new MappingEnd());

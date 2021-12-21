@@ -20,6 +20,12 @@ namespace MapAssist
             for (var i = 0; i < propertyList.Length; i++)
             {
                 var element = propertyList[i];
+
+                if (element.Name == "LabelFont" || element.Name == "LabelFontSize")
+                {
+                    continue;
+                }
+
                 if (element.Name.Length > 3)
                 {
                     var lastThree = element.Name.Substring(element.Name.Length - 3, 3);
@@ -399,27 +405,6 @@ namespace MapAssist
             }
         }
 
-        private void btnFont_Click(object sender, EventArgs e)
-        {
-            dynamic labelProp = SelectedProperty.GetValue(MapAssistConfiguration.Loaded.MapConfiguration, null);
-            var labelFont = labelProp.LabelFont;
-            var labelSize = labelProp.LabelFontSize;
-            if (labelFont == null)
-            {
-                labelFont = "Helvetica";
-                labelSize = 16;
-            }
-            var fontDlg = new FontDialog();
-            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
-            if (fontDlg.ShowDialog() == DialogResult.OK)
-            {
-                var labelPropFont = SelectedProperty.PropertyType.GetProperty("LabelFont");
-                var labelPropFontSize = SelectedProperty.PropertyType.GetProperty("LabelFontSize");
-                labelPropFont.SetValue(SelectedProperty.GetValue(MapAssistConfiguration.Loaded.MapConfiguration, null), fontDlg.Font.Name, null);
-                labelPropFontSize.SetValue(SelectedProperty.GetValue(MapAssistConfiguration.Loaded.MapConfiguration, null), fontDlg.Font.Size, null);
-            }
-        }
-
         private void chkLabel_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -501,6 +486,26 @@ namespace MapAssist
             lblItemDisplayForSecondsValue.Text = $"{itemDisplayForSeconds.Value * 5} s";
         }
 
+        private void btnFont_Click(object sender, EventArgs e)
+        {
+            var labelFont = MapAssistConfiguration.Loaded.MapConfiguration.LabelFont;
+            var labelSize = MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize;
+            if (labelFont == null)
+            {
+                labelFont = "Helvetica";
+                labelSize = 16;
+            }
+            var fontDlg = new FontDialog();
+            fontDlg.ShowEffects = false;
+            fontDlg.ShowColor = false;
+            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
+            if (fontDlg.ShowDialog() == DialogResult.OK)
+            {
+                MapAssistConfiguration.Loaded.MapConfiguration.LabelFont = fontDlg.Font.Name;
+                MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize = fontDlg.Font.Size;
+            }
+        }
+
         private void btnLogFont_Click(object sender, EventArgs e)
         {
             var labelFont = MapAssistConfiguration.Loaded.ItemLog.LabelFont;
@@ -511,11 +516,33 @@ namespace MapAssist
                 labelSize = 16;
             }
             var fontDlg = new FontDialog();
+            fontDlg.ShowEffects = false;
+            fontDlg.ShowColor = false;
             fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
             if (fontDlg.ShowDialog() == DialogResult.OK)
             {
                 MapAssistConfiguration.Loaded.ItemLog.LabelFont = fontDlg.Font.Name;
                 MapAssistConfiguration.Loaded.ItemLog.LabelFontSize = fontDlg.Font.Size;
+            }
+        }
+
+        private void btnGameInfoFont_Click(object sender, EventArgs e)
+        {
+            var labelFont = MapAssistConfiguration.Loaded.GameInfo.LabelFont;
+            var labelSize = MapAssistConfiguration.Loaded.GameInfo.LabelFontSize;
+            if (labelFont == null)
+            {
+                labelFont = "Helvetica";
+                labelSize = 16;
+            }
+            var fontDlg = new FontDialog();
+            fontDlg.ShowEffects = false;
+            fontDlg.ShowColor = false;
+            fontDlg.Font = new Font(labelFont, labelSize, FontStyle.Regular);
+            if (fontDlg.ShowDialog() == DialogResult.OK)
+            {
+                MapAssistConfiguration.Loaded.GameInfo.LabelFont = fontDlg.Font.Name;
+                MapAssistConfiguration.Loaded.GameInfo.LabelFontSize = fontDlg.Font.Size;
             }
         }
 
@@ -537,6 +564,11 @@ namespace MapAssist
         private void txtZoomOutKey_TextChanged(object sender, EventArgs e)
         {
             MapAssistConfiguration.Loaded.HotkeyConfiguration.ZoomOutKey = txtZoomOutKey.Text;
+        }
+
+        private void IgnoreMouseWheel(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

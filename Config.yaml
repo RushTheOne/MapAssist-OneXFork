@@ -47,6 +47,8 @@ RenderingConfiguration:
 
 ## MapConfiguration -- Visual settings for icons, lines and labels
 MapConfiguration:
+  LabelFont: 'Formal436 BT'
+  LabelFontSize: 14
   SuperUniqueMonster:
     IconShape: Cross
     IconOutlineColor: Yellow
@@ -75,16 +77,12 @@ MapConfiguration:
     LineThickness: 2
     ArrowHeadSize: 15
     LabelColor: SpringGreen
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   PreviousArea:
     IconShape: Square
     IconColor: Violet
     IconSize: 5
     LineColor: ''
     LabelColor: Violet
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   Waypoint:
     IconShape: Square
     IconColor: SteelBlue
@@ -94,32 +92,24 @@ MapConfiguration:
     LineThickness: 2
     ArrowHeadSize: 15
     LabelColor: Tomato
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   Player:
     IconShape: Cross
     IconOutlineColor: Chartreuse
     IconSize: 6
     IconThickness: 2
     LabelColor: Chartreuse
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   NonPartyPlayer:
     IconShape: Cross
     IconOutlineColor: Orange
     IconSize: 6
     IconThickness: 2
     LabelColor: Orange
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   HostilePlayer:
     IconColor: Red
     IconShape: Cross
     IconSize: 6
     IconThickness: 2
     LabelColor: Red
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
     LineColor: Red
     LineThickness: 2
     ArrowHeadSize: 15
@@ -129,8 +119,6 @@ MapConfiguration:
     IconSize: 3
     IconThickness: 2
     LabelColor: Yellow
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   SuperChest:
     IconShape: Square
     IconColor: '17, 255, 0'
@@ -152,8 +140,6 @@ MapConfiguration:
     IconColor: '255, 218, 100'
     IconSize: 5
     LabelColor: '255, 218, 100'
-    LabelFontSize: 16
-    LabelFont: 'Formal436 BT'
   ArmorWeapRack:
     IconShape: Square
     IconColor: '132, 132, 132'
@@ -162,8 +148,6 @@ MapConfiguration:
     IconShape: Ellipse
     IconColor: DarkOrange
     IconSize: 4
-    LabelFont: 'Formal436 BT'
-    LabelFontSize: 16
 
 ## ItemLog - Alerts for in-game dropped items nearby
 ItemLog:
@@ -174,8 +158,8 @@ ItemLog:
   ## SoundFile - Name of .wav file for drop sound (put .wav file in the MapAssist folder)
   SoundFile: ""
   DisplayForSeconds: 45
-  LabelFont: "Formal436 BT"
-  LabelFontSize: 14
+  LabelFont: 'Formal436 BT'
+  LabelFontSize: 16
 
 ## MapColorConfiguration - Color schema for drawing overlay map
 MapColorConfiguration:
@@ -192,8 +176,8 @@ GameInfo:
   ShowAreaLevel: true
   ## ShowOverlayFPS - Developer setting, probably not useful
   ShowOverlayFPS: false
-  LabelFont: "Formal436 BT"
-  LabelFontSize: 14
+  LabelFont: 'Exocet Blizzard Mixed Caps'
+  LabelFontSize: 18
 
 ## Path to D2LOD installation. Optional.
 ## Should only need to provide if we are not able to look it up

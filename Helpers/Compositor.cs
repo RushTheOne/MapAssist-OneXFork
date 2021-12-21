@@ -211,7 +211,8 @@ namespace MapAssist.Helpers
 
                 if (poi.RenderingSettings.CanDrawLine())
                 {
-                    var padding = poi.RenderingSettings.CanDrawLabel() ? poi.RenderingSettings.LabelFontSize * 1.3f / 2 : 0; // 1.3f is the line height adjustment
+                    var fontSize = MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize;
+                    var padding = poi.RenderingSettings.CanDrawLabel() ? fontSize * 1.3f / 2 : 0; // 1.3f is the line height adjustment
                     var poiPosition = MovePointInBounds(poi.Position, _gameData.PlayerPosition, padding);
                     DrawLine(gfx, poi.RenderingSettings, _gameData.PlayerPosition, poiPosition);
                 }
@@ -500,7 +501,7 @@ namespace MapAssist.Helpers
                                 }
                                 if(canDrawHostileLine && playerUnit.HostileToPlayer)
                                 {
-                                    var padding = canDrawNonPartyLabel ? MapAssistConfiguration.Loaded.MapConfiguration.HostilePlayer.LabelFontSize * 1.3f / 2 : 0; // 1.3f is the line height adjustment
+                                    var padding = canDrawNonPartyLabel ? MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize * 1.3f / 2 : 0; // 1.3f is the line height adjustment
                                     var poiPosition = MovePointInBounds(playerUnit.Position, _gameData.PlayerPosition, padding);
                                     DrawLine(gfx, MapAssistConfiguration.Loaded.MapConfiguration.HostilePlayer, _gameData.PlayerPosition, poiPosition);
                                 }
@@ -910,7 +911,9 @@ namespace MapAssist.Helpers
 
             var useColor = color ?? rendering.LabelColor;
 
-            var font = CreateFont(gfx, rendering.LabelFont, rendering.LabelFontSize);
+            var fontFamily = MapAssistConfiguration.Loaded.MapConfiguration.LabelFont;
+            var fontSize = MapAssistConfiguration.Loaded.MapConfiguration.LabelFontSize;
+            var font = CreateFont(gfx, fontFamily, fontSize);
             var iconShape = GetIconShape(rendering).ToRectangle();
             var textSize = gfx.MeasureString(font, text);
 
@@ -923,7 +926,7 @@ namespace MapAssist.Helpers
             position = position.Add(new Point(0, (textSize.Y / 2 + 10) * (!rendering.CanDrawArrowHead() ? 1 : multiplier)));
             position = MoveTextInBounds(position, text, textSize);
 
-            DrawText(gfx, position, text, rendering.LabelFont, rendering.LabelFontSize, useColor,
+            DrawText(gfx, position, text, fontFamily, fontSize, useColor,
                 centerText: true);
 
             renderTarget.Transform = currentTransform;

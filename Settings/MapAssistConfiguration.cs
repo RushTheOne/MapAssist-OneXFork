@@ -90,6 +90,12 @@ namespace MapAssist.Settings
 
     public class MapConfiguration
     {
+        [YamlMember(Alias = "LabelFont", ApplyNamingConventions = false)]
+        public string LabelFont { get; set; } = "Formal436 BT";
+
+        [YamlMember(Alias = "LabelFontSize", ApplyNamingConventions = false)]
+        public float LabelFontSize { get; set; } = 14;
+
         [YamlMember(Alias = "SuperUniqueMonster", ApplyNamingConventions = false)]
         public IconRendering SuperUniqueMonster { get; set; }
         public static IconRendering SuperUniqueMonsterREF => MapAssistConfiguration.Loaded.MapConfiguration.SuperUniqueMonster;
@@ -235,7 +241,7 @@ public class GameInfoConfiguration
     public string LabelFont { get; set; }
 
     [YamlMember(Alias = "LabelFontSize", ApplyNamingConventions = false)]
-    public int LabelFontSize { get; set; }
+    public float LabelFontSize { get; set; }
 }
 
 public class ItemLogConfiguration

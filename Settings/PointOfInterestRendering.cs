@@ -60,12 +60,6 @@ namespace MapAssist.Settings
         [YamlMember(Alias = "LabelColor", ApplyNamingConventions = false)]
         public Color LabelColor { get; set; }
 
-        [YamlMember(Alias = "LabelFont", ApplyNamingConventions = false)]
-        public string LabelFont { get; set; }
-
-        [YamlMember(Alias = "LabelFontSize", ApplyNamingConventions = false)]
-        public float LabelFontSize { get; set; }
-
         public bool CanDrawLine()
         {
             return LineColor != Color.Transparent && LineThickness > 0;
@@ -78,8 +72,7 @@ namespace MapAssist.Settings
 
         public bool CanDrawLabel()
         {
-            return LabelColor != Color.Transparent && !string.IsNullOrWhiteSpace(LabelFont) &&
-                LabelFontSize > 0;
+            return LabelColor != Color.Transparent;
         }
     }
 
